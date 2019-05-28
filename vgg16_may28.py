@@ -31,4 +31,4 @@ predicted_prob = model.predict_generator(
     verbose=True)
 predicted_top1 = np.argmax(predicted_prob, axis=1)
 accuracy = np.mean(predicted_top1==true_top1)
-print(f'Top-1 accuracy: {(acc*100):.2f}%')
+print(f'Top-1 accuracy: {(accuracy*100):.2f}%')

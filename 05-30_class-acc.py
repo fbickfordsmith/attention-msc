@@ -51,7 +51,7 @@ counts_correct = np.array(
 results = np.stack(
     (class_indices, counts_classes, counts_correct), axis=1)
 np.savetxt('classwise_accuracy.csv', results)
-np.savetxt('class_names.csv', np.array(class_names))
+np.savetxt('class_names.csv', np.array(class_names), fmt='%s')
 
 # Code for converting indices to class IDs
 # name2ind = generator.class_indices

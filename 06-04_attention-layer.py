@@ -32,7 +32,7 @@ class Constraint(object):
 
 class GreaterEqualEpsilon(Constraint):
     def __call__(self, w):
-        w *= K.cast(K.greater_equal(w, K.epsilon), K.floatx()) # W >= epsilon
+        w *= K.cast(K.greater_equal(w, K.epsilon()), K.floatx()) # W >= epsilon
         return w
 
 class Attention(Layer):
@@ -67,7 +67,7 @@ for i, layer in enumerate(attention_model.layers):
     if i != 19:
         layer.trainable=False
 
-print('Attention model layers:')
+print('\nAttention model layers:')
 for i in list(enumerate(attention_model.layers)):
     print(i)
 print('\nTrainable weights:')

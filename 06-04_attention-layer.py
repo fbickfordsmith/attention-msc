@@ -43,7 +43,7 @@ class Attention(Layer):
         self.kernel = self.add_weight(
             name='kernel',
             shape=(1,) + input_shape[1:],
-            initializer='glorot_uniform',
+            initializer='uniform',
             trainable=True,
             constraint=GreaterEqualEpsilon())
         super(Attention, self).build(input_shape)
@@ -108,6 +108,6 @@ attention_model.fit_generator(
     steps_per_epoch=train_generator.n//batch_size,
     epochs=10,
     verbose=1,
-    callbacks=early_stopping,
+    callbacks=[early_stopping],
     validation_data=validation_generator,
     validation_steps=validation_generator.n//batch_size)

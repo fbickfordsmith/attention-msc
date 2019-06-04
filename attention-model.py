@@ -12,9 +12,11 @@ References:
 github.com/keras-team/keras/blob/master/keras/constraints.py
 stackoverflow.com/questions/46821845/how-to-add-a-trainable-hadamard-product-layer-in-keras
 stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
+stackoverflow.com/questions/43906048/keras-early-stopping
 '''
 
 import numpy as np
+import pandas as pd
 from keras.models import Model
 from keras.layers import Input
 from keras import optimizers
@@ -118,10 +120,16 @@ early_stopping = EarlyStopping(
 history = attention_model.fit_generator(
     generator=train_generator,
     steps_per_epoch=train_generator.n//batch_size,
-    epochs=10,
+    epochs=15,
     verbose=1,
     callbacks=[early_stopping],
     validation_data=validation_generator,
     validation_steps=validation_generator.n//batch_size,
     use_multiprocessing=True,
     workers=7)
+
+################################################################################
+
+results = pd.DataFrame(history.history)
+results.to_csv('attention-model-results.csv')
+attention_model.save_weights('attention-model-weights.h5')

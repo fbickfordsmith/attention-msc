@@ -23,6 +23,9 @@ from keras import backend as K
 from keras.applications.vgg16 import VGG16, preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
+from keras.metrics import sparse_top_k_categorical_accuracy
+
+################################################################################
 
 class Constraint(object):
     def __call__(self, w):
@@ -54,6 +57,8 @@ class Attention(Layer):
     def compute_output_shape(self, input_shape):
         return input_shape
 
+################################################################################
+
 pretrained_model = VGG16(weights='imagenet')
 model_in = Input(batch_shape=(None, 224, 224, 3))
 model_out = pretrained_model.layers[1](model_in)
@@ -73,11 +78,15 @@ for i in list(enumerate(attention_model.layers)):
 print('\nTrainable weights:')
 for i in attention_model.trainable_weights:
     print(i)
+print('\n')
 
 attention_model.compile(
     # optimizer=optimizers.Adam(lr=3e-4), # Karpathy default
-    optimizer=optimizers.SGD(lr=1e-3, momentum=0.9), # relatively low lr (maybe try 1e-4)
-    loss='categorical_crossentropy')
+    optimizer=optimizers.SGD(lr=1e-3, momentum=0.9), # relatively low lr (could also try 1e-4)
+    loss='categorical_crossentropy',
+    metrics=['accuracy', 'top_k_categorical_accuracy']) # top-1 and top5 acc
+
+################################################################################
 
 path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
 batch_size = 256 # VGG paper
@@ -103,11 +112,16 @@ early_stopping = EarlyStopping(
     patience=1, # number of epochs without improvement after which we stop
     verbose=True,
     restore_best_weights=True) # False => weights from last step are used
-attention_model.fit_generator(
+
+################################################################################
+
+history = attention_model.fit_generator(
     generator=train_generator,
     steps_per_epoch=train_generator.n//batch_size,
     epochs=10,
     verbose=1,
     callbacks=[early_stopping],
     validation_data=validation_generator,
-    validation_steps=validation_generator.n//batch_size)
+    validation_steps=validation_generator.n//batch_size,
+    use_multiprocessing=True,
+    workers=7)

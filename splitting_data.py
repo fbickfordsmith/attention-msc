@@ -26,12 +26,10 @@ With slash:
 cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ /home/freddie/ILSVRC2012
 '''
 
-import sys
-import shutil
-import numpy as np
+import sys, shutil, numpy
 
 folder = sys.argv[1] # sys.argv[0] is the name of the script
-class_sets = np.loadtxt('class_sets.csv', dtype=str, delimiter=',')
+class_sets = numpy.loadtxt('class_sets.csv', dtype=str, delimiter=',')
 path_to_data = '/home/freddie/ILSVRC2012/clsloc/'+folder+'/'
 # path_to_data = 'ILSVRC2012/ILSVRC2012_img_val_copy/'
 print(f'Running {sys.argv[0]} on {path_to_data}')

@@ -5,8 +5,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 '''
 Use a pretrained VGG16 to classify ImageNet examples.
 
-Reference: https://medium.com/@vijayabhaskar96/tutorial-image-classification-
-    with-keras-flow-from-directory-and-generators-95f75ebe5720
+References:
+medium.com/@vijayabhaskar96/tutorial-image-classification-with-keras-flow-from-directory-and-generators-95f75ebe5720
 '''
 
 import numpy as np

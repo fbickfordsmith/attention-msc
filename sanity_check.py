@@ -6,7 +6,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 Take a pretrained VGG16.
 Add an attention layer between the final conv layer and the first FC layer.
 Fix all parameters except for the attention weights.
-Train on ImageNet.
+Fix the attention weights to one.
+Check performance.
 
 References:
 github.com/keras-team/keras/blob/master/keras/constraints.py
@@ -48,7 +49,7 @@ class Attention(Layer):
         self.kernel = self.add_weight(
             name='kernel',
             shape=(1,) + input_shape[1:],
-            initializer='uniform',
+            initializer='ones',
             trainable=True,
             constraint=GreaterEqualEpsilon())
         super(Attention, self).build(input_shape)
@@ -71,8 +72,9 @@ for layer in pretrained_model.layers[19:]:
     model_out = layer(model_out)
 attention_model = Model(model_in, model_out)
 for i, layer in enumerate(attention_model.layers):
-    if i != 19:
-        layer.trainable=False
+    # if i != 19:
+    #     layer.trainable=False
+    layer.trainable=False
 
 print('\nAttention model layers:')
 for i in list(enumerate(attention_model.layers)):
@@ -90,48 +92,21 @@ attention_model.compile(
 
 ################################################################################
 
-path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
-batch_size = 256 # VGG paper
-datagen = ImageDataGenerator(
-    preprocessing_function=preprocess_input,
-    validation_split=0.1)
-train_generator = datagen.flow_from_directory(
-    directory=path+'train/',
+path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white' # path to examples (should be in category folders)
+batch_size = 178 # 48238=2*89*271
+datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+generator = datagen.flow_from_directory(
+    directory=path,
     target_size=(224, 224),
     batch_size=batch_size,
-    shuffle=True, # False => returns images in order
-    class_mode='categorical', # None => returns just images (no labels)
-    subset='training')
-validation_generator = datagen.flow_from_directory(
-    directory=path+'train/',
-    target_size=(224, 224),
-    batch_size=batch_size,
-    shuffle=True, # False => returns images in order
-    class_mode='categorical', # None => returns just images (no labels)
-    subset='validation')
-early_stopping = EarlyStopping(
-    monitor='val_loss',
-    patience=1, # number of epochs without improvement after which we stop
-    verbose=True,
-    restore_best_weights=True) # False => weights from last step are used
-
-################################################################################
-
-history = attention_model.fit_generator(
-    generator=train_generator,
-    steps_per_epoch=train_generator.n//batch_size,
-    epochs=15,
-    verbose=1,
-    callbacks=[early_stopping],
-    validation_data=validation_generator,
-    validation_steps=validation_generator.n//batch_size,
-    use_multiprocessing=True,
-    workers=7)
-
-################################################################################
-
-model_name = 'attention-model'
-results = pd.DataFrame(history.history)
-results.to_csv(model_name+'-results.csv')
-attention_model.save_weights(
-    '/home/freddie/keras-models/'+model_name+'-weights.h5')
+    shuffle=False, # False => returns images in order
+    class_mode=None) # None => returns just images (no labels)
+true_top1 = generator.classes
+num_examples = len(true_top1)
+predicted_prob = attention_model.predict_generator(
+    generator,
+    steps=num_examples//batch_size,
+    verbose=True)
+predicted_top1 = np.argmax(predicted_prob, axis=1)
+accuracy = np.mean(predicted_top1==true_top1)
+print(f'Top-1 accuracy: {(accuracy*100):.2f}%')

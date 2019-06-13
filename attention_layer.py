@@ -1,3 +1,9 @@
+'''
+References:
+github.com/keras-team/keras/blob/master/keras/constraints.py
+stackoverflow.com/questions/46821845/how-to-add-a-trainable-hadamard-product-layer-in-keras
+'''
+
 from keras import backend as K
 from keras.engine.topology import Layer
 from keras.initializers import TruncatedNormal

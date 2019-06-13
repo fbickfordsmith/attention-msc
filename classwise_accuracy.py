@@ -4,7 +4,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 '''
 Use a pretrained VGG16 to classify ImageNet examples.
-Find the accuracy for each category.
+Find the accuracy for each class.
 
 References:
 medium.com/@vijayabhaskar96/tutorial-image-classification-with-keras-flow-from-directory-and-generators-95f75ebe5720
@@ -50,8 +50,8 @@ counts_correct = np.array(
 # accuracy_classes = counts_correct / counts_classes
 results = np.stack(
     (class_indices, counts_classes, counts_correct), axis=1)
-np.savetxt('classwise-accuracy.csv', results)
-np.savetxt('class-names.csv', np.array(class_names), fmt='%s')
+np.savetxt('classwise_accuracy.csv', results)
+np.savetxt('class_names.csv', np.array(class_names), fmt='%s')
 
 # Code for converting indices to class IDs
 # name2ind = generator.class_indices

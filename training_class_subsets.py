@@ -46,22 +46,23 @@ training_params = dict(
     workers=7)
 
 attention_model = build_model()
-attention_model.save_weights(path_to_weights+'initialised_attention_model.h5')
-class_sets = np.loadtxt('class_set_names.csv', dtype=str, delimiter=',')
+attention_model.save_weights(path_to_weights+'initialised_model.h5')
+class_sets = np.loadtxt('csv/class_sets.csv', dtype=str, delimiter=',')
 
 for i, class_set in enumerate(class_sets):
     print(f'Training on class set {i}')
     path_to_set = path_to_data + f'set{i:02}'
-    attention_model.load_weights(path_to_weights+'initialised_attention_model.h5')
+    attention_model.load_weights(path_to_weights+'initialised_model.h5')
     attention_model, history = train_model(
         model=attention_model,
         datagen=datagen,
         datapath=path_to_set,
         generator_params=generator_params,
         training_params=training_params)
-    model_name = f'attention_model_set{i}'
-    results = pd.DataFrame(history.history)
-    results.to_csv(model_name+'_results.csv')
-    weights_to_save = attention_model.layers[19].get_weights()[0]
-    np.save(model_name+'_attention_weights', weights_to_save, allow_pickle=False)
-    attention_model.save_weights(path_to_weights+model_name+'all_weights.h5')
+    model_name = f'set{i:02}_model'
+    pd.DataFrame(history.history).to_csv('csv/'+model_name+'_results.csv')
+    np.save(
+        path_to_weights+model_name+'_attention_weights',
+        attention_model.layers[19].get_weights()[0],
+        allow_pickle=False)
+    attention_model.save_weights(path_to_weights+model_name+'_all_weights.h5')

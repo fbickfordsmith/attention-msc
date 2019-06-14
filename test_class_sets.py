@@ -19,7 +19,7 @@ from attention_model import build_model
 
 path_to_weights = '/home/freddie/keras-models/'
 path_to_split_data = '/home/freddie/ILSVRC2012/clsloc/val_white/'
-path_to_all_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white'
+path_to_all_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 model = build_model()
@@ -40,6 +40,7 @@ def evaluate_by_path(model, path_to_data):
     return score
 
 for i in range(20):
+    print(f'\nEvaluating model trained on set {i}')
     model.load_weights(path_to_weights+f'set{i:02}_model_all_weights.h5')
 
     # evaluate on in-set data
@@ -64,9 +65,9 @@ scores_arr = np.concatenate((
 
 # list(itertools.chain(list1, list2, ...)) returns a flattened list
 col_names = list(itertools.chain(
-    ['inset_'+metric_name for metric_name in metric_names],
-    ['outofset_'+metric_name for metric_name in metric_names],
-    ['allsets_'+metric_name for metric_name in metric_names]))
+    ['inset_'+metric_name for metric_name in model.metrics_names],
+    ['outofset_'+metric_name for metric_name in model.metrics_names],
+    ['allsets_'+metric_name for metric_name in model.metrics_names]))
 
 scores_df = pd.DataFrame(scores_arr, columns=col_names)
 scores_df.to_csv('csv/test_class_sets_results.csv')

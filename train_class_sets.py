@@ -3,7 +3,8 @@ os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 '''
-Train an attention model on a subset of ImageNet classes.
+ImageNet classes have been grouped by baseline accuracy into 20 sets.
+For each set, train an attention layer on examples from that set only.
 
 References:
 stackoverflow.com/questions/43906048/keras-early-stopping
@@ -15,7 +16,6 @@ import pandas as pd
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
-from keras.metrics import sparse_top_k_categorical_accuracy
 from attention_model import build_model, train_model
 
 path_to_weights = '/home/freddie/keras-models/'

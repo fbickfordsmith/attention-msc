@@ -17,12 +17,10 @@ thispointer.com/python-how-to-move-files-and-directories/
 
 Copying a folder using bash:
 old_folder contains a, b, c
-No slash:
-    cp -r .../old_folder .../new_folder
-    new_folder contains old_folder
+With no slash:
+    cp -r .../old_folder .../new_folder => new_folder contains old_folder
 With slash:
-    cp -r .../old_folder/ .../new_folder
-    new_folder contains a, b, c
+    cp -r .../old_folder/ .../new_folder => new_folder contains a, b, c
 cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ /home/freddie/ILSVRC2012
 '''
 

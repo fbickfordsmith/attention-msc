@@ -49,7 +49,7 @@ for i in range(20):
     # evaluate on out-of-set data
     scores_temp = [
         evaluate_by_path(model, path_to_split_data+f'set{j:02}')
-        for j in set(range(20)).remove(i)]
+        for j in (set(range(20)) - set([i]))]
     outofset_scores.append(np.mean(np.array(scores_temp), axis=0))
 
     # evaluate on all data

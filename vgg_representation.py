@@ -34,6 +34,8 @@ generator = datagen.flow_from_directory(
 activations = modified_model.predict_generator(
     generator,
     steps=ceil(generator.n/generator.batch_size),
+    use_multiprocessing=True,
+    workers=7,
     verbose=True)
 
 for i in range(generator.num_classes):

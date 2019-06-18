@@ -1,12 +1,12 @@
+'''
+For each ImageNet class, find the average VGG16 representation of images in it.
+For each pair of classes, find the cosine similarity of the mean
+representations.
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
-'''
-For each ImageNet class, get all VGG representations of the images in the class,
-and take the mean of these.
-For each pair of classes, find the cosine similarity of the mean representations.
-'''
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity

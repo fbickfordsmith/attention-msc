@@ -1,10 +1,15 @@
+'''
+Assess the accuracy of a pretrained VGG16 on the ImageNet validation set,
+without using predict_generator. This is with the aim of working out why our
+baseline accuracy is lower than stated in the Keras docs.
+
+References:
+- keras.io/applications/
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
-'''
-Identify why our baseline accuracy is lower than stated in the Keras docs.
-'''
 
 import numpy as np
 from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions

@@ -1,6 +1,9 @@
 '''
+Define a model with elementwise-multiplication attention layer as the only
+trainable layer. Define a routine for training one using a data generator.
+
 References:
-stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
+- stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
 '''
 
 from keras.applications.vgg16 import VGG16
@@ -34,7 +37,7 @@ def build_model(optimizer=optimizers.Adam(lr=3e-4)):
     attention_model.compile(
         optimizer=optimizer,
         # optimizer=optimizers.Adam(lr=3e-4), # Karpathy default
-        # optimizer=optimizers.SGD(lr=1e-3, momentum=0.9), # relatively low lr (could also try 1e-4)
+        # optimizer=optimizers.SGD(lr=1e-3, momentum=0.9), # could also try 1e-4
         loss='categorical_crossentropy',
         metrics=['accuracy', 'top_k_categorical_accuracy']) # top-1 and top5 acc
 

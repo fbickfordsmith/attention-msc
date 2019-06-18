@@ -1,20 +1,13 @@
+'''
+Check that an attention model with unit attention weights (ie, there is an
+attention layer between the final conv layer and the first FC layer, but all
+weights are set to one) achieves the same performance as a VGG16 without an
+attention layer.
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
-'''
-Take a pretrained VGG16.
-Add an attention layer between the final conv layer and the first FC layer.
-Fix all parameters except for the attention weights.
-Fix the attention weights to one.
-Check performance.
-
-References:
-github.com/keras-team/keras/blob/master/keras/constraints.py
-stackoverflow.com/questions/46821845/how-to-add-a-trainable-hadamard-product-layer-in-keras
-stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
-stackoverflow.com/questions/43906048/keras-early-stopping
-'''
 
 import numpy as np
 import pandas as pd

@@ -1,12 +1,16 @@
+'''
+Implement a ImageNet preprocessing routine proposed by Caleb Robinson.
+
+References:
+- github.com/calebrob6/imagenet_validation
+'''
+
 import cv2
 from keras.applications.vgg16 import preprocess_input
 
 def robinson_processing(img):
-    # github.com/calebrob6/imagenet_validation
     # img is RGB
-
-    # load as BGR and convert to RGB
-    # img = cv2.imread(path_img)[:, :, ::-1]
+    # load as BGR and convert to RGB: img = cv2.imread(path_img)[:, :, ::-1]
 
     # resize
     height = img.shape[0] * 256//min(img.shape)

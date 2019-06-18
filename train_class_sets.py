@@ -1,15 +1,16 @@
+'''
+ImageNet classes have been grouped by baseline accuracy into 20 sets. For each
+set, train an attention layer on examples from that set only.
+
+References:
+- stackoverflow.com/questions/43906048/keras-early-stopping
+- stackoverflow.com/questions/40496069/reset-weights-in-keras-layer/50257383
+- stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
-'''
-ImageNet classes have been grouped by baseline accuracy into 20 sets.
-For each set, train an attention layer on examples from that set only.
-
-References:
-stackoverflow.com/questions/43906048/keras-early-stopping
-stackoverflow.com/questions/40496069/reset-weights-in-keras-layer/50257383
-'''
 
 import numpy as np
 import pandas as pd

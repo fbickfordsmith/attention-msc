@@ -1,15 +1,13 @@
+'''
+ImageNet classes have been grouped by baseline accuracy into 20 sets. For each
+set, an attention layer has been trained on examples from that set only. For
+each trained model, evaluate on val_white data.
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
-'''
-ImageNet classes have been grouped by baseline accuracy into 20 sets.
-For each set, an attention layer has been trained on examples from that set only.
-For each trained model, evaluate on val_white data
-
-'''
-
-from math import ceil
 import itertools
 import numpy as np
 import pandas as pd
@@ -34,7 +32,7 @@ def evaluate_by_path(model, path_to_data):
         class_mode='categorical')
     score = model.evaluate_generator(
         test_generator,
-        steps=ceil(test_generator.n/test_generator.batch_size),
+        steps=int(np.ceil(test_generator.n/test_generator.batch_size)),
         use_multiprocessing=False,
         verbose=True)
     return score

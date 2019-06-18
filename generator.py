@@ -1,3 +1,15 @@
+'''
+Define a data generator based on keras.utils.Sequence. Define a routine for
+instantiating generators.
+
+References:
+- keras.io/utils/
+- stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
+- medium.com/datadriveninvestor/keras-training-on-large-datasets-3e9d9dbc09d4
+- calebrob.com/ml/imagenet/ilsvrc2012/2018/10/22/imagenet-benchmarking.html
+- github.com/HoldenCaulfieldRye/caffe/tree/master/data/ilsvrc12
+'''
+
 import os
 import glob
 import numpy as np
@@ -77,3 +89,8 @@ def build_generators(path_data, path_synsets, batch_size, preprocess_fn, val_spl
             labels=labels_all,
             batch_size=batch_size,
             preprocess_fn=preprocess_fn)
+
+# import glob
+# root_dir = '/Users/fbickfordsmith/Google Drive/Project Code/vgg16'
+# glob.iglob(root_dir+'/**', recursive=True) returns an iterator (arbitrary order)
+# glob.glob(root_dir+'/**', recursive=True) returns a list (use sorted() to sort)

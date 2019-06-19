@@ -8,8 +8,8 @@ Arguments:
 - folder in {'train', 'val', 'val_white'}
 
 References:
-thispointer.com/how-to-create-a-directory-in-python/
-thispointer.com/python-how-to-move-files-and-directories/
+- thispointer.com/how-to-create-a-directory-in-python/
+- thispointer.com/python-how-to-move-files-and-directories/
 '''
 
 import os

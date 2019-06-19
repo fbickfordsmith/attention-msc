@@ -30,11 +30,13 @@ def evaluate_by_path(model, path_to_data):
         batch_size=batch_size,
         shuffle=True,
         class_mode='categorical')
+
     score = model.evaluate_generator(
         test_generator,
         steps=int(np.ceil(test_generator.n/test_generator.batch_size)),
         use_multiprocessing=False,
         verbose=True)
+
     return score
 
 for i in range(20):

@@ -1,0 +1,41 @@
+# Git
+https://github.com/joshnh/Git-Commands
+git clone ssh://git@github.com/[username]/[repository-name].git
+git status
+git add [file-name.txt]
+git add -A
+git commit -m '[commit-message]'
+git rm -r [file-name.txt]
+git push
+git pull
+
+# Screen
+screen -ls
+screen -S [session-name]
+screen -x
+screen -r [session-name]
+ctrl-a d
+exit
+
+# Conda
+conda create -n [env-name] python=3.6
+conda install [package1] [package2] ...
+conda activate py36
+conda deactivate
+
+# Bash
+http://aperiodic.net/screen/quick_reference
+ssh [username]@love16.pals.ucl.ac.uk
+exit # disconnect
+watch -n1.0 nvidia-smi
+free -h # memory
+du -h -d1 [folder-path]
+du -ah [folder-path] | head
+python3 -i [file-name.py] # run script in interactive mode
+
+# Managing files
+pwd, cd, ls, mkdir, rmdir, rm
+rm -rf [folder-name] # remove folder and files
+cp [src-file-path] [dest-file-path] # copy file
+cp -r [src-folder-path] [dest-folder-path] # copy folder
+mv [src-file-path] [dest-file-path] # move/rename

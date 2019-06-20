@@ -13,8 +13,8 @@ def robinson_processing(img):
     # load as BGR and convert to RGB: img = cv2.imread(path_img)[:, :, ::-1]
 
     # resize
-    height = img.shape[0] * 256//min(img.shape)
-    width = img.shape[1] * 256//min(img.shape)
+    height = img.shape[0] * 256//min(img.shape[:2])
+    width = img.shape[1] * 256//min(img.shape[:2])
     img = cv2.resize(img, (width, height), interpolation=cv2.INTER_CUBIC)
 
     # crop

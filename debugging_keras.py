@@ -15,12 +15,10 @@ import numpy as np
 from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
 from keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 
-# use decode_predictions to get predicted classes
-# we know true classes from folders
-
 model = VGG16(weights='imagenet')
 path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+
 generator = datagen.flow_from_directory(
     directory=path,
     target_size=(224, 224),
@@ -33,8 +31,8 @@ img_paths = generator.filenames
 name2ind = generator.class_indices
 ind2name = {ind:name for name, ind in name2ind.items()}
 true_names = np.array([ind2name[ind] for ind in true_classes])
-
 predicted_classes = []
+
 for i, img_path in enumerate(img_paths):
     if i % 2000 == 0:
         print(f'{i:05} images processed')

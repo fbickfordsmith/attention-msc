@@ -41,20 +41,3 @@ df['num_examples'] = [np.count_nonzero(true_class==i) for i in range(1000)]
 df['num_correct'] = [np.count_nonzero(correct_class==i) for i in range(1000)]
 df['accuracy'] = df['num_correct'] / df['num_examples']
 df.to_csv('csv/baseline_classwise.csv')
-
-# class_indices = np.arange(1000)
-# class_names = list(name2ind.keys())
-# counts_class = np.array(
-#     [np.count_nonzero(true_class==i) for i in range(1000)])
-# counts_correct = np.array(
-#     [np.count_nonzero(class_correct==i) for i in range(1000)])
-# accuracy_class = counts_correct / counts_class
-# results = np.stack(
-#     (class_indices, counts_class, counts_correct), axis=1)
-# np.savetxt('classwise_accuracy.csv', results)
-# np.savetxt('class_names.csv', np.array(class_names), fmt='%s')
-
-# Code for converting indices to class IDs
-# name2ind = generator.class_indices
-# ind2name = {ind:name for name, ind in name2ind.items()}
-# predicted_names = [ind2name[ind] for ind in predicted_labels]

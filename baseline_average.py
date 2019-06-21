@@ -19,31 +19,17 @@ path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/' # path to examp
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
-generator_pred = datagen.flow_from_directory(
-    directory=path,
-    target_size=(224, 224),
-    batch_size=batch_size,
-    shuffle=False, # False => returns images in order
-    class_mode=None) # None => returns just images (no labels)
-predicted_prob = model.predict_generator(
-    generator_pred,
-    steps=int(np.ceil(generator_pred.n/generator_pred.batch_size)),
-    use_multiprocessing=False,
-    verbose=True)
-predicted_top1 = np.argmax(predicted_prob, axis=1)
-true_top1 = generator_pred.classes
-accuracy = np.mean(predicted_top1==true_top1)
-print(f'Using predict_generator, accuracy = {accuracy}') # {(accuracy*100):.2f}%')
-
-generator_eval = datagen.flow_from_directory(
+generator = datagen.flow_from_directory(
     directory=path,
     target_size=(224, 224),
     batch_size=batch_size,
     shuffle=False,
     class_mode='categorical')
+
 scores = model.evaluate_generator(
-    generator_eval,
-    steps=int(np.ceil(generator_eval.n/generator_eval.batch_size)),
+    generator,
+    steps=int(np.ceil(generator.n/generator.batch_size)),
     use_multiprocessing=False,
     verbose=True)
-print(f'Using evaluate_generator, {model.metrics_names} = {scores}')
+
+print(f'{model.metrics_names} = {scores}')

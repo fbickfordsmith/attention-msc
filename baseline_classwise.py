@@ -32,7 +32,7 @@ probability = model.predict_generator(
 
 predicted_class = np.argmax(probability, axis=1)
 true_class = generator.classes
-correct_bool = (predicted_top1==true_top1)
+correct_bool = (predicted_class==true_class)
 correct_class = true_class[np.flatnonzero(correct_bool)] # vector where each entry is the class of an example that has been correctly classified
 
 df = pd.DataFrame()

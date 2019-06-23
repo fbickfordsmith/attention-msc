@@ -15,12 +15,13 @@ from keras.preprocessing.image import ImageDataGenerator
 
 model = VGG16(weights='imagenet')
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])
-path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/' # path to examples (should be in category folders)
+path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
+partition = 'val' # one of [train, val, val_white]
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 generator = datagen.flow_from_directory(
-    directory=path,
+    directory=path+partition,
     target_size=(224, 224),
     batch_size=batch_size,
     shuffle=False,

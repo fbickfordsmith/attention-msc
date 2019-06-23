@@ -19,24 +19,24 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 import sys, shutil, numpy
 
 folder = sys.argv[1] # sys.argv[0] is the name of the script
-class_sets = numpy.loadtxt('csv/class_sets.csv', dtype=str, delimiter=',')
+diff_contexts = numpy.loadtxt('csv/diff_contexts_definition.csv', dtype=str, delimiter=',')
 path_to_data = '/home/freddie/ILSVRC2012/clsloc/'+folder+'/'
 # path_to_data = 'ILSVRC2012/ILSVRC2012_img_val_copy/'
 print(f'Running {sys.argv[0]} on {path_to_data}')
 
-for i, inset_classes in enumerate(class_sets):
+for i, incontext_classes in enumerate(diff_contexts):
     set_folder = f'set{i:02}/'
-    for inset_class in inset_classes:
-        # move inset_class folder to the folder for this set
+    for incontext_class in incontext_classes:
+        # move incontext_class folder to the folder for this set
         shutil.move(
-            path_to_data+inset_class, # source path
-            path_to_data+set_folder+inset_class) # destination path
+            path_to_data+incontext_class, # source path
+            path_to_data+set_folder+incontext_class) # destination path
 
     # np.setdiff1d(a, b) returns unique values in a that are not in b
-    outofset_classes = np.setdiff1d(class_sets, inset_classes)
-    for outofset_class in outofset_classes:
+    outofcontext_classes = np.setdiff1d(diff_contexts, incontext_classes)
+    for outofcontext_class in outofcontext_classes:
         # make new empty folders for all classes not in this set
-        os.makedirs(path_to_data+set_folder+outofset_class)
+        os.makedirs(path_to_data+set_folder+outofcontext_class)
 
 # Copying a folder using bash:
 # old_folder contains a, b, c

@@ -1,6 +1,6 @@
 '''
-ImageNet classes have been grouped by baseline accuracy into 20 sets. For each
-set, train an attention layer on examples from that set only.
+ImageNet classes have been grouped by baseline accuracy into 20 'contexts'. For
+each context, train an attention layer on examples from that context only.
 
 References:
 - stackoverflow.com/questions/43906048/keras-early-stopping
@@ -21,7 +21,7 @@ from attention_model import build_model, train_model
 
 path_to_weights = '/home/freddie/keras-models/'
 path_to_data = '/home/freddie/ILSVRC2012/clsloc/train/'
-batch_size = 256 # VGG paper
+batch_size = 256
 
 datagen = ImageDataGenerator(
     preprocessing_function=preprocess_input,
@@ -48,9 +48,8 @@ training_params = dict(
 
 attention_model = build_model()
 attention_model.save_weights(path_to_weights+'initialised_model.h5')
-class_sets = np.loadtxt('csv/class_sets.csv', dtype=str, delimiter=',')
 
-for i, class_set in enumerate(class_sets):
+for i in range(20):
     print(f'Training on class set {i}')
     path_to_set = path_to_data + f'set{i:02}'
     attention_model.load_weights(path_to_weights+'initialised_model.h5')

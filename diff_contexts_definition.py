@@ -1,5 +1,5 @@
 '''
-Group ImageNet classes by baseline accuracy into 20 sets.
+Group ImageNet classes by baseline accuracy into 20 'contexts'.
 '''
 
 import os
@@ -20,23 +20,23 @@ sorted_num_correct = np.array(sorted_df['num_correct'])
 sets_df['wnids'] = [list(arr) for arr in np.split(sorted_wnids, 20)]
 sets_df['num_examples'] = [np.sum(arr) for arr in np.split(sorted_num_examples, 20)]
 sets_df['num_correct'] = [np.sum(arr) for arr in np.split(sorted_num_correct, 20)]
-sets_df['inset_accuracy'] = sets_df['num_correct'] / sets_df['num_examples']
+sets_df['incontext_acc'] = sets_df['num_correct'] / sets_df['num_examples']
 
-outofset_accuracy = []
+outofcontext_acc = []
 for i in range(20):
     ind_not_i = [j for j in range(20) if j != i]
-    outofset_accuracy.append(
+    outofcontext_acc.append(
         np.sum(sets_df['num_correct'][ind_not_i]) /
         np.sum(sets_df['num_examples'][ind_not_i]))
-sets_df['outofset_accuracy'] = outofset_accuracy
+sets_df['outofcontext_acc'] = outofcontext_acc
 
 sets_df = sets_df.astype({
     'wnids':object,
     'num_examples':int,
     'num_correct':int,
-    'inset_accuracy':float,
-    'outofset_accuracy':float})
+    'incontext_acc':float,
+    'outofcontext_acc':float})
 
-sets_df.to_csv('csv/class_sets_definition.csv')
-class_set_wnids = np.array(np.split(sorted_wnids, 20))
-pd.DataFrame(class_set_wnids).to_csv('csv/class_sets_wnids.csv', header=False, index=False)
+sets_df.to_csv('csv/diff_contexts_definition.csv')
+diff_context_wnids = np.array(np.split(sorted_wnids, 20))
+pd.DataFrame(diff_context_wnids).to_csv('csv/diff_contexts_wnids.csv', header=False, index=False)

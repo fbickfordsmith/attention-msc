@@ -9,6 +9,7 @@ import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
+import sys
 import numpy as np
 from keras.applications.vgg16 import VGG16, preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
@@ -16,7 +17,7 @@ from keras.preprocessing.image import ImageDataGenerator
 model = VGG16(weights='imagenet')
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])
 path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
-partition = 'val' # one of [train, val, val_white]
+partition = sys.argv[1] # one of [train, val, val_white]
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 

@@ -6,7 +6,7 @@ import sys
 import numpy as np
 from keras.applications.vgg16 import VGG16
 from keras.preprocessing.image import ImageDataGenerator
-from image_processing import robinson_processing
+from img_processing import robinson_processing
 
 model = VGG16(weights='imagenet')
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])

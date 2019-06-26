@@ -9,6 +9,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 import numpy as np
 from keras.applications.vgg16 import VGG16
 from image_processing import robinson_processing
+from keras.applications.vgg16 import VGG16, preprocess_input
 from generator import build_generators
 
 model = VGG16(weights='imagenet')

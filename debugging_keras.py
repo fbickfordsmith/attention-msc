@@ -1,10 +1,6 @@
 '''
 Assess the accuracy of a pretrained VGG16 on the ImageNet validation set,
-without using predict_generator. This is with the aim of working out why our
-baseline accuracy is lower than stated in the Keras docs.
-
-References:
-- keras.io/applications/
+without using predict_generator.
 '''
 
 import os

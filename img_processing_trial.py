@@ -1,3 +1,8 @@
+'''
+Assess the accuracy of a pretrained VGG16 on the ImageNet validation set, using
+the preprocessing routine defined in img_processing.py
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'

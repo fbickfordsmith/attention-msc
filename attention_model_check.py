@@ -1,8 +1,6 @@
 '''
-Check that an attention model with unit attention weights (ie, there is an
-attention layer between the final conv layer and the first FC layer, but all
-weights are set to one) achieves the same performance as a VGG16 without an
-attention layer.
+Check that an attention model with attention weights set to 1 achieves the same
+performance as a VGG16 without an attention layer.
 '''
 
 import os

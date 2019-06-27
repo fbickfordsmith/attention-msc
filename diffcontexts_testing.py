@@ -1,7 +1,10 @@
 '''
-ImageNet classes have been grouped by baseline accuracy into 20 'contexts'. For
-each context, an attention layer has been trained on examples from that context
-only. For each trained model, evaluate on val_white data.
+ImageNet classes have been grouped by baseline accuracy into 20 'contexts'.
+
+For each context, an attention model has been trained on examples from that
+context only.
+
+For each trained model, evaluate on val_white data.
 '''
 
 import os
@@ -15,17 +18,17 @@ from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from attention_model import build_model
 
-path_to_weights = '/home/freddie/keras-models/'
-path_to_split_data = '/home/freddie/ILSVRC2012/clsloc/val_white/'
-path_to_all_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
+path_weights = '/home/freddie/keras-models/'
+path_separated_data = '/home/freddie/ILSVRC2012/clsloc/val_white/'
+path_all_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 model = build_model()
 incontext_scores, outofcontext_scores, alldata_scores = [], [], []
 
-def evaluate_by_path(model, path_to_data):
+def evaluate_by_path(model, path_data):
     test_generator = datagen.flow_from_directory(
-        directory=path_to_data,
+        directory=path_data,
         target_size=(224, 224),
         batch_size=batch_size,
         shuffle=True,
@@ -41,21 +44,21 @@ def evaluate_by_path(model, path_to_data):
 
 for i in range(20):
     print(f'\nEvaluating model trained on set {i}')
-    model.load_weights(path_to_weights+f'set{i:02}_model_all_weights.h5')
+    model.load_weights(path_weights+f'set{i:02}_model_all_weights.h5')
 
     # evaluate on in-set data
     incontext_scores.append(
-        evaluate_by_path(model, path_to_split_data+f'set{i:02}'))
+        evaluate_by_path(model, path_separated_data+f'set{i:02}'))
 
     # evaluate on out-of-set data
     scores_temp = [
-        evaluate_by_path(model, path_to_split_data+f'set{j:02}')
+        evaluate_by_path(model, path_separated_data+f'set{j:02}')
         for j in (set(range(20)) - set([i]))]
     outofcontext_scores.append(np.mean(np.array(scores_temp), axis=0))
 
     # evaluate on all data
     alldata_scores.append(
-        evaluate_by_path(model, path_to_all_data))
+        evaluate_by_path(model, path_all_data))
 
 scores_arr = np.concatenate((
     np.array(incontext_scores),

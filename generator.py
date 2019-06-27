@@ -1,6 +1,7 @@
 '''
-Define a data generator based on keras.utils.Sequence. Define a routine for
-instantiating generators.
+Define a data generator based on keras.utils.Sequence.
+
+Define a routine for instantiating generators.
 
 References:
 - keras.io/utils/

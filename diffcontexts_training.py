@@ -1,6 +1,7 @@
 '''
-ImageNet classes have been grouped by baseline accuracy into 20 'contexts'. For
-each context, train an attention layer on examples from that context only.
+ImageNet classes have been grouped by baseline accuracy into 20 'contexts'.
+
+For each context, train an attention layer on examples from that context only.
 
 References:
 - stackoverflow.com/questions/43906048/keras-early-stopping
@@ -19,8 +20,8 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
 from attention_model import build_model, train_model
 
-path_to_weights = '/home/freddie/keras-models/'
-path_to_data = '/home/freddie/ILSVRC2012/clsloc/train/'
+path_weights = '/home/freddie/keras-models/'
+path_data = '/home/freddie/ILSVRC2012/clsloc/train/'
 batch_size = 256
 
 datagen = ImageDataGenerator(
@@ -47,22 +48,22 @@ training_params = dict(
     workers=7)
 
 attention_model = build_model()
-attention_model.save_weights(path_to_weights+'initialised_model.h5')
+attention_model.save_weights(path_weights+'initialised_model.h5')
 
 for i in range(20):
     print(f'Training on class set {i}')
-    path_to_set = path_to_data + f'set{i:02}'
-    attention_model.load_weights(path_to_weights+'initialised_model.h5')
+    path_set = path_data + f'set{i:02}'
+    attention_model.load_weights(path_weights+'initialised_model.h5')
     attention_model, history = train_model(
         model=attention_model,
         datagen=datagen,
-        datapath=path_to_set,
+        datapath=path_set,
         generator_params=generator_params,
         training_params=training_params)
     model_name = f'set{i:02}_model'
     pd.DataFrame(history.history).to_csv('csv/'+model_name+'_results.csv')
     np.save(
-        path_to_weights+model_name+'_attention_weights',
+        path_weights+model_name+'_attention_weights',
         attention_model.layers[19].get_weights()[0],
         allow_pickle=False)
-    attention_model.save_weights(path_to_weights+model_name+'_all_weights.h5')
+    attention_model.save_weights(path_weights+model_name+'_all_weights.h5')

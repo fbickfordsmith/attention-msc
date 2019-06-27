@@ -1,6 +1,8 @@
 '''
 Define a model with elementwise-multiplication attention layer as the only
-trainable layer. Define a routine for training one using a data generator.
+trainable layer.
+
+Define a routine for training one using a data generator.
 
 References:
 - stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator

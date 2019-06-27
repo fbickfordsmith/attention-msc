@@ -16,7 +16,7 @@ path = '/home/freddie/attention/'
 X = np.load(path+'npy/mean_activations.npy')
 df = pd.read_csv(path+'csv/baseline_classwise.csv', index_col=0)
 ind2name = {ind:name for ind, name in enumerate(df['name'])}
-n_init = sys.argv[1] # sys.argv[0] is the name of the script
+n_init = int(sys.argv[1]) # sys.argv[0] is the name of the script
 
 def test_clustering(algorithm):
     clustering = algorithm.fit(X)
@@ -45,8 +45,8 @@ algorithms = {
     'spec_nn': SpectralClustering(
         n_clusters=10, affinity='nearest_neighbors', n_neighbors=50, n_init=n_init),
     'spec_cos': SpectralClustering(n_clusters=10, affinity='cosine', n_init=n_init),
-    'affprop': AffinityPropagation(preference=-4e4),
-    'agglom': AgglomerativeClustering(n_clusters=11)}
+    'affprop': AffinityPropagation(preference=-4e4), # reasonable results with preference in [-1e4, -1e5]
+    'agglom': AgglomerativeClustering(n_clusters=11)} # tried linkage='complete', affinity='cosine'
 
 for alg in algorithms.keys():
     sizes, names, num_bigclusters = test_clustering(algorithms[alg])

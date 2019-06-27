@@ -6,15 +6,17 @@ import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
+import sys
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans, SpectralClustering, AffinityPropagation, AgglomerativeClustering
 from sklearn.metrics.pairwise import euclidean_distances
 
-path = 'home/freddie/attention/'
+path = '/home/freddie/attention/'
 X = np.load(path+'npy/mean_activations.npy')
 df = pd.read_csv(path+'csv/baseline_classwise.csv', index_col=0)
 ind2name = {ind:name for ind, name in enumerate(df['name'])}
+n_init = sys.argv[1] # sys.argv[0] is the name of the script
 
 def test_clustering(algorithm):
     clustering = algorithm.fit(X)
@@ -38,7 +40,6 @@ def test_clustering(algorithm):
         bigcluster_names.append([ind2name[i] for i in mostcentral_inds])
     return cluster_sizes, bigcluster_names, num_bigclusters
 
-n_init = 1000
 algorithms = {
     'kmeans': KMeans(n_clusters=10, init='random', n_init=n_init),
     'spec_nn': SpectralClustering(

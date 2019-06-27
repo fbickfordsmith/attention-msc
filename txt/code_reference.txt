@@ -8,6 +8,8 @@ git commit -m '[commit-message]'
 git rm -r [file-name.txt]
 git push
 git pull
+git stash
+git stash clear
 
 # Screen
 http://aperiodic.net/screen/quick_reference

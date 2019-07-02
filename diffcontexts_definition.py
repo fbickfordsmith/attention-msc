@@ -37,6 +37,6 @@ sets_df = sets_df.astype({
     'incontext_acc':float,
     'outofcontext_acc':float})
 
-sets_df.to_csv('csv/diff_contexts_definition.csv')
-diff_context_wnids = np.array(np.split(sorted_wnids, 20))
-pd.DataFrame(diff_context_wnids).to_csv('csv/diff_contexts_wnids.csv', header=False, index=False)
+sets_df.to_csv('csv/diffcontexts_definition.csv')
+diffcontext_wnids = np.array(np.split(sorted_wnids, 20))
+pd.DataFrame(diffcontext_wnids).to_csv('csv/diffcontexts_wnids.csv', header=False, index=False)

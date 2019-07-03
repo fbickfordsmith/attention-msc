@@ -30,7 +30,9 @@ script_name, folder, context_type = sys.argv
 path_home = '/home/freddie/'
 path_data = path_home+f'ILSVRC2012-{context_type}contexts/{folder}/'
 path_wnids = path_home+f'attention/csv/{context_type}contexts_wnids.csv'
+path_allclasses = path_home+f'attention/txt/synsets.txt'
 contexts = np.loadtxt(path_wnids, dtype=str, delimiter=',')
+all_classes = np.array([line.rstrip('\n') for line in open(path_allclasses)])
 print(f'Running {script_name} on {path_data}')
 
 for i, incontext_classes in enumerate(contexts):
@@ -42,7 +44,8 @@ for i, incontext_classes in enumerate(contexts):
             path_data+context_folder+incontext_class) # destination path
 
     # np.setdiff1d(a, b) returns unique values in a that are not in b
-    outofcontext_classes = np.setdiff1d(contexts, incontext_classes)
+    # outofcontext_classes = np.setdiff1d(contexts, incontext_classes)
+    outofcontext_classes = np.setdiff1d(all_classes, incontext_classes)
     for outofcontext_class in outofcontext_classes:
         # make new empty folders for all classes not in this context
         os.makedirs(path_data+context_folder+outofcontext_class)

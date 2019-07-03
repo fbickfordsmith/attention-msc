@@ -11,6 +11,7 @@ Call at the command line with
 - Second argument in {diff, sim}
 
 References:
+- stackoverflow.com/questions/15034151/copy-directory-contents-into-a-directory-with-python
 - thispointer.com/how-to-create-a-directory-in-python/
 - thispointer.com/python-how-to-move-files-and-directories/
 '''
@@ -19,7 +20,10 @@ import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
-import sys, shutil
+import sys
+import shutil
+from glob import glob
+from distutils.dir_util import copy_tree
 import numpy as np
 
 folder = sys.argv[1] # sys.argv[0] is the name of the script
@@ -35,13 +39,20 @@ print(f'Running {sys.argv[0]} on {path_data}')
 for i, incontext_classes in enumerate(contexts):
     context_folder = f'context{i:02}/'
     for incontext_class in incontext_classes:
-        # move incontext_class folder to the folder for this set
-        shutil.move(
+        # copy/move incontext_class folder to the folder for this context
+        # shutil.move(
+        copy_tree(
             path_data+incontext_class, # source path
             path_data+context_folder+incontext_class) # destination path
 
     # np.setdiff1d(a, b) returns unique values in a that are not in b
     outofcontext_classes = np.setdiff1d(contexts, incontext_classes)
     for outofcontext_class in outofcontext_classes:
-        # make new empty folders for all classes not in this set
-        os.makedirs(path_data+set_folder+outofcontext_class)
+        # make new empty folders for all classes not in this context
+        os.makedirs(path_data+context_folder+outofcontext_class)
+
+# remove the original folders
+folders_keep = [path_data+f'context{i:02}/' for i in range(5)]
+folders_remove = [g for g in glob(path_data+'*/') if g not in folders_keep]
+for f in folders_remove:
+    shutil.rmtree(f)

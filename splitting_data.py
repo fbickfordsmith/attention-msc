@@ -26,21 +26,17 @@ from glob import glob
 from distutils.dir_util import copy_tree
 import numpy as np
 
-folder = sys.argv[1] # sys.argv[0] is the name of the script
-context_type = sys.argv[2]
+script_name, folder, context_type = sys.argv
 path_home = '/home/freddie/'
-contexts = np.loadtxt(
-    path_home+f'attention/csv/{context_type}contexts_wnids.csv',
-    dtype=str,
-    delimiter=',')
 path_data = path_home+f'ILSVRC2012-{context_type}contexts/{folder}/'
-print(f'Running {sys.argv[0]} on {path_data}')
+path_wnids = path_home+f'attention/csv/{context_type}contexts_wnids.csv'
+contexts = np.loadtxt(path_wnids, dtype=str, delimiter=',')
+print(f'Running {script_name} on {path_data}')
 
 for i, incontext_classes in enumerate(contexts):
     context_folder = f'context{i:02}/'
     for incontext_class in incontext_classes:
-        # copy/move incontext_class folder to the folder for this context
-        # shutil.move(
+        # copy incontext_class folder to the folder for this context
         copy_tree(
             path_data+incontext_class, # source path
             path_data+context_folder+incontext_class) # destination path

@@ -48,7 +48,7 @@ for i, incontext_classes in enumerate(contexts):
         os.makedirs(path_data+context_folder+outofcontext_class)
 
 # remove the original folders
-folders_keep = [path_data+f'context{i:02}/' for i in range(5)]
+folders_keep = [path_data+f'context{i:02}/' for i in range(contexts.shape[0])]
 folders_remove = [g for g in glob(path_data+'*/') if g not in folders_keep]
 for f in folders_remove:
     shutil.rmtree(f)

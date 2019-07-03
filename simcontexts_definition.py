@@ -2,7 +2,7 @@
 Take the mean VGG16 representations of ImageNet classes.
 
 For 5 different seed points in this representation space, define 4 non-disjoint
-'contexts'
+'contexts'...
 
 '''
 

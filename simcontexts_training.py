@@ -7,10 +7,10 @@ import pandas as pd
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
-from attention_model import build_model, train_model
+from attention_model import build_model, traicdn_model
 
-path_weights = '/home/freddie/keras-models/'
-path_data = '/home/freddie/ILSVRC2012-simcontexts/train/'
+path_weights = '~/keras-models/'
+path_data = '~/ILSVRC2012-simcontexts/train/'
 batch_size = 256
 
 datagen = ImageDataGenerator(

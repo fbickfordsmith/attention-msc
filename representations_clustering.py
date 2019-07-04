@@ -36,7 +36,7 @@ def test_clustering(algorithm, X, bigcluster_size=50):
         bigcluster_names.append([ind2name[i] for i in mostcentral_inds])
     return cluster_sizes, bigcluster_names, num_bigclusters
 
-path = '/home/freddie/attention/'
+path = '~/attention/'
 X = np.load(path+'npy/mean_activations.npy')
 df = pd.read_csv(path+'csv/baseline_classwise.csv', index_col=0)
 ind2name = {ind:name for ind, name in enumerate(df['name'])}

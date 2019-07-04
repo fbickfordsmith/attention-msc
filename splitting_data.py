@@ -27,7 +27,7 @@ from distutils.dir_util import copy_tree
 import numpy as np
 
 script_name, folder, context_type = sys.argv
-path_home = '/home/freddie/'
+path_home = '~/'
 path_data = path_home+f'ILSVRC2012-{context_type}contexts/{folder}/'
 path_wnids = path_home+f'attention/csv/{context_type}contexts_wnids.csv'
 path_allclasses = path_home+f'attention/txt/synsets.txt'

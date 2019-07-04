@@ -49,4 +49,4 @@ With no slash:
 With slash:
      cp -r .../old_folder/ .../new_folder => new_folder contains a, b, c
 Example:
-    cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ /home/freddie/ILSVRC2012-simcontexts
+    cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ ~/ILSVRC2012-simcontexts

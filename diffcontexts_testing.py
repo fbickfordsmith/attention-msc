@@ -18,8 +18,8 @@ from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from attention_model import build_model
 
-path_weights = '/home/freddie/keras-models/'
-path_separated_data = '/home/freddie/ILSVRC2012/clsloc/val_white/'
+path_weights = '~/keras-models/'
+path_separated_data = '~/ILSVRC2012/clsloc/val_white/'
 path_all_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)

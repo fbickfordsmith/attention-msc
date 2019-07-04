@@ -17,7 +17,7 @@ model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])
 
 test_generator = build_generators(
     path_data='/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/',
-    path_synsets='/home/freddie/vgg16/txt/synsets.txt',
+    path_synsets='~/vgg16/txt/synsets.txt',
     batch_size=256,
     preprocess_fn=robinson_processing)
 

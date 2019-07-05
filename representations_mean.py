@@ -12,8 +12,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-path_activations = '~/activations/'
-path_save = '~/attention/npy/'
+path_activations = '/home/freddie/activations/'
+path_save = '/home/freddie/attention/npy/'
 mean_activations = []
 
 for i in range(1000):

@@ -22,7 +22,7 @@ for layer in pretrained_model.layers[2:22]:
 modified_model = Model(model_in, model_out)
 
 path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/train/'
-path_activations = '~/activations/'
+path_activations = '/home/freddie/activations/'
 batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 

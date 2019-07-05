@@ -1,6 +1,9 @@
 '''
 Assess the accuracy of a pretrained VGG16 on the ImageNet validation set, using
-the preprocessing routine defined in img_processing.py
+the preprocessing routine defined in img_processing.py.
+
+Command-line arguments:
+1. data_partition in {train, val, val_white}
 '''
 
 import os
@@ -13,17 +16,16 @@ from keras.applications.vgg16 import VGG16
 from keras.preprocessing.image import ImageDataGenerator
 from img_processing import robinson_processing
 
+_, data_partition = sys.argv
+path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 model = VGG16(weights='imagenet')
 model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])
-path = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
-partition = sys.argv[1] # one of [train, val, val_white]
-batch_size = 256
 datagen = ImageDataGenerator(preprocessing_function=robinson_processing)
 
 generator = datagen.flow_from_directory(
-    directory=path+partition,
+    directory=path_data,
     target_size=(224, 224),
-    batch_size=batch_size,
+    batch_size=256,
     shuffle=False,
     class_mode='categorical')
 

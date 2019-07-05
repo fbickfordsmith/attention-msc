@@ -13,8 +13,10 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 import pandas as pd
 import scipy.io
 
-df = pd.read_csv('csv/baseline_classwise.csv', index_col=0)
-meta = scipy.io.loadmat('mat/meta.mat')
+path_results = 'results/baseline_classwise_acc.csv'
+path_meta = 'metadata/meta.mat'
+df = pd.read_csv(path_results, index_col=0)
+meta = scipy.io.loadmat(path_meta)
 ilsvrc2wnid = {}
 wnid2name = {}
 wnid2desc = {}
@@ -30,4 +32,4 @@ for i in range(1000):
 
 df['name'] = [wnid2name[wnid] for wnid in df['wnid']]
 df['description'] = [wnid2desc[wnid] for wnid in df['wnid']]
-df.to_csv('csv/baseline_classwise.csv')
+df.to_csv(path_results)

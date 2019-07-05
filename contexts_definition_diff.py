@@ -1,5 +1,9 @@
 '''
-Group ImageNet classes by baseline accuracy into 20 'contexts'.
+Group ImageNet classes into 20 'difficulty contexts'.
+
+Method:
+1. Sort classes by the baseline accuracy of VGG16.
+2. Split into 20 disjoint sets of classes.
 '''
 
 import os
@@ -9,7 +13,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('csv/baseline_classwise.csv', index_col=0)
+path = '/Users/fbickfordsmith/Google Drive/Project/attention/'
+df = pd.read_csv(f'{path}results/baseline_classwise_acc.csv', index_col=0)
 sorted_df = df.sort_values(by='accuracy', ascending=False)
 sets_df = pd.DataFrame()
 
@@ -37,6 +42,7 @@ sets_df = sets_df.astype({
     'incontext_acc':float,
     'outofcontext_acc':float})
 
-sets_df.to_csv('csv/diffcontexts_definition.csv')
+sets_df.to_csv(f'{path}contexts/diffcontexts_stats.csv')
 diffcontext_wnids = np.array(np.split(sorted_wnids, 20))
-pd.DataFrame(diffcontext_wnids).to_csv('csv/diffcontexts_wnids.csv', header=False, index=False)
+pd.DataFrame(diffcontext_wnids).to_csv(
+    f'{path}contexts/diffcontexts_wnids.csv', header=False, index=False)

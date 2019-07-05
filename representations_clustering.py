@@ -1,6 +1,5 @@
 '''
 Cluster the mean VGG16 representations of ImageNet classes.
-(Group ImageNet classes by the similarity of their mean VGG16 representation.)
 '''
 
 import os

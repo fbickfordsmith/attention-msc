@@ -35,11 +35,11 @@ def test_clustering(algorithm, X, bigcluster_size=50):
         bigcluster_names.append([ind2name[i] for i in mostcentral_inds])
     return cluster_sizes, bigcluster_names, num_bigclusters
 
+n_init = int(sys.argv[1])
 path = '/home/freddie/attention/'
 X = np.load(path+'npy/mean_activations.npy')
 df = pd.read_csv(path+'csv/baseline_classwise.csv', index_col=0)
 ind2name = {ind:name for ind, name in enumerate(df['name'])}
-n_init = int(sys.argv[1]) # sys.argv[0] is the name of the script
 
 algorithms = {
     'kmeans': KMeans(n_clusters=10, init='random', n_init=n_init),

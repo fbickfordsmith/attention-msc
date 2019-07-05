@@ -45,7 +45,7 @@ class Attention(Layer):
         return input_shape
 
 class FixedWeightAttention(Layer):
-    def __init__(self, fixed_weights, **kwargs):
+    def __init__(self, **kwargs):
         self.kernel = fixed_weights
         super(Attention, self).__init__(**kwargs)
 

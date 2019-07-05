@@ -29,7 +29,7 @@ scores_incontext, scores_outofcontext, scores_alldata = [], [], []
 for i in range(num_contexts):
     print(f'\nEvaluating model trained on {type_context}context {i}')
     W = np.load(path_weights+f'{type_context}context{i:02}_attention_weights.npy')
-    model = build_model(FixedWeightAttention(dict(fixed_weights=W)), train=False)
+    model = build_model(FixedWeightAttention(W), train=False)
 
     # evaluate on in-context data
     scores_incontext.append(

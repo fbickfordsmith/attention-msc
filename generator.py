@@ -90,8 +90,3 @@ def build_generators(path_data, path_synsets, batch_size, preprocess_fn, val_spl
             labels=labels_all,
             batch_size=batch_size,
             preprocess_fn=preprocess_fn)
-
-# import glob
-# root_dir = '/Users/fbickfordsmith/Google Drive/Project Code/vgg16'
-# glob.iglob(root_dir+'/**', recursive=True) returns an iterator (arbitrary order)
-# glob.glob(root_dir+'/**', recursive=True) returns a list (use sorted() to sort)

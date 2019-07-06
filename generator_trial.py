@@ -21,7 +21,7 @@ test_generator = build_generators(
     batch_size=256,
     preprocess_fn=robinson_processing)
 
-score = model.evaluate_generator(
+scores = model.evaluate_generator(
     test_generator,
     steps=test_generator.__len__(),
     use_multiprocessing=True,
@@ -29,4 +29,4 @@ score = model.evaluate_generator(
     verbose=True)
 
 print(model.metrics_names)
-print(score)
+print(scores)

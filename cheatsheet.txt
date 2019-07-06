@@ -18,6 +18,8 @@ screen -S [session-name]
 screen -x
 screen -r [session-name]
 ctrl-a d
+ctrl-a h # toggle logging
+mv hardcopy.0 attention/logs/session_log.txt # move log
 exit
 
 # Conda
@@ -51,3 +53,7 @@ With slash:
      cp -r .../old_folder/ .../new_folder => new_folder contains a, b, c
 Example:
     cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ /home/freddie/ILSVRC2012-simcontexts
+
+# Managing files with Python
+glob.iglob(root_dir+'/**', recursive=True) returns an iterator (arbitrary order)
+glob.glob(root_dir+'/**', recursive=True) returns a list (use sorted() to sort)

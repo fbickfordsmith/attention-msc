@@ -31,7 +31,6 @@ interval_ends = np.linspace(50, 999, 4, dtype=int)
 
 for i in seed_inds:
     sorted_inds = np.argsort(Xdist[i])[1:] # 1 => don't include seed index
-
     for ind_end in interval_ends:
         sampled_inds = sorted_inds[sample_inds(ind_end, i)]
         batch_inds = np.insert(sampled_inds, 0, i)

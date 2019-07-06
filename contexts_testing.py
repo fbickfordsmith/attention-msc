@@ -36,10 +36,15 @@ for i in range(num_contexts):
         evaluate_model(model, path_splitdata+f'context{i:02}'))
 
     # evaluate on out-of-context data
-    scores_temp = np.array([
-        evaluate_model(model, path_splitdata+f'context{j:02}')
-        for j in range(num_contexts) if j != i])
-    scores_outofcontext.append(np.mean(scores_temp, axis=0))
+    scores_temp = []
+    for j in range(num_contexts):
+        if j != i:
+            scores_temp.append(
+                evaluate_model(model, path_splitdata+f'context{j:02}'))
+    # scores_temp = np.array([
+        # evaluate_model(model, path_splitdata+f'context{j:02}')
+        # for j in range(num_contexts) if j != i])
+    scores_outofcontext.append(np.mean(np.array(scores_temp), axis=0))
 
     # evaluate on all data
     scores_alldata.append(evaluate_model(model, path_alldata))

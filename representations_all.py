@@ -27,20 +27,6 @@ for layer in vgg.layers[2:-1]:
 model = Model(input, output)
 activations, generator = predict_model(model, path_data)
 
-# generator = datagen.flow_from_directory(
-#     directory=path_data,
-#     target_size=(224, 224),
-#     batch_size=256,
-#     shuffle=False,
-#     class_mode=None)
-#
-# activations = model.predict_generator(
-#     generator=generator,
-#     steps=int(np.ceil(generator.n/generator.batch_size)),
-#     use_multiprocessing=True,
-#     workers=7,
-#     verbose=True)
-
 for i in range(generator.num_classes):
     class_activations = activations[np.flatnonzero(generator.classes==i)]
     np.save(f

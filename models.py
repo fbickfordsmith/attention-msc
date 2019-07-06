@@ -14,9 +14,9 @@ from tensorflow import RunOptions, RunMetadata
 compile_params = dict(
         optimizer=optimizers.Adam(lr=3e-4),
         loss='categorical_crossentropy',
-        metrics=['accuracy', 'top_k_categorical_accuracy'], # top-1 and top5 acc
-        options=RunOptions(report_tensor_allocations_upon_oom=True),
-        run_metadeta=RunMetadata())
+        metrics=['accuracy', 'top_k_categorical_accuracy']) # top-1 and top5 acc
+        # options=RunOptions(report_tensor_allocations_upon_oom=True),
+        # run_metadeta=RunMetadata())
 
 def build_model(attention_layer, train=True):
     vgg = VGG16(weights='imagenet')

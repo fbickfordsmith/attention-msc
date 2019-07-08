@@ -4,7 +4,7 @@ attention model has been trained on examples from that context only. For each
 trained model, evaluate on val_white examples.
 
 Command-line arguments:
-1. type_context in {diff, sim}.
+1. type_context in {diff, sim}
 '''
 
 import os
@@ -20,10 +20,9 @@ from models import build_model
 from testing import evaluate_model
 
 _, type_context = sys.argv
-path_weights = '/home/freddie/keras-models/'
-path_splitdata = f'/home/freddie/ILSVRC2012-{type_context}contexts/val_white/'
-path_alldata = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
-num_contexts = len(os.listdir(path_splitdata))
+path_weights = '/home/freddie/attention/npy/'
+path_data = f'/home/freddie/ILSVRC2012-{type_context}contexts/val_white/'
+num_contexts = len(os.listdir(path_data))
 scores_incontext, scores_outofcontext = [], []
 
 for i in range(num_contexts):
@@ -33,18 +32,23 @@ for i in range(num_contexts):
 
     # evaluate on in-context data
     scores_incontext.append(
-        evaluate_model(model, path_splitdata+f'context{i:02}'))
+        evaluate_model(model, path_data+f'context{i:02}'))
+    np.save(
+        f'results/{type_context}contexts_incontext{i:02}.npy',
+        np.array(scores_incontext),
+        allow_pickle=False)
 
     # evaluate on out-of-context data
     scores_temp = []
     for j in range(num_contexts):
         if j != i:
             scores_temp.append(
-                evaluate_model(model, path_splitdata+f'context{j:02}'))
-    # scores_temp = np.array([
-        # evaluate_model(model, path_splitdata+f'context{j:02}')
-        # for j in range(num_contexts) if j != i])
+                evaluate_model(model, path_data+f'context{j:02}'))
     scores_outofcontext.append(np.mean(np.array(scores_temp), axis=0))
+    np.save(
+        f'results/{type_context}contexts_outofcontext{i:02}.npy',
+        np.array(scores_outofcontext),
+        allow_pickle=False)
 
 scores_arr = np.concatenate((
     np.array(scores_incontext),

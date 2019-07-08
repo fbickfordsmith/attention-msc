@@ -3,7 +3,7 @@ ImageNet classes have been grouped into contexts. For each context, train an
 attention layer on examples from that context only.
 
 Command-line arguments:
-1. type_context in {diff, sim}.
+1. type_context in {diff, sim}
 
 References:
 - stackoverflow.com/questions/40496069/reset-weights-in-keras-layer/50257383

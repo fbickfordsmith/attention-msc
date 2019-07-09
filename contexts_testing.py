@@ -15,7 +15,6 @@ import sys
 import itertools
 import numpy as np
 import pandas as pd
-# from layers import FixedWeightAttention
 from keras.layers import Lambda
 from models import build_model
 from testing import evaluate_model
@@ -29,27 +28,29 @@ scores_incontext, scores_outofcontext = [], []
 for i in range(num_contexts):
     print(f'\nEvaluating model trained on {type_context}context {i}')
     W = np.load(f'{path_weights}{type_context}context{i:02}_attention_weights.npy')
-    # model = build_model(FixedWeightAttention(W), train=False)
     model = build_model(Lambda(lambda x: W * x), train=False)
+    # model = build_model(Attention(), train=False)
+    # model.layers[19].set_weights([W])
 
     # evaluate on in-context data
-    scores_incontext.append(
-        evaluate_model(model, f'{path_data}context{i:02}'))
+    scores_ic = np.array(evaluate_model(model, f'{path_data}context{i:02}'))
+    scores_incontext.append(scores_ic)
     np.save(
         f'results/{type_context}contexts_incontext{i:02}.npy',
-        np.array(scores_incontext),
+        scores_ic,
         allow_pickle=False)
 
     # evaluate on out-of-context data
-    scores_temp = []
+    scores_ooc = []
     for j in range(num_contexts):
         if j != i:
-            scores_temp.append(
+            scores_ooc.append(
                 evaluate_model(model, f'{path_data}context{j:02}'))
-    scores_outofcontext.append(np.mean(np.array(scores_temp), axis=0))
+    scores_ooc = np.mean(np.array(scores_ooc), axis=0)
+    scores_outofcontext.append(scores_ooc)
     np.save(
         f'results/{type_context}contexts_outofcontext{i:02}.npy',
-        np.array(scores_outofcontext),
+        scores_ooc,
         allow_pickle=False)
 
 scores_arr = np.concatenate((

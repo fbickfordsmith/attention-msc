@@ -19,6 +19,7 @@ screen -x
 screen -r [session-name]
 ctrl-a d
 ctrl-a h # toggle logging
+ctrl-a ctrl-g # toggle visual bell
 mv hardcopy.0 attention/logs/session_log.txt # move log
 exit
 
@@ -54,6 +55,7 @@ With slash:
 Example:
     cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ /home/freddie/ILSVRC2012-simcontexts
 
-# Managing files with Python
+# Python
+sys.path.insert(0, [path-to-files]) # 
 glob.iglob(root_dir+'/**', recursive=True) returns an iterator (arbitrary order)
 glob.glob(root_dir+'/**', recursive=True) returns a list (use sorted() to sort)

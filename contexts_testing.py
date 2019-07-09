@@ -5,6 +5,9 @@ trained model, evaluate on val_white examples.
 
 Command-line arguments:
 1. type_context in {diff, sim}
+2. context_start in [0, num_contexts-1]
+3. context_end in [context_start+1, num_contexts]
+
 '''
 
 import os
@@ -19,13 +22,14 @@ from keras.layers import Lambda
 from models import build_model
 from testing import evaluate_model
 
-_, type_context = sys.argv
+_, type_context, context_start, context_end = sys.argv
 path_weights = '/home/freddie/attention/npy/'
 path_data = f'/home/freddie/ILSVRC2012-{type_context}contexts/val_white/'
 num_contexts = len(os.listdir(path_data))
 scores_incontext, scores_outofcontext = [], []
 
-for i in range(num_contexts):
+for i in range(context_start, context_end):
+# for i in range(num_contexts):
     print(f'\nEvaluating model trained on {type_context}context {i}')
     W = np.load(f'{path_weights}{type_context}context{i:02}_attention_weights.npy')
     model = build_model(Lambda(lambda x: W * x), train=False)

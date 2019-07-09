@@ -53,4 +53,4 @@ for alg in algorithms.keys():
     sizes, names, num_bigclusters = test_clustering(algorithms[alg])
     print(f'{alg}: {num_bigclusters} big clusters')
     pd.DataFrame(names).to_csv(
-        path+f'csv/clusters_{alg}.csv', header=False, index=False)
+        f'{path}csv/clusters_{alg}.csv', header=False, index=False)

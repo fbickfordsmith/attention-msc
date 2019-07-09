@@ -31,8 +31,6 @@ class Attention(Layer):
         self.kernel = self.add_weight(
             name='kernel',
             shape=(1,) + input_shape[1:],
-            # initializer='uniform',
-            # initializer='ones',
             initializer=TruncatedNormal(mean=1.0, stddev=0.1), # mean +/- 2 std
             trainable=True,
             constraint=GreaterEqualEpsilon())
@@ -44,16 +42,16 @@ class Attention(Layer):
     def compute_output_shape(self, input_shape):
         return input_shape
 
-class FixedWeightAttention(Layer):
-    def __init__(self, fixed_weights, **kwargs):
-        self.kernel = fixed_weights
-        super(FixedWeightAttention, self).__init__(**kwargs)
-
-    def build(self, input_shape):
-        super(FixedWeightAttention, self).build(input_shape)
-
-    def call(self, x):
-        return x * self.kernel
-
-    def compute_output_shape(self, input_shape):
-        return input_shape
+# class FixedWeightAttention(Layer):
+#     def __init__(self, fixed_weights, **kwargs):
+#         self.kernel = fixed_weights
+#         super(FixedWeightAttention, self).__init__(**kwargs)
+#
+#     def build(self, input_shape):
+#         super(FixedWeightAttention, self).build(input_shape)
+#
+#     def call(self, x):
+#         return x * self.kernel
+#
+#     def compute_output_shape(self, input_shape):
+#         return input_shape

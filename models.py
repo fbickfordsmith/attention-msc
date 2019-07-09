@@ -9,7 +9,7 @@ from keras.applications.vgg16 import VGG16
 from keras.models import Model
 from keras.layers import Input
 from keras import optimizers
-from tensorflow import RunOptions, RunMetadata
+# from tensorflow import RunOptions, RunMetadata
 
 compile_params = dict(
         optimizer=optimizers.Adam(lr=3e-4),

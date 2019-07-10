@@ -12,7 +12,7 @@ Command-line arguments:
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
 import sys
 import itertools
@@ -28,7 +28,7 @@ path_data = f'/home/freddie/ILSVRC2012-{type_context}contexts/val_white/'
 num_contexts = len(os.listdir(path_data))
 scores_incontext, scores_outofcontext = [], []
 
-for i in range(context_start, context_end):
+for i in range(int(context_start), int(context_end)):
 # for i in range(num_contexts):
     print(f'\nEvaluating model trained on {type_context}context {i}')
     W = np.load(f'{path_weights}{type_context}context{i:02}_attention_weights.npy')

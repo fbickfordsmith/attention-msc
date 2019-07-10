@@ -29,7 +29,7 @@ activations, generator = predict_model(model, path_data)
 
 for i in range(generator.num_classes):
     class_activations = activations[np.flatnonzero(generator.classes==i)]
-    np.save(f
+    np.save(
         f'{path_activations}class{i:04}_activations.npy'
         class_activations,
         allow_pickle=False)

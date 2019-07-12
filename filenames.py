@@ -2,7 +2,6 @@ from keras.preprocessing.image import ImageDataGenerator
 
 path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
 path_meta = '/home/freddie/attention/metadata/'
-
 datagen = ImageDataGenerator()
 
 for data_partition in ('train', 'val', 'val_white'):
@@ -13,9 +12,7 @@ for data_partition in ('train', 'val', 'val_white'):
         shuffle=False,
         class_mode=None)
 
-    filenames = np.array(generator.filenames)
-
-    np.save(
-        f'{path_meta}{data_partition}_filenames.npy',
-        np.array(generator.filenames),
-        allow_pickle=False)
+    with open(f'{path_meta}{data_partition}_filenames.csv', 'w') as f:
+        wr = csv.writer(f)
+        for item in generator.filenames:
+            wr.writerow([item])

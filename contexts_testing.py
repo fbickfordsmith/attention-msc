@@ -4,7 +4,7 @@ attention model has been trained on examples from that context only. For each
 trained model, evaluate on val_white examples.
 
 Command-line arguments:
-1. type_context in {diff, sim}
+1. type_context in {diff, sim, sem, size}
 2. context_start in [0, num_contexts-1]
 3. context_end in [context_start+1, num_contexts]
 '''

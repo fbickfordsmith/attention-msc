@@ -16,11 +16,8 @@ References:
 - thispointer.com/python-how-to-move-files-and-directories/
 '''
 
-import os
-os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
 import sys
+import csv
 import shutil
 from glob import glob
 from distutils.dir_util import copy_tree
@@ -31,7 +28,10 @@ path_home = '/home/freddie/'
 path_data = f'{path_home}ILSVRC2012-{type_context}contexts/{data_partition}/'
 path_wnids = f'{path_home}attention/csv/{type_context}contexts_wnids.csv'
 path_allclasses = f'{path_home}attention/txt/synsets.txt'
-contexts = np.loadtxt(path_wnids, dtype=str, delimiter=',')
+
+with open(path_wnids) as f:
+    contexts = [row for row in csv.reader(f, delimiter=',')]
+# contexts = np.loadtxt(path_wnids, dtype=str, delimiter=',')
 all_classes = np.array([line.rstrip('\n') for line in open(path_allclasses)])
 print(f'Running {script_name} on {path_data}')
 

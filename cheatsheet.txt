@@ -10,6 +10,7 @@ git push
 git pull
 git stash
 git stash clear
+git stash apply
 
 # Screen
 http://aperiodic.net/screen/quick_reference
@@ -56,6 +57,6 @@ Example:
     cp -r /mnt/fast-data16/datasets/ILSVRC/2012/clsloc/ /home/freddie/ILSVRC2012-simcontexts
 
 # Python
-sys.path.insert(0, [path-to-files]) # 
+sys.path.insert(0, [path-to-files])
 glob.iglob(root_dir+'/**', recursive=True) returns an iterator (arbitrary order)
 glob.glob(root_dir+'/**', recursive=True) returns a list (use sorted() to sort)

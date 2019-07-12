@@ -11,26 +11,19 @@ References:
 '''
 
 import os
-os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-
+import csv
 import numpy as np
 import pandas as pd
 
-path = '/Users/fbickfordsmith/Google Drive/Project/attention/ken-groupings/'
-filenames = [
-    'canidae_Imagenet.csv',
-    'kitchen_Imagenet.csv',
-    'cloth_Imagenet.csv',
-    'ave_Imagenet.csv',
-    # 'felidae_Imagenet.csv', # only 15 classes
-    'land_trans_Imagenet.csv']
+path = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
+filenames = [f for f in os.listdir(path) if 'imagenet' in f]
+wnids, num_classes = [], []
 
-wnids = []
-for filename in filenames:
-    df = pd.read_csv(f'{path}filename')
-    inds = np.random.choice(np.arange(df.shape[0]), size=35, replace=False)
-    wnids.append(list(df['wnid'][inds]))
+for f in filenames:
+    df = pd.read_csv(path+f)
+    wnids.append(list(df['wnid']))
+    num_classes.append(df.shape[0])
+    print(f'Found {df.shape[0]} classes in {f}')
 
-pd.DataFrame(np.array(wnids)).to_csv(
-    f'{path}semcontexts_wnids.csv', header=False, index=False)
+with open(path+'semcontexts_wnids.csv', 'w') as f:
+    csv.writer(f).writerows(wnids)

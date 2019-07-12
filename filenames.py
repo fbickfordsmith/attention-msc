@@ -1,6 +1,7 @@
 from keras.preprocessing.image import ImageDataGenerator
 
 path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/'
+path_meta = '/home/freddie/attention/metadata/'
 
 datagen = ImageDataGenerator()
 
@@ -15,6 +16,6 @@ for data_partition in ('train', 'val', 'val_white'):
     filenames = np.array(generator.filenames)
 
     np.save(
-        f'{path_activations}class{i:04}_activations.npy'
-        class_activations,
+        f'{path_meta}{data_partition}_filenames.npy',
+        np.array(generator.filenames),
         allow_pickle=False)

@@ -7,12 +7,11 @@ Command-line arguments:
 1. type_context in {diff, sim}
 2. context_start in [0, num_contexts-1]
 3. context_end in [context_start+1, num_contexts]
-
 '''
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 import sys
 import itertools

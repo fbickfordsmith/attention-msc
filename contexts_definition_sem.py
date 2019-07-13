@@ -1,10 +1,5 @@
 '''
-Group ImageNet classes into 40 'semantic contexts'.
-
-Method:
-1. Take the semantic groupings defined by Ken.
-2. Ignore the cats (felidae) group because it only contains 15 classes.
-3. For all other groups, randomly sample 35 classes to form a context.
+Group ImageNet classes into 6 'semantic contexts'.
 
 References:
 - github.com/don-tpanic/CSML_attention_project_pieces

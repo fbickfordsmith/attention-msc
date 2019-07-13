@@ -1,3 +1,12 @@
+'''
+Group ImageNet classes into 10 'size contexts'.
+
+Method:
+1. Take the mean VGG16 representations (4096-dim vectors) of ImageNet classes.
+2. For 10 different seed points, sample 4 sets of points, each of which is
+    defined as a context. These sets can have overlapping members.
+'''
+
 import csv
 import numpy as np
 import pandas as pd

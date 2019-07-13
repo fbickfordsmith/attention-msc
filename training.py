@@ -7,6 +7,7 @@ References:
 import numpy as np
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import EarlyStopping
 
 datagen_train = ImageDataGenerator(
     preprocessing_function=preprocess_input,

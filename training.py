@@ -26,7 +26,7 @@ early_stopping = EarlyStopping(
     restore_best_weights=True) # False => weights from last step are used
 
 training_params = dict(
-    epochs=15,
+    epochs=1000,
     verbose=1,
     callbacks=[early_stopping],
     use_multiprocessing=True,

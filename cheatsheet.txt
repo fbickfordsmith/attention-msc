@@ -32,6 +32,8 @@ conda deactivate
 
 # Bash
 ssh [username]@love16.pals.ucl.ac.uk
+sshfs freddie@love16.pals.ucl.ac.uk:/home/freddie /Users/fbickfordsmith/love16
+sshfs [username]@love16.pals.ucl.ac.uk:/path-on-server/ ~/path-to-mount-point
 exit # disconnect
 watch -n1.0 nvidia-smi
 free -h # memory
@@ -40,10 +42,13 @@ du -ah [folder-path] | head
 python3 -i [file-name.py] # run in interactive mode
 
 # Managing files
+https://everythinglinux.org/rsync/
 pwd, cd, ls, mkdir, rmdir, rm
 rm -rf [folder-name] # remove folder and files
 cp [src-file-path] [dest-file-path] # copy file
 cp -r [src-folder-path] [dest-folder-path] # copy folder
+rsync --progress --recursive '/Users/fbickfordsmith/love16/activations/' '/Users/fbickfordsmith/activations-copy/'
+rsync --progress --compress [src-file-path] [dest-folder-path] # copy file
 mv [src-file-path] [dest-file-path] # move/rename
 ls -1 | wc -l # count files
 

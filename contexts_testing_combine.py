@@ -1,10 +1,11 @@
 import numpy as np
 import pandas as pd
 
-type_context = 'sim'
+type_context = 'size' # 'sim'
+num_contexts = 18 # 40
 
 scores_incontext, scores_outofcontext = [], []
-for i in range(40):
+for i in range(num_contexts):
     scores_incontext.append(np.load(
         f'results/{type_context}contexts_incontext{i:02}.npy'))
     scores_outofcontext.append(np.load(

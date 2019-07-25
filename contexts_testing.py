@@ -24,7 +24,7 @@ from testing import evaluate_model
 _, type_context, context_start, context_end = sys.argv
 path_weights = '/home/freddie/attention/npy/'
 path_data = f'/home/freddie/ILSVRC2012-{type_context}contexts/val_white/'
-num_contexts = len(os.listdir(path_data))
+# num_contexts = len(os.listdir(path_data))
 scores_incontext, scores_outofcontext = [], []
 
 for i in range(int(context_start), int(context_end)):

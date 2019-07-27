@@ -14,7 +14,7 @@ from img_processing import crop_and_pca_generator
     # preprocessing_function=preprocess_input,
     # validation_split=0.1)
 
-datagen = ImageDataGenerator(
+datagen_train = ImageDataGenerator(
     fill_mode='nearest',
     horizontal_flip=True,
     rescale=None,
@@ -22,10 +22,11 @@ datagen = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=0.1)
 
-datagen_train = crop_and_pca_generator(datagen, crop_length=224)
+# datagen_train = crop_and_pca_generator(datagen, crop_length=224)
 
 generator_params_train = dict(
-    target_size=(224, 224),
+    # target_size=(224, 224),
+    target_size=(256, 256),
     batch_size=256,
     shuffle=True,
     class_mode='categorical')
@@ -47,15 +48,18 @@ def compute_steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
 def train_model(model, path_data):
-    train_generator = datagen_train.flow_from_directory(
+    train_generator0 = datagen_train.flow_from_directory(
         directory=path_data,
         subset='training',
         **generator_params_train)
 
-    valid_generator = datagen_train.flow_from_directory(
+    valid_generator0 = datagen_train.flow_from_directory(
         directory=path_data,
         subset='validation',
         **generator_params_train)
+
+    train_generator = crop_and_pca_generator(train_generator0, crop_length=224)
+    valid_generator = crop_and_pca_generator(valid_generator0, crop_length=224)
 
     history = model.fit_generator(
         generator=train_generator,

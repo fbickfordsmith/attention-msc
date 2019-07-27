@@ -1,4 +1,5 @@
 '''
+[OLD VERSION]
 Group ImageNet classes into 10 'size contexts'.
 
 Method:

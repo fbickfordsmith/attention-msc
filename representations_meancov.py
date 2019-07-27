@@ -21,7 +21,8 @@ for i in range(1000):
     activations = np.load(
         f'{path_activations}class{i:04}_activations.npy')
 
-    # full cov takes ~10 seconds per fit; diag takes ~0.2 seconds
+    # full cov takes ~10 seconds per fit and ~134 MB to store
+    # diag cov takes ~0.2 seconds per fit and ~0.03 MB to store
     gm = GaussianMixture(covariance_type='diag').fit(activations)
     means.append(gm.means_[0])
     covariances.append(gm.covariances_[0])

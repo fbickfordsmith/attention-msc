@@ -15,10 +15,18 @@ mahalanobis = []
 start = time.time()
 
 for i in range(1000):
-    if i % 100 == 0:
+    if i % 10 == 0:
         print(f'i = {i}, time={time.time()-start}')
     mahalanobis.append(cdist(means, means[i][None, :], VI=np.diag(1/covariances[i]), metric='mahalanobis'))
 
-# mahalanobis[r][c] = distance(mean_c, distribution_r)
-# => np.array(mahalanobis).T[r, c] = distance(mean_r, distribution_c)
-np.save(f'{path}mahalanobis.npy', np.array(mahalanobis).T, allow_pickle=False)
+# np.array(mahalanobis).shape = (1000, 1000, 1) but we want (1000, 1000)
+# mahalanobis[r, c] = distance(mean_c, distribution_r) but we want distance(mean_r, distribution_c)
+mahalanobis_arr = np.array(mahalanobis)[:, :, 0].T # (1000, 1000, 1) -> (1000, 1000)
+np.save(f'{path}mahalanobis.npy', mahalanobis_arr, allow_pickle=False)
+
+# check
+# i = 999
+# j = 100
+# a = cdist(means[i][None, :], means[j][None, :], VI=np.diag(1/covariances[j]), metric='mahalanobis')
+# b = mahalanobis_arr[i, j]
+# np.sum(a-b)

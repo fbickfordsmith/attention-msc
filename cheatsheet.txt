@@ -31,6 +31,7 @@ conda activate py36
 conda deactivate
 
 # Bash
+http://rik.smith-unna.com/command_line_bootcamp/?id=eto0hlhxx8p
 ssh [username]@love16.pals.ucl.ac.uk
 sshfs freddie@love16.pals.ucl.ac.uk:/home/freddie /Users/fbickfordsmith/love16
 sshfs [username]@love16.pals.ucl.ac.uk:/path-on-server/ ~/path-to-mount-point

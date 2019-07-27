@@ -8,10 +8,21 @@ import numpy as np
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
+from img_processing import crop_and_pca_generator
 
-datagen_train = ImageDataGenerator(
+# datagen_train = ImageDataGenerator(
+    # preprocessing_function=preprocess_input,
+    # validation_split=0.1)
+
+datagen = ImageDataGenerator(
+    fill_mode='nearest',
+    horizontal_flip=True,
+    rescale=None,
+    data_format='channels_last',
     preprocessing_function=preprocess_input,
     validation_split=0.1)
+
+datagen_train = crop_and_pca_generator(datagen, crop_length=224)
 
 generator_params_train = dict(
     target_size=(224, 224),
@@ -26,7 +37,7 @@ early_stopping = EarlyStopping(
     restore_best_weights=True) # False => weights from last step are used
 
 training_params = dict(
-    epochs=1000,
+    epochs=100,
     verbose=1,
     callbacks=[early_stopping],
     use_multiprocessing=True,

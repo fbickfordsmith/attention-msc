@@ -64,10 +64,10 @@ def train_model(model, path_data):
     history = model.fit_generator(
         generator=train_generator,
         steps_per_epoch=compute_steps(
-            train_generator.n, train_generator.batch_size),
+            train_generator0.n, train_generator0.batch_size),
         validation_data=valid_generator,
         validation_steps=compute_steps(
-            valid_generator.n, valid_generator.batch_size),
+            valid_generator0.n, valid_generator0.batch_size),
         **training_params)
 
     return model, history

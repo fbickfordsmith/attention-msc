@@ -7,10 +7,15 @@ try similarity measures with full covariances
 remember to change back `datagen_train` in `training.py`
 
 full covariance matrix takes too long to find, and distances are slower to
-compute with full covariance.
+compute with full covariance. can store as 16-bit floats to reduce storage
+required.
 
 frechet = wasserstein-2. wasserstein seems to be better than KL (see WGAN paper)
-so not expecting KL to give better results than frechet.
+so shouldn't expect KL to give better results than frechet.
+
+can we remove desktop items from server?
+
+save arrays as 16-bit floats?
 
 mahalanobis_v3.py takes 20s/loop * 1000loops = 5.5hr
 kl_divergence_v2.py takes 40s/loop * 1000loops = 11hr
@@ -18,3 +23,14 @@ kl_divergence_v2.py takes 40s/loop * 1000loops = 11hr
 similarities
 - ssim: scikit-image, tensorflow etc
 - kl, sym kl, js, mahalanobis, frechet: tensorflow etc
+
+-------------
+
+changes to make:
+- patience=1 -> patience=10
+- flow_from_directory -> flow_from_dataframe
+- simplify context csv files
+- combine npy files in results/
+- tidy keras-models/
+- save activations at output of VGG1
+- type(activations)=float64 -> type(activations)=float16

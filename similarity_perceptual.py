@@ -29,6 +29,9 @@ import time
 start = time.time()
 
 dir0, dir1 = 'n01440764', 'n01440764' # 'n01943899'
+paths_dir0 = glob(path_data+dir0+'/*')
+paths_dir1 = glob(path_data+dir1+'/*')
+path_combos = np.array(list(cartesian(paths_dir0, paths_dir1)))
 distances = []
 for i, (file0, file1) in enumerate(path_combos):
     if i % 500 == 0: print(i)

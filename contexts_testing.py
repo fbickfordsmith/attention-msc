@@ -22,9 +22,9 @@ from models import build_model
 from testing import evaluate_model
 
 _, type_context, context_start, context_end = sys.argv
-path_weights = '/home/freddie/attention/npy/'
+path_weights = '/home/freddie/attention/weights/'
 path_data = f'/home/freddie/ILSVRC2012-{type_context}contexts/val_white/'
-# num_contexts = len(os.listdir(path_data))
+num_contexts = len(os.listdir(path_data))
 scores_incontext, scores_outofcontext = [], []
 
 for i in range(int(context_start), int(context_end)):
@@ -38,10 +38,10 @@ for i in range(int(context_start), int(context_end)):
     # evaluate on in-context data
     scores_ic = np.array(evaluate_model(model, f'{path_data}context{i:02}'))
     scores_incontext.append(scores_ic)
-    np.save(
-        f'results/{type_context}contexts_incontext{i:02}.npy',
-        scores_ic,
-        allow_pickle=False)
+#    np.save(
+#        f'results/{type_context}contexts_incontext{i:02}.npy',
+#        scores_ic,
+#        allow_pickle=False)
 
     # evaluate on out-of-context data
     scores_ooc = []
@@ -51,10 +51,10 @@ for i in range(int(context_start), int(context_end)):
                 evaluate_model(model, f'{path_data}context{j:02}'))
     scores_ooc = np.mean(np.array(scores_ooc), axis=0)
     scores_outofcontext.append(scores_ooc)
-    np.save(
-        f'results/{type_context}contexts_outofcontext{i:02}.npy',
-        scores_ooc,
-        allow_pickle=False)
+#    np.save(
+#        f'results/{type_context}contexts_outofcontext{i:02}.npy',
+#        scores_ooc,
+#        allow_pickle=False)
 
 scores_arr = np.concatenate((
     np.array(scores_incontext),

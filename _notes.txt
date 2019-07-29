@@ -24,6 +24,11 @@ similarities
 - ssim: scikit-image, tensorflow etc
 - kl, sym kl, js, mahalanobis, frechet: tensorflow etc
 
+perceptual similarity on val_white
+- vgg takes 30s/loop * 500,500loops = 4170hr
+- alexnet takes 20s/loop
+- squeezenet takes 30s/loop
+
 -------------
 
 changes to make:

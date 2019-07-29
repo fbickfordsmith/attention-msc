@@ -12,7 +12,7 @@ datagen_test = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 generator_params_test = dict(
     target_size=(224, 224),
-    batch_size=128,
+    batch_size=256,
     shuffle=False)
 
 def compute_steps(num_examples, batch_size):

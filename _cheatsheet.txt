@@ -26,8 +26,11 @@ exit
 
 # Conda
 conda create -n [env-name] python=3.6
+conda activate [env-name]
 conda install [package1] [package2] ...
-conda activate py36
+conda install cython numpy scipy pandas matplotlib scikit-learn scikit-image opencv tqdm
+conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+pip install tensorflow-gpu
 conda deactivate
 
 # Bash

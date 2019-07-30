@@ -35,14 +35,15 @@ conda deactivate
 
 # Bash
 http://rik.smith-unna.com/command_line_bootcamp/?id=eto0hlhxx8p
+https://www.geeksforgeeks.org/du-command-linux-examples/
 ssh [username]@love16.pals.ucl.ac.uk
 sshfs freddie@love16.pals.ucl.ac.uk:/home/freddie /Users/fbickfordsmith/love16
 sshfs [username]@love16.pals.ucl.ac.uk:/path-on-server/ ~/path-to-mount-point
 exit # disconnect
 watch -n1.0 nvidia-smi
 free -h # memory
-du -h -d1 [folder-path]
-du -ah [folder-path] | head
+du -sh [folder-path] # show human-readable summary
+du -ah [folder-path] | tail # show files as well as folder
 python3 -i [file-name.py] # run in interactive mode
 
 # Managing files

@@ -25,9 +25,11 @@ for layer in vgg.layers[2:-1]:
 model = Model(input, output)
 activations, generator = predict_model(model, path_data)
 
+# need to split this up to limit memory usage
+
 for i in range(generator.num_classes):
     class_activations = activations[np.flatnonzero(generator.classes==i)]
     np.save(
-        f'{path_activations}class{i:04}_activations.npy'
+        f'{path_activations}class{i:04}_activations.npy',
         class_activations,
         allow_pickle=False)

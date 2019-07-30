@@ -15,7 +15,7 @@ so shouldn't expect KL to give better results than frechet.
 
 can we remove desktop items from server?
 
-save arrays as 16-bit floats?
+save arrays as 16-bit floats? still using GPU3?
 
 mahalanobis_v3.py takes 20s/loop * 1000loops = 5.5hr
 kl_divergence_v2.py takes 40s/loop * 1000loops = 11hr
@@ -37,5 +37,8 @@ changes to make:
 - simplify context csv files
 - combine npy files in results/
 - tidy keras-models/
-- save activations at output of VGG1
+- save activations at output of VGG1 (need to assess I/O vs forward pass*)
 - type(activations)=float64 -> type(activations)=float16
+
+
+* prelim tests suggest I/O is 3x slower for HDD

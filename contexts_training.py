@@ -40,6 +40,6 @@ for i in range(num_contexts):
     pd.DataFrame(history.history).to_csv(
         f'{path_training}{context_name}_training.csv')
     np.save(
-        f'{path_weights}{context_name}_attention_weights.npy',
+        f'{path_weights}{context_name}_weights.npy',
         model.layers[ind_attention].get_weights()[0],
         allow_pickle=False)

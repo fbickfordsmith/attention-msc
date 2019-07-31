@@ -33,7 +33,7 @@ num_contexts = len(os.listdir(path_dataframes))
 for i in range(num_contexts):
     context_name = f'{type_context}context{i:02}'
     print(f'\nTraining on {context_name}')
-    dataframe = pd.read_csv(f'{path_dataframes}context{i:02}_dataframe.csv')
+    dataframe = pd.read_csv(f'{path_dataframes}{context_name}_dataframe.csv')
     model.load_weights(path_initmodel)
     model, history = train_model(model, dataframe, path_data)
     ind_attention = np.flatnonzero(
@@ -41,6 +41,6 @@ for i in range(num_contexts):
     pd.DataFrame(history.history).to_csv(
         f'{path_training}{context_name}_training.csv')
     np.save(
-        f'{path_weights}{context_name}_attention_weights.npy',
+        f'{path_weights}{context_name}_weights.npy',
         model.layers[ind_attention].get_weights()[0],
         allow_pickle=False)

@@ -20,7 +20,7 @@ References:
 '''
 
 import numpy as np
-from scipy.linalg import sqrtm
+# from scipy.linalg import sqrtm
 import time
 
 path = '/Users/fbickfordsmith/Google Drive/Project/attention/npy/'

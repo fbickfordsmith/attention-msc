@@ -9,7 +9,7 @@ Method:
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
 import numpy as np
 import pandas as pd

@@ -3,9 +3,10 @@ from sklearn.preprocessing import normalize
 import time
 
 path_activations = '/Users/fbickfordsmith/activations-copy/'
+path_save = '/Users/fbickfordsmith/Google Drive/Project/attention/activations/'
 # path_activations = '/home/freddie/activations/'
-path_save = '/home/freddie/attention/activations/'
-num_samples = 200
+# path_save = '/home/freddie/attention/activations/'
+num_samples = 125
 similarity = np.zeros((1000, 1000))
 
 A = []
@@ -21,24 +22,11 @@ for i in range(1000):
     for j in range(1000):
         if j >= i:
             Aj = normalize(A[j])
+            # similarity[i, j] = np.mean(np.array(
+                # [np.sum(np.roll(Ai, shift, axis=0)*Aj, axis=1)
+                # for shift in range(num_samples)]))
             similarity[i, j] = np.mean(np.array(
-                [np.tensordot(np.roll(Ai, shift, axis=0), Aj)/Ai.shape[0]
-                for shift in range(Ai.shape[0])]))
+                [np.tensordot(np.roll(Ai, shift, axis=0), Aj)/num_samples
+                for shift in range(num_samples)]))
 
 np.save(f'{path_save}activations_dotproduct.npy', similarity, allow_pickle=False)
-
-i = 30
-d = []
-Ai = normalize(A[i], axis=1)
-start = time.time()
-for j in range(1000):
-    Aj = normalize(A[j], axis=1)
-    d.append(np.mean(np.array(
-        # [np.tensordot(np.roll(Ai, shift, axis=0), Aj)/Ai.shape[0]
-        [np.sum(np.roll(Ai, shift, axis=0)*Aj, axis=1)
-        for shift in range(num_samples)])))
-
-
-print(time.time()-start)
-print('hi')
-# takes ~140 seconds per loop => 140,000/3600 = 39 hours but can halve that

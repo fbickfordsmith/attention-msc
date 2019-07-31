@@ -15,10 +15,14 @@ so shouldn't expect KL to give better results than frechet.
 
 can we remove desktop items from server?
 
-save arrays as 16-bit floats? still using GPU3?
+save arrays as 16-bit floats? still using GPU3? way to clear memory or control
+which memory is used?
+
+terminology: embedding, representation, activation, features?
 
 mahalanobis_v3.py takes 20s/loop * 1000loops = 5.5hr
 kl_divergence_v2.py takes 40s/loop * 1000loops = 11hr
+similarity_dotproduct_np2.py with num_samples=125 takes 17s/loop * 1000loops = 4.5hr
 
 similarities
 - ssim: scikit-image, tensorflow etc

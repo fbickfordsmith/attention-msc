@@ -18,23 +18,24 @@ import numpy as np
 import pandas as pd
 from layers import Attention
 from models import build_model
-from training import train_model
+from training_df import train_model
 
 _, type_context = sys.argv
 path_weights = '/home/freddie/attention/weights/'
-path_splitdata = f'/home/freddie/ILSVRC2012-{type_context}contexts/train/'
+path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/train/'
+path_dataframes = f'/home/freddie/dataframes_train/{type_context}contexts/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_training = '/home/freddie/attention/training/'
 model = build_model(Attention(), train=True)
 model.save_weights(path_initmodel)
-num_contexts = len(os.listdir(path_splitdata))
+num_contexts = len(os.listdir(path_dataframes))
 
 for i in range(num_contexts):
-    print(f'\nTraining on context {i}')
     context_name = f'{type_context}context{i:02}'
-    path_contextdata = f'{path_splitdata}context{i:02}/'
+    print(f'\nTraining on {context_name}')
+    dataframe = pd.read_csv(f'{path_dataframes}context{i:02}_dataframe.csv')
     model.load_weights(path_initmodel)
-    model, history = train_model(model, path_contextdata)
+    model, history = train_model(model, dataframe, path_data)
     ind_attention = np.flatnonzero(
         ['attention' in layer.name for layer in model.layers])[0]
     pd.DataFrame(history.history).to_csv(

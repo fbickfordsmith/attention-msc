@@ -27,7 +27,7 @@ path_weights = '/home/freddie/attention/weights/'
 path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_dataframes = f'/home/freddie/dataframes_{data_partition}/{type_context}contexts/'
 path_results = '/home/freddie/attention/results/'
-num_contexts = len(os.listdir(path_data))
+num_contexts = len(os.listdir(path_dataframes))
 scores_incontext, scores_outofcontext = [], []
 
 for i in range(int(context_start), int(context_end)):

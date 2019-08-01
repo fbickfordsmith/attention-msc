@@ -8,8 +8,8 @@ import time
 
 path_activations = '/home/freddie/activations/'
 path_save = '/home/freddie/attention/activations/'
-num_samples = 720
-num_splits = 5
+num_samples = 540
+num_splits = 3
 similarity, A_np = [], []
 
 for i in range(1000):

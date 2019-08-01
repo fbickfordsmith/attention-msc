@@ -37,7 +37,7 @@ for i in range(int(context_start), int(context_end)):
     model = build_model(Lambda(lambda x: W * x), train=False)
 
     # evaluate on in-context data
-    dataframe_ic = pd.read_csv(f'{path_dataframes}{name_context}_dataframe.csv')
+    dataframe_ic = pd.read_csv(f'{path_dataframes}{name_context}_df.csv')
     scores_ic = np.array(evaluate_model(model, dataframe_ic, path_data))
     scores_incontext.append(scores_ic)
 
@@ -46,7 +46,7 @@ for i in range(int(context_start), int(context_end)):
     for j in range(num_contexts):
         if j != i:
             name_ooc = f'{type_context}context{j:02}'
-            dataframe_ooc = pd.read_csv(f'{path_dataframes}{name_ooc}_dataframe.csv')
+            dataframe_ooc = pd.read_csv(f'{path_dataframes}{name_ooc}_df.csv')
             scores_ooc.append(evaluate_model(model, dataframe_ooc, path_data))
     scores_ooc = np.mean(np.array(scores_ooc), axis=0)
     scores_outofcontext.append(scores_ooc)

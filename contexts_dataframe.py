@@ -36,12 +36,11 @@ for type_context in ['diff', 'sem', 'sim', 'size']:
 
     for i, context in enumerate(contexts):
         name_context = f'{type_context}context{i:02}'
-        inds_incontext = np.array([np.flatnonzero(df['wnid']==w) for w in context]).flatten()
+        inds_incontext = []
+        for wnid in context:
+            inds_incontext.extend(np.flatnonzero(df['wnid']==wnid))
+        # inds_incontext = np.array([np.flatnonzero(df['wnid']==w) for w in context]).flatten()
         inds_outofcontext = np.setdiff1d(range(len(df['wnid'])), inds_incontext)
-        # inds_incontext = []
-        # for wnid in context:
-            # inds_incontext.extend(np.flatnonzero(df['wnid']==wnid))
-        # inds_outofcontext = np.setdiff1d(range(len(df['wnid'])), inds_incontext)
 
         df.iloc[inds_incontext].to_csv(
             f'{path_save}{type_context}contexts/{name_context}_df.csv', index=False)

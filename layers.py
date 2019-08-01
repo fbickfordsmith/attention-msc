@@ -30,8 +30,9 @@ class Attention(Layer):
     def build(self, input_shape):
         self.kernel = self.add_weight(
             name='kernel',
-            shape=(1,) + input_shape[1:],
-            initializer=TruncatedNormal(mean=1.0, stddev=0.1), # mean +/- 2 std
+            shape=(1,)+input_shape[1:],
+            initializer='ones',
+            # initializer=TruncatedNormal(mean=1.0, stddev=0.1), # mean +/- 2 std
             trainable=True,
             constraint=GreaterEqualEpsilon())
         super(Attention, self).build(input_shape)

@@ -42,10 +42,3 @@ for type_context in ['diff', 'sem', 'sim', 'size']:
                 f'{path_save}{type_context}contexts/'
                 f'{type_context}context{i:02}_dataframe.csv',
                 index=False)
-
-# data_partition = 'val'
-# path_meta = '/home/freddie/attention/metadata/'
-# with open(f'{path_meta}{data_partition}_filenames.csv', 'w') as f:
-#     wr = csv.writer(f)
-#     for item in generator.filenames:
-#         wr.writerow([item])

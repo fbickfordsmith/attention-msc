@@ -44,7 +44,7 @@ training_params = dict(
     use_multiprocessing=True,
     workers=7)
 
-def compute_steps(num_examples, batch_size):
+def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
 def train_model(model, path_data):
@@ -63,10 +63,10 @@ def train_model(model, path_data):
 
     history = model.fit_generator(
         generator=train_generator,
-        steps_per_epoch=compute_steps(
+        steps_per_epoch=steps(
             train_generator0.n, train_generator0.batch_size),
         validation_data=valid_generator,
-        validation_steps=compute_steps(
+        validation_steps=steps(
             valid_generator0.n, valid_generator0.batch_size),
         **training_params)
 

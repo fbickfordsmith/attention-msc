@@ -15,7 +15,7 @@ generator_params_test = dict(
     batch_size=256,
     shuffle=False)
 
-def compute_steps(num_examples, batch_size):
+def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
 def predict_model(model, path_data):
@@ -25,7 +25,7 @@ def predict_model(model, path_data):
         **generator_params_test)
     predictions = model.predict_generator(
         generator=generator,
-        steps=compute_steps(generator.n, generator.batch_size),
+        steps=steps(generator.n, generator.batch_size),
         use_multiprocessing=False,
         verbose=True)
     return predictions, generator
@@ -37,7 +37,7 @@ def evaluate_model(model, path_data):
         **generator_params_test)
     scores = model.evaluate_generator(
         generator=generator,
-        steps=compute_steps(generator.n, generator.batch_size),
+        steps=steps(generator.n, generator.batch_size),
         use_multiprocessing=False,
         verbose=True)
     return scores

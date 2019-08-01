@@ -12,13 +12,12 @@ import pandas as pd
 
 path = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
 filenames = [f for f in os.listdir(path) if 'imagenet' in f]
-wnids, num_classes = [], []
+wnids = []
 
-for f in filenames:
-    df = pd.read_csv(path+f)
+for filename in filenames:
+    df = pd.read_csv(path+filename)
     wnids.append(list(df['wnid']))
-    num_classes.append(df.shape[0])
-    print(f'Found {df.shape[0]} classes in {f}')
+    print(f'Found {df.shape[0]} classes in {filename}')
 
 with open(path+'semcontexts_wnids.csv', 'w') as f:
     csv.writer(f).writerows(wnids)

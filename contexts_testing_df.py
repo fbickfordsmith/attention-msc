@@ -22,28 +22,32 @@ from models import build_model
 from testing_df import evaluate_model
 
 _, type_context, context_start, context_end = sys.argv
+data_partition = 'val_white'
 path_weights = '/home/freddie/attention/weights/'
-path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
-path_dataframes = f'/home/freddie/dataframes_train/{type_context}contexts/'
+path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+path_dataframes = f'/home/freddie/dataframes_{data_partition}/{type_context}contexts/'
 path_results = '/home/freddie/attention/results/'
 num_contexts = len(os.listdir(path_data))
 scores_incontext, scores_outofcontext = [], []
 
 for i in range(int(context_start), int(context_end)):
-    print(f'\nEvaluating model trained on {type_context}context {i}')
-    W = np.load(f'{path_weights}{type_context}context{i:02}_weights.npy')
+    name_context = f'{type_context}context{i:02}'
+    print(f'\nTesting on {name_context}')
+    W = np.load(f'{path_weights}{name_context}_weights.npy')
     model = build_model(Lambda(lambda x: W * x), train=False)
 
     # evaluate on in-context data
-    scores_ic = np.array(evaluate_model(model, f'{path_data}context{i:02}'))
+    dataframe_ic = pd.read_csv(f'{path_dataframes}{name_context}_dataframe.csv')
+    scores_ic = np.array(evaluate_model(model, dataframe_ic, path_data))
     scores_incontext.append(scores_ic)
 
     # evaluate on out-of-context data
     scores_ooc = []
     for j in range(num_contexts):
         if j != i:
-            scores_ooc.append(
-                evaluate_model(model, f'{path_data}context{j:02}'))
+            name_ooc = f'{type_context}context{j:02}'
+            dataframe_ooc = pd.read_csv(f'{path_dataframes}{name_ooc}_dataframe.csv')
+            scores_ooc.append(evaluate_model(model, dataframe_ooc, path_data))
     scores_ooc = np.mean(np.array(scores_ooc), axis=0)
     scores_outofcontext.append(scores_ooc)
 

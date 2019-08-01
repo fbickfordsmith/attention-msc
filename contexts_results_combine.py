@@ -6,15 +6,9 @@ num_contexts = 18 # 40
 
 scores_incontext, scores_outofcontext = [], []
 for i in range(num_contexts):
-    scores_incontext.append(np.load(
-        f'results/{type_context}contexts_incontext{i:02}.npy'))
-    scores_outofcontext.append(np.load(
-        f'results/{type_context}contexts_outofcontext{i:02}.npy'))
-
-scores_arr = np.concatenate((
-    np.array(scores_incontext),
-    np.array(scores_outofcontext)),
-    axis=1)
+    scores_incontext.append(np.load(f'results/{type_context}contexts_incontext{i:02}.npy'))
+    scores_outofcontext.append(np.load(f'results/{type_context}contexts_outofcontext{i:02}.npy'))
+scores_arr = np.concatenate((np.array(scores_incontext), np.array(scores_outofcontext)), axis=1)
 
 col_names = [
     'incontext_loss',

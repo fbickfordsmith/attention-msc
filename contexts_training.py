@@ -31,15 +31,13 @@ num_contexts = len(os.listdir(path_splitdata))
 
 for i in range(num_contexts):
     print(f'\nTraining on context {i}')
-    context_name = f'{type_context}context{i:02}'
+    name_context = f'{type_context}context{i:02}'
     path_contextdata = f'{path_splitdata}context{i:02}/'
     model.load_weights(path_initmodel)
     model, history = train_model(model, path_contextdata)
-    ind_attention = np.flatnonzero(
-        ['attention' in layer.name for layer in model.layers])[0]
-    pd.DataFrame(history.history).to_csv(
-        f'{path_training}{context_name}_training.csv')
+    ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
+    pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_training.csv')
     np.save(
-        f'{path_weights}{context_name}_weights.npy',
+        f'{path_weights}{name_context}_weights.npy',
         model.layers[ind_attention].get_weights()[0],
         allow_pickle=False)

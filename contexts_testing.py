@@ -47,8 +47,7 @@ for i in range(int(context_start), int(context_end)):
     scores_ooc = []
     for j in range(num_contexts):
         if j != i:
-            scores_ooc.append(
-                evaluate_model(model, f'{path_data}context{j:02}'))
+            scores_ooc.append(evaluate_model(model, f'{path_data}context{j:02}'))
     scores_ooc = np.mean(np.array(scores_ooc), axis=0)
     scores_outofcontext.append(scores_ooc)
 #    np.save(

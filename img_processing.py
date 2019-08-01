@@ -1,28 +1,11 @@
 '''
-Implement ImageNet preprocessing routine used by
-- Caleb Robinson (github.com/calebrob6/imagenet_validation)
-- Ken Luo (github.com/don-tpanic/CSML_attention_project_pieces)
+Implement ImageNet preprocessing routine used by Ken Luo.
+
+References:
+- github.com/don-tpanic/CSML_attention_project_pieces
 '''
 
-import cv2
-from keras.applications.vgg16 import preprocess_input
 import numpy as np
-
-def robinson_processing(img):
-    # resize
-    height = img.shape[0] * 256//min(img.shape[:2])
-    width = img.shape[1] * 256//min(img.shape[:2])
-    img = cv2.resize(img, (width, height), interpolation=cv2.INTER_CUBIC)
-
-    # crop
-    start_row = height//2 - 224//2
-    start_col = width//2 - 224//2
-    end_row = start_row + 224
-    end_col = start_col + 224
-    img = img[start_row:end_row, start_col:end_col]
-
-    # img is RGB; preprocess_input converts to BGR
-    return preprocess_input(img)
 
 def random_crop_batch(batch, random_crop_size):
     height, width = batch.shape[1], batch.shape[2]

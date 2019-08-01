@@ -30,19 +30,13 @@ for i in range(1000):
         X = tf.math.l2_normalize(X0, axis=1)
         Y = tf.math.l2_normalize(Y0, axis=1)
         Z = tf.reduce_mean(tf.convert_to_tensor(
-                [tf.reduce_sum(tf.multiply(tf.expand_dims(tf.roll(X, shift, axis=0), -1), Y), axis=1)
+                [tf.reduce_sum(
+                    tf.multiply(tf.expand_dims(tf.roll(X, shift, axis=0), -1), Y), axis=1)
                 for shift in range(num_samples)]), axis=(0, 1))
         z += tf.Session().run(Z, feed_dict={
             # X0:A_np[:, :, i], Y0:A_np})
             X0:A_np[j*(num_samples//num_splits):(j+1)*(num_samples//num_splits), :, i],
             Y0:A_np[j*(num_samples//num_splits):(j+1)*(num_samples//num_splits)]})
-
-        similarity.append(z)
+    similarity.append(z)
 
 np.save(f'{path_save}activations_cosine.npy', np.array(similarity), allow_pickle=False)
-
-# def get_sim(X, Y, shift):
-    # return tf.reduce_sum(tf.multiply(tf.expand_dims(tf.roll(X, shift, axis=0), -1), Y), axis=1)
-
-# Z = tf.reduce_mean(tf.convert_to_tensor(
-    # [get_sim(X, Y, shift) for shift in range(num_samples//3)]), axis=(0, 1))

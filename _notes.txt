@@ -15,7 +15,6 @@ code:
 - combine npy files in results/
 - tidy keras-models/
 - save activations at output of VGG1 (need to assess I/O vs forward pass)
-- type(activations)=float64 -> type(activations)=float16
 
 ----------
 NOTES

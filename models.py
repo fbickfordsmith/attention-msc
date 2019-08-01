@@ -10,11 +10,6 @@ from keras.models import Model
 from keras.layers import Input
 from keras import optimizers
 
-compile_params = dict(
-        optimizer=optimizers.Adam(lr=3e-4),
-        loss='categorical_crossentropy',
-        metrics=['accuracy', 'top_k_categorical_accuracy']) # top-1 and top5 acc
-
 def build_model(attention_layer, train=True):
     vgg = VGG16(weights='imagenet')
     input = Input(batch_shape=(None, 224, 224, 3))
@@ -30,7 +25,10 @@ def build_model(attention_layer, train=True):
             layer.trainable = True
         else:
             layer.trainable = False
-    model.compile(**compile_params)
+    model.compile(
+        optimizer=optimizers.Adam(lr=3e-4),
+        loss='categorical_crossentropy',
+        metrics=['accuracy', 'top_k_categorical_accuracy']) # top-1 and top5 acc
     print(
         '\nLayers:', *enumerate(model.layers),
         '\nTrainable weights:', *model.trainable_weights, '', sep='\n')

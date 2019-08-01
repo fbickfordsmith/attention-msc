@@ -1,21 +1,27 @@
-import sys
+'''
+For each context, make a dataframe containing filepaths, labels and filenames
+for all the examples in the context. If running with data_partition != 'train',
+also make a dataframe for all examples not in the context.
+
+Command-line arguments:
+1. data_partition in {train, val, val_white}
+'''
+
 import os
+os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+
+import sys
 import csv
 import numpy as np
 import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 
 _, data_partition = sys.argv
-
 path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_contexts = '/home/freddie/attention/contexts/'
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 path_save = f'/home/freddie/dataframes_{data_partition}/'
-
-# path_data = '/Users/fbickfordsmith/Google Drive/Project/data/ILSVRC2012_img_val/'
-# path_contexts = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
-# path_synsets = '/Users/fbickfordsmith/Google Drive/Project/attention/metadata/synsets.txt'
-# path_save = '/Users/fbickfordsmith/Downloads/dataframes_{data_partition}/'
 
 wnids = [line.rstrip('\n') for line in open(path_synsets)]
 wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}

@@ -2,9 +2,13 @@
 Group ImageNet classes into 18 'size contexts'.
 
 Method:
-1. Take the mean VGG16 representations (4096-dim vectors) of ImageNet classes.
-2. For 10 different seed points, sample 4 sets of points, each of which is
-    defined as a context. These sets can have overlapping members.
+1. Find the ImageNet classes with baseline accuracy within 1 standard deviation
+    of the average accuracy.
+2. From these, sample contexts (sets of classes) of size in
+    [int(1.4**i) for i in range(2, 20)]. These contexts can have common members.
+3. Repeat sampling if the standard deviation of baseline accuracy across the
+    contexts is greater than 2% (ensures contexts have approximately equal
+    difficulty).
 '''
 
 import csv

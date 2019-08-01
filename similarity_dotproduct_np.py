@@ -22,9 +22,6 @@ for i in range(1000):
     for j in range(1000):
         if j >= i:
             Aj = normalize(A[j])
-            # similarity[i, j] = np.mean(np.array(
-                # [np.sum(np.roll(Ai, shift, axis=0)*Aj, axis=1)
-                # for shift in range(num_samples)]))
             similarity[i, j] = np.mean(np.array(
                 [np.tensordot(np.roll(Ai, shift, axis=0), Aj)/num_samples
                 for shift in range(num_samples)]))

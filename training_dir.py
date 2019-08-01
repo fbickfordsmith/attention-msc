@@ -22,8 +22,6 @@ datagen_train = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=0.1)
 
-# datagen_train = crop_and_pca_generator(datagen, crop_length=224)
-
 generator_params_train = dict(
     # target_size=(224, 224),
     target_size=(256, 256),
@@ -33,9 +31,9 @@ generator_params_train = dict(
 
 early_stopping = EarlyStopping(
     monitor='val_loss',
-    patience=1, # number of epochs without improvement after which we stop
+    patience=1,
     verbose=True,
-    restore_best_weights=True) # False => weights from last step are used
+    restore_best_weights=True)
 
 training_params = dict(
     epochs=100,

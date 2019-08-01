@@ -24,10 +24,8 @@ from testing_df import evaluate_model
 _, type_context, context_start, context_end = sys.argv
 data_partition = 'val_white'
 path_weights = '/home/freddie/attention/weights/'
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_dataframes = f'/home/freddie/dataframes_{data_partition}/{type_context}contexts/'
 path_results = '/home/freddie/attention/results/'
-num_contexts = len(os.listdir(path_dataframes))
 scores_ic, scores_ooc = [], []
 
 for i in range(int(context_start), int(context_end)):
@@ -37,8 +35,8 @@ for i in range(int(context_start), int(context_end)):
     model = build_model(Lambda(lambda x: W * x), train=False)
     dataframe_ic = pd.read_csv(f'{path_dataframes}{name_context}_df.csv')
     dataframe_ooc = pd.read_csv(f'{path_dataframes}{name_context}_df_out.csv')
-    scores_ic.append(evaluate_model(model, dataframe_ic, path_data))
-    scores_ooc.append(evaluate_model(model, dataframe_ooc, path_data))
+    scores_ic.append(evaluate_model(model, dataframe_ic))
+    scores_ooc.append(evaluate_model(model, dataframe_ooc))
 
 scores_arr = np.concatenate((np.array(scores_ic), np.array(scores_ooc)), axis=1)
 
@@ -48,4 +46,4 @@ col_names = list(itertools.chain(
     [f'outofcontext_{metric_name}' for metric_name in model.metrics_names]))
 
 pd.DataFrame(scores_arr, columns=col_names).to_csv(
-    f'results/{type_context}contexts_trained_metrics.csv')
+    f'{path_results}{type_context}contexts_trained_metrics.csv')

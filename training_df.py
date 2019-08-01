@@ -4,6 +4,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
 from img_processing import crop_and_pca_generator
 
+path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/train/'
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 wnids = [line.rstrip('\n') for line in open(path_synsets)]
 
@@ -21,6 +22,7 @@ datagen_train = ImageDataGenerator(
 
 generator_params_train = dict(
     # target_size=(224, 224),
+    directory=path_data,
     target_size=(256, 256),
     batch_size=256,
     shuffle=True,
@@ -45,16 +47,14 @@ training_params = dict(
 def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
-def train_model(model, dataframe, path_data):
+def train_model(model, dataframe):
     train_generator0 = datagen_train.flow_from_dataframe(
         dataframe=dataframe,
-        directory=path_data,
         subset='training',
         **generator_params_train)
 
     valid_generator0 = datagen_train.flow_from_dataframe(
         dataframe=dataframe,
-        directory=path_data,
         subset='validation',
         **generator_params_train)
 

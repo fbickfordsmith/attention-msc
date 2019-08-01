@@ -23,7 +23,6 @@ from training_df import train_model
 _, type_context = sys.argv
 data_partition = 'train'
 path_weights = '/home/freddie/attention/weights/'
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_dataframes = f'/home/freddie/dataframes_{data_partition}/{type_context}contexts/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_training = '/home/freddie/attention/training/'
@@ -36,7 +35,7 @@ for i in range(num_contexts):
     print(f'\nTraining on {name_context}')
     dataframe = pd.read_csv(f'{path_dataframes}{name_context}_df.csv')
     model.load_weights(path_initmodel)
-    model, history = train_model(model, dataframe, path_data)
+    model, history = train_model(model, dataframe)
     ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
     pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_training.csv')
     np.save(

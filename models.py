@@ -34,3 +34,4 @@ def build_model(attention_layer, train=True):
     print(
         '\nLayers:', *enumerate(model.layers),
         '\nTrainable weights:', *model.trainable_weights, '', sep='\n')
+    return model

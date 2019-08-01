@@ -15,11 +15,11 @@ path_save = f'/home/freddie/dataframes_{data_partition}/'
 # path_data = '/Users/fbickfordsmith/Google Drive/Project/data/ILSVRC2012_img_val/'
 # path_contexts = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
 # path_synsets = '/Users/fbickfordsmith/Google Drive/Project/attention/metadata/synsets.txt'
+# path_save = '/Users/fbickfordsmith/Downloads/dataframes_{data_partition}/'
 
 wnids = [line.rstrip('\n') for line in open(path_synsets)]
 wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}
 generator = ImageDataGenerator().flow_from_directory(directory=path_data)
-
 wnids_files = pd.Series(generator.filenames).str.split('/', expand=True)
 df = pd.DataFrame()
 df['path'] = generator.filenames
@@ -32,13 +32,20 @@ for type_context in ['diff', 'sem', 'sim', 'size']:
     with open(f'{path_contexts}{type_context}contexts_wnids.csv') as f:
         contexts = [row for row in csv.reader(f, delimiter=',')]
 
-    os.makedirs(f'{path_save}{type_context}contexts')
+        os.makedirs(f'{path_save}{type_context}contexts')
 
-    for i, c in enumerate(contexts):
-        inds_c = []
-        for wnid in c:
-            inds_c.extend(np.flatnonzero(df['wnid']==wnid))
-            df.iloc[inds_c].to_csv(
-                f'{path_save}{type_context}contexts/'
-                f'{type_context}context{i:02}_dataframe.csv',
-                index=False)
+    for i, context in enumerate(contexts):
+        name_context = f'{type_context}context{i:02}'
+        inds_incontext = np.array([np.flatnonzero(df['wnid']==w) for w in context]).flatten()
+        inds_outofcontext = np.setdiff1d(range(len(df['wnid'])), inds_incontext)
+        # inds_incontext = []
+        # for wnid in context:
+            # inds_incontext.extend(np.flatnonzero(df['wnid']==wnid))
+        # inds_outofcontext = np.setdiff1d(range(len(df['wnid'])), inds_incontext)
+
+        df.iloc[inds_incontext].to_csv(
+            f'{path_save}{type_context}contexts/{name_context}_df.csv', index=False)
+
+        if data_partition != 'train':
+            df.iloc[inds_outofcontext].to_csv(
+                f'{path_save}{type_context}contexts/{name_context}_df_out.csv', index=False)

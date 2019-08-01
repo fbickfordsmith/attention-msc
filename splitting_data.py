@@ -25,14 +25,12 @@ from distutils.dir_util import copy_tree
 import numpy as np
 
 script_name, data_partition, type_context = sys.argv
-path_home = '/home/freddie/'
-path_data = f'{path_home}ILSVRC2012-{type_context}contexts/{data_partition}/'
-path_wnids = f'{path_home}attention/contexts/{type_context}contexts_wnids.csv'
-path_allclasses = f'{path_home}attention/metadata/synsets.txt'
-with open(path_wnids) as f:
+path_data = f'/home/freddie/ILSVRC2012-{type_context}contexts/{data_partition}/'
+path_contexts = f'/home/freddie/attention/contexts/{type_context}contexts_wnids.csv'
+path_synsets = '/home/freddie/attention/metadata/synsets.txt'
+with open(path_contexts) as f:
     contexts = [row for row in csv.reader(f, delimiter=',')]
-# contexts = np.loadtxt(path_wnids, dtype=str, delimiter=',')
-all_classes = np.array([line.rstrip('\n') for line in open(path_allclasses)])
+all_classes = np.array([line.rstrip('\n') for line in open(path_synsets)])
 print(f'Running {script_name} on {path_data}')
 
 for i, incontext_classes in enumerate(contexts):

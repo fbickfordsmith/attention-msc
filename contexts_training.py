@@ -38,14 +38,13 @@ for i in range(num_contexts):
     print(f'\nTraining on {name_context}')
     model.load_weights(path_initmodel)
     if type_source == 'directory':
-        args_train = dict(path_directory=f'{path_splitdata}context{i:02}/')
+        args_train = [f'{path_splitdata}context{i:02}/']
     elif type_source == 'dataframe':
-        args_train = dict(
-            dataframe=pd.read_csv(f'{path_dataframes}{name_context}_df.csv'),
-            path_data=path_data)
+        args_train = [
+            pd.read_csv(f'{path_dataframes}{name_context}_df.csv', path_data]
     else:
         raise ValueError(f'Invalid value for type_source: {type_source}')
-    model, history = train_model(model, type_source, args_train)
+    model, history = train_model(model, type_source, *args_train)
     ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
     pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_training.csv')
     np.save(

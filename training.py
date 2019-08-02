@@ -20,11 +20,11 @@ wnids = [line.rstrip('\n') for line in open(path_synsets)]
 def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
-def train_model(model, type_source, use_data_aug=True, **kwargs):
-    '''
-    If type_source=='directory', kwarg is path_directory.
-    If type_source=='dataframe', kwargs are dataframe and path_data.
-    '''
+def train_model(model, type_source, *args, use_data_aug=True):
+    if type_source == 'directory':
+        path_directory = args[0]
+    else:
+        dataframe, path_data = args
 
     if use_data_aug:
         datagen_train = ImageDataGenerator(

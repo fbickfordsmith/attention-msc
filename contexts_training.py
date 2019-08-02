@@ -31,7 +31,10 @@ path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised
 path_training = '/home/freddie/attention/training/'
 model = build_model(Attention(), train=True)
 model.save_weights(path_initmodel)
-num_contexts = len(os.listdir(path_dataframes))
+if type_source == 'directory':
+    num_contexts = len(os.listdir(path_splitdata))
+else:
+    num_contexts = len(os.listdir(path_dataframes))
 
 for i in range(num_contexts):
     name_context = f'{type_context}context{i:02}'
@@ -41,7 +44,7 @@ for i in range(num_contexts):
         args_train = [f'{path_splitdata}context{i:02}/']
     elif type_source == 'dataframe':
         args_train = [
-            pd.read_csv(f'{path_dataframes}{name_context}_df.csv', path_data]
+            pd.read_csv(f'{path_dataframes}{name_context}_df.csv', path_data)]
     else:
         raise ValueError(f'Invalid value for type_source: {type_source}')
     model, history = train_model(model, type_source, *args_train)

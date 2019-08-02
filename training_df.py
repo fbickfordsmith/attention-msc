@@ -68,7 +68,7 @@ def train_model(model, dataframe):
         generator=train_generator,
         steps_per_epoch=steps(train_generator_.n, train_generator_.batch_size),
         validation_data=valid_generator,
-        validation_steps=steps(valid_generator_.n, valid_generator_.batch_size),
+        validation_steps=steps(valid_generator.n, valid_generator.batch_size),
         **training_params)
 
     return model, history

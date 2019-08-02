@@ -11,6 +11,8 @@ git pull
 git stash
 git stash clear
 git stash apply
+git ls-files | xargs wc -l # count lines of code
+git ls-files | grep '\.py' | xargs wc -l # count lines of python code
 
 # Screen
 http://aperiodic.net/screen/quick_reference

@@ -10,14 +10,14 @@ from keras.models import Model
 from keras.layers import Input
 from keras import optimizers
 
-def build_model(attention_layer, train=True):
+def build_model(attention_layer, train=True, attention_position=19):
     vgg = VGG16(weights='imagenet')
     input = Input(batch_shape=(None, 224, 224, 3))
     output = vgg.layers[1](input)
-    for layer in vgg.layers[2:19]:
+    for layer in vgg.layers[2:attention_position]:
         output = layer(output)
     output = attention_layer(output)
-    for layer in vgg.layers[19:]:
+    for layer in vgg.layers[attention_position:]:
         output = layer(output)
     model = Model(input, output)
     for layer in model.layers:

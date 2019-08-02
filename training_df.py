@@ -25,13 +25,9 @@ datagen_valid = ImageDataGenerator(
     validation_split=0.1)
 
 params_generator = dict(
-    directory=path_data,
     batch_size=256,
     shuffle=True,
-    class_mode='categorical',
-    x_col='path',
-    y_col='wnid',
-    classes=wnids)
+    class_mode='categorical')
 
 early_stopping = EarlyStopping(
     monitor='val_loss',
@@ -50,16 +46,23 @@ def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
 def train_model(model, dataframe):
-    train_generator = datagen_train.flow_from_dataframe(
+    params_dataframe = dict(
         dataframe=dataframe,
+        directory=path_data,
+        x_col='path',
+        y_col='wnid',
+        classes=wnids)
+
+    train_generator = datagen_train.flow_from_dataframe(
         subset='training',
         target_size=(256, 256),
+        **params_dataframe,
         **params_generator)
 
     valid_generator = datagen_valid.flow_from_dataframe(
-        dataframe=dataframe,
         subset='validation',
         target_size=(224, 224),
+        **params_dataframe,
         **params_generator)
 
     train_generator_aug = crop_and_pca_generator(train_generator, crop_length=224)

@@ -13,8 +13,8 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
 from img_processing import crop_and_pca_generator
 
-# path_synsets = '/home/freddie/attention/metadata/synsets.txt'
-path_synsets = '/Users/fbickfordsmith/Google Drive/Project/attention/metadata/synsets.txt'
+path_synsets = '/home/freddie/attention/metadata/synsets.txt'
+# path_synsets = '/Users/fbickfordsmith/Google Drive/Project/attention/metadata/synsets.txt'
 wnids = [line.rstrip('\n') for line in open(path_synsets)]
 
 def steps(num_examples, batch_size):

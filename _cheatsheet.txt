@@ -45,6 +45,8 @@ free -h # memory
 du -sh [folder-path] # show human-readable summary
 du -ah [folder-path] | tail # show files as well as folder
 python3 -i [file-name.py] # run in interactive mode
+top -u [username] # get process IDs (PIDs)
+kill -9 [PID] # kill process
 
 # Managing files
 https://everythinglinux.org/rsync/

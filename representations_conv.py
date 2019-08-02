@@ -1,3 +1,9 @@
+'''
+For each image in the ImageNet training set, get the VGG16 representation at the
+final convolutional layer (ie, the activation of the layer just before the
+fully-connected section).
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '3'

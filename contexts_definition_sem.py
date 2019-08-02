@@ -10,14 +10,15 @@ import csv
 import numpy as np
 import pandas as pd
 
-path = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
-filenames = [f for f in os.listdir(path) if 'imagenet' in f]
+path_contexts = '/home/freddie/attention/contexts/'
+# path_contexts = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
+filenames = [f for f in os.listdir(path_contexts) if 'imagenet' in f]
 wnids = []
 
 for filename in filenames:
-    df = pd.read_csv(path+filename)
+    df = pd.read_csv(path_contexts+filename)
     wnids.append(list(df['wnid']))
     print(f'Found {df.shape[0]} classes in {filename}')
 
-with open(path+'semcontexts_wnids.csv', 'w') as f:
+with open(f'{path_contexts}semcontexts_wnids.csv', 'w') as f:
     csv.writer(f).writerows(wnids)

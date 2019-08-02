@@ -1,3 +1,7 @@
+'''
+Define a routine for training a model using flow_from_dataframe.
+'''
+
 import numpy as np
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
@@ -20,10 +24,8 @@ datagen_valid = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=0.1)
 
-generator_params_train = dict(
+params_generator = dict(
     directory=path_data,
-    # target_size=(256, 256),
-    # target_size=(224, 224),
     batch_size=256,
     shuffle=True,
     class_mode='categorical',
@@ -37,7 +39,7 @@ early_stopping = EarlyStopping(
     verbose=True,
     restore_best_weights=True)
 
-training_params = dict(
+params_training = dict(
     epochs=100,
     verbose=1,
     callbacks=[early_stopping],
@@ -48,27 +50,25 @@ def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
 def train_model(model, dataframe):
-    train_generator_ = datagen_train.flow_from_dataframe(
+    train_generator = datagen_train.flow_from_dataframe(
         dataframe=dataframe,
         subset='training',
         target_size=(256, 256),
-        **generator_params_train)
+        **params_generator)
 
     valid_generator = datagen_valid.flow_from_dataframe(
         dataframe=dataframe,
         subset='validation',
         target_size=(224, 224),
-        **generator_params_train)
+        **params_generator)
 
-    train_generator = crop_and_pca_generator(train_generator_, crop_length=224)
-    # valid_generator = datagen_train.flow_from_dataframe(...)
-    # valid_generator = crop_and_pca_generator(valid_generator_, crop_length=224)
+    train_generator_aug = crop_and_pca_generator(train_generator, crop_length=224)
 
     history = model.fit_generator(
-        generator=train_generator,
-        steps_per_epoch=steps(train_generator_.n, train_generator_.batch_size),
+        generator=train_generator_aug,
+        steps_per_epoch=steps(train_generator.n, train_generator.batch_size),
         validation_data=valid_generator,
         validation_steps=steps(valid_generator.n, valid_generator.batch_size),
-        **training_params)
+        **params_training)
 
     return model, history

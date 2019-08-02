@@ -1,5 +1,5 @@
 '''
-Implement ImageNet preprocessing routine used by Ken Luo.
+Implement an ImageNet preprocessing routine used by Ken Luo.
 
 References:
 - github.com/don-tpanic/CSML_attention_project_pieces

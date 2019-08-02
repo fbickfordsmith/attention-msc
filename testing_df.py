@@ -1,3 +1,7 @@
+'''
+Define a routine for evaluating a model using flow_from_dataframe.
+'''
+
 import numpy as np
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
@@ -8,7 +12,7 @@ wnids = [line.rstrip('\n') for line in open(path_synsets)]
 
 datagen_test = ImageDataGenerator(preprocessing_function=preprocess_input)
 
-generator_params_test = dict(
+params_generator = dict(
     directory=path_data,
     target_size=(224, 224),
     batch_size=256,
@@ -24,7 +28,7 @@ def evaluate_model(model, dataframe):
     generator = datagen_test.flow_from_dataframe(
         dataframe=dataframe,
         class_mode='categorical',
-        **generator_params_test)
+        **params_generator)
 
     scores = model.evaluate_generator(
         generator=generator,

@@ -1,5 +1,7 @@
 '''
-For each ImageNet class, find the mean VGG16 representation of images in it.
+A VGG16 representation (4096-dim vector; see representations_all.py) has been
+computed for each ImageNet example. For each ImageNet class, take the
+representations of images in it, and compute the mean of these.
 '''
 
 import os

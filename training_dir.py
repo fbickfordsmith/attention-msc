@@ -1,4 +1,6 @@
 '''
+Define a routine for training a model using flow_from_directory.
+
 References:
 - stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
 - stackoverflow.com/questions/43906048/keras-early-stopping
@@ -22,7 +24,7 @@ datagen_train = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=0.1)
 
-generator_params_train = dict(
+params_generator = dict(
     # target_size=(224, 224),
     target_size=(256, 256),
     batch_size=256,
@@ -35,7 +37,7 @@ early_stopping = EarlyStopping(
     verbose=True,
     restore_best_weights=True)
 
-training_params = dict(
+params_training = dict(
     epochs=100,
     verbose=1,
     callbacks=[early_stopping],
@@ -49,12 +51,12 @@ def train_model(model, path_data):
     train_generator0 = datagen_train.flow_from_directory(
         directory=path_data,
         subset='training',
-        **generator_params_train)
+        **params_generator)
 
     valid_generator0 = datagen_train.flow_from_directory(
         directory=path_data,
         subset='validation',
-        **generator_params_train)
+        **params_generator)
 
     train_generator = crop_and_pca_generator(train_generator0, crop_length=224)
     valid_generator = crop_and_pca_generator(valid_generator0, crop_length=224)
@@ -66,6 +68,6 @@ def train_model(model, path_data):
         validation_data=valid_generator,
         validation_steps=steps(
             valid_generator0.n, valid_generator0.batch_size),
-        **training_params)
+        **params_training)
 
     return model, history

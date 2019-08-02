@@ -1,10 +1,16 @@
 '''
-For each ImageNet class, find the mean and covariance of the VGG16
-representations of images in it.
-'''
+A VGG16 representation (4096-dim vector; see representations_all.py) has been
+computed for each ImageNet example. For each ImageNet class, take the
+representations of images in it, and compute the mean and covariance of these.
 
-# sshfs freddie@love16.pals.ucl.ac.uk:/home/freddie /Users/fbickfordsmith/love16
-# rsync --progress --recursive '/Users/fbickfordsmith/love16/activations/' '/Users/fbickfordsmith/activations-copy/'
+Time and memory requirements (using float32) for covariance:
+- Full: ~10 seconds to fit; ~67 MB to store (4096x4096 matrix)
+- Diagonal: ~0.2 seconds to fit; ~0.02 MB to store (4096x1 vector)
+- Spherical: ?? seconds to fit; ~0 MB to store (scalar)
+
+We can get the spherical covariance by taking the mean of the diagonals of
+of the diagonal covariance matrix.
+'''
 
 import numpy as np
 from sklearn.mixture import GaussianMixture
@@ -20,14 +26,9 @@ for i in range(1000):
         print(f'i = {i}, time={time.time()-start}')
     activations = np.load(
         f'{path_activations}class{i:04}_activations.npy')
-
-    # full cov takes ~10 seconds per fit and ~134 MB to store
-    # diag cov takes ~0.2 seconds per fit and ~0.03 MB to store
     gm = GaussianMixture(covariance_type='diag').fit(activations)
     means.append(gm.means_[0])
     covariances.append(gm.covariances_[0])
 
 np.save(f'{path_save}mean_activations', np.array(means), allow_pickle=False)
 np.save(f'{path_save}cov_activations', np.array(covariances), allow_pickle=False)
-
-# if we want the spherical cov, take the mean of the diag cov,

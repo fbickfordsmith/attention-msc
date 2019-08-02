@@ -1,6 +1,6 @@
 '''
-For each image in the ImageNet training set, get a VGG16 representation (ie, the
-activation of the layer before the softmax).
+For each image in the ImageNet training set, get the VGG16 representation at the
+penultimate layer (ie, the activation of the layer just before the softmax).
 '''
 
 import os

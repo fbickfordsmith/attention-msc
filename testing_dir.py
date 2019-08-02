@@ -1,7 +1,6 @@
 '''
-Define routines for finding a model's
-- Predictions (outputs)
-- Performance (metrics)
+Define routines for finding a model's predictions and performance using
+flow_from_directory.
 '''
 
 import numpy as np
@@ -10,7 +9,7 @@ from keras.preprocessing.image import ImageDataGenerator
 
 datagen_test = ImageDataGenerator(preprocessing_function=preprocess_input)
 
-generator_params_test = dict(
+params_generator = dict(
     target_size=(224, 224),
     batch_size=256,
     shuffle=False)
@@ -22,7 +21,7 @@ def predict_model(model, path_data):
     generator = datagen_test.flow_from_directory(
         directory=path_data,
         class_mode=None, # None => returns just images (no labels)
-        **generator_params_test)
+        **params_generator)
     predictions = model.predict_generator(
         generator=generator,
         steps=steps(generator.n, generator.batch_size),
@@ -34,7 +33,7 @@ def evaluate_model(model, path_data):
     generator = datagen_test.flow_from_directory(
         directory=path_data,
         class_mode='categorical',
-        **generator_params_test)
+        **params_generator)
     scores = model.evaluate_generator(
         generator=generator,
         steps=steps(generator.n, generator.batch_size),

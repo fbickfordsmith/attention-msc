@@ -17,6 +17,8 @@ References:
 - stats.stackexchange.com/questions/181620/what-is-the-meaning-of-super-script-2-subscript-2-within-the-context-of-norms
 - core.ac.uk/download/pdf/82269844.pdf
 - math.stackexchange.com/questions/2965025/square-root-of-diagonal-matrix
+- djalil.chafai.net/blog/2010/04/30/wasserstein-distance-between-two-gaussians/#eqWG
+- stats.stackexchange.com/questions/83741/earth-movers-distance-emd-between-two-gaussians
 '''
 
 import numpy as np

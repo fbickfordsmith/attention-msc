@@ -1,3 +1,8 @@
+'''
+References:
+- stackoverflow.com/questions/43357732/how-to-calculate-the-cosine-similarity-between-two-tensors/43358711
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '3'

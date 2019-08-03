@@ -36,7 +36,9 @@ if type_source == 'directory':
 else:
     num_contexts = len(os.listdir(path_dataframes))
 
-for i in range(num_contexts):
+for i in [0, 2, 3]:
+# for i in [4, 1, 5]:
+# for i in range(num_contexts):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTraining on {name_context}')
     model.load_weights(path_initmodel)

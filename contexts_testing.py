@@ -16,6 +16,7 @@ import sys
 import itertools
 import numpy as np
 import pandas as pd
+from layers import Attention
 from models import build_model
 from testing import evaluate_model
 
@@ -35,7 +36,7 @@ scores_ic, scores_ooc = [], []
 if type_source == 'directory':
     num_contexts = len(os.listdir(path_splitdata))
 else:
-    num_contexts = len(os.listdir(path_dataframes))
+    num_contexts = len(os.listdir(path_dataframes)) // 2
 
 for i in range(num_contexts):
     name_context = f'{type_context}context{i:02}'

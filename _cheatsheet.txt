@@ -13,6 +13,7 @@ git stash clear
 git stash apply
 git ls-files | xargs wc -l # count lines of code
 git ls-files | grep '\.py' | xargs wc -l # count lines of python code
+git config --global http.postBuffer 524288000 # increase size of http buffer
 
 # Screen
 http://aperiodic.net/screen/quick_reference

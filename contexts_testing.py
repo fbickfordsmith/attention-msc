@@ -28,7 +28,7 @@ path_splitdata = f'/home/freddie/ILSVRC2012-{type_context}contexts/{data_partiti
 path_dataframes = f'/home/freddie/dataframes_{data_partition}/{type_context}contexts/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_results = '/home/freddie/attention/results/'
-model = build_model(Attention(), train=False)
+model = build_model(Attention(), train=False, attention_position=15)
 model.save_weights(path_initmodel)
 ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
 scores_ic, scores_ooc = [], []

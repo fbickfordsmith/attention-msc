@@ -9,7 +9,6 @@ from keras.preprocessing.image import ImageDataGenerator
 
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 wnids = [line.rstrip('\n') for line in open(path_synsets)]
-
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 params_generator = dict(

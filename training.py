@@ -16,6 +16,7 @@ from img_processing import crop_and_pca_generator
 
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 wnids = [line.rstrip('\n') for line in open(path_synsets)]
+split = 0.1
 
 datagen_valid = ImageDataGenerator(
     preprocessing_function=preprocess_input,
@@ -42,11 +43,11 @@ params_training = dict(
 def steps(num_examples, batch_size):
     return int(np.ceil(num_examples/batch_size))
 
-def stratified_shuffle(df, split=0.1, labels_col='class'):
+def stratified_shuffle(df, labels_col='class'):
     df_train, df_valid = train_test_split(df, test_size=split, stratify=df[labels_col])
     return pd.concat((df_valid, df_train))
 
-def train_model(model, type_source, *args, use_data_aug=True, split=0.1):
+def train_model(model, type_source, *args, use_data_aug=True):
     if use_data_aug:
         target_size_train = (256, 256)
         datagen_train = ImageDataGenerator(
@@ -77,7 +78,7 @@ def train_model(model, type_source, *args, use_data_aug=True, split=0.1):
     else:
         dataframe, path_data = args
         params_generator.update(dict(
-            dataframe=stratified_shuffle(dataframe, split=split),
+            dataframe=stratified_shuffle(dataframe),
             directory=path_data,
             x_col='path',
             y_col='wnid',

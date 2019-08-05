@@ -27,7 +27,7 @@ path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_contexts = f'/home/freddie/attention/contexts/{type_context}contexts_wnids.csv'
 path_results = '/home/freddie/attention/results/'
-model = build_model(Attention(), train=False, attention_position=15)
+model = build_model(Attention(), train=False, attention_position=19)
 model.save_weights(path_initmodel)
 ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
@@ -36,8 +36,7 @@ scores_ic, scores_ooc = [], []
 for i, context in enumerate(contexts):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTesting on {name_context}')
-    weights = np.load(f'{path_weights}{name_context}_weights_v6.npy')
-    # weights = np.load(f'{path_weights}{name_context}_weights.npy')
+    weights = np.load(f'{path_weights}{name_context}_weights.npy')
     model.load_weights(path_initmodel) # `del model` deletes an existing model
     model.layers[ind_attention].set_weights([weights])
     predictions, generator = predict_model(model, 'directory', path_data)

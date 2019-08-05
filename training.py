@@ -81,8 +81,6 @@ def train_model(model, type_source, *args, use_data_aug=True):
         params_generator.update(dict(
             dataframe=stratified_shuffle(dataframe),
             directory=path_data,
-            x_col='path',
-            y_col='wnid',
             classes=wnids))
         train_generator = datagen_train.flow_from_dataframe(
             subset='training',

@@ -40,10 +40,11 @@ for type_context in ['diff', 'sem', 'sim', 'size']:
         inds_incontext = []
         for wnid in context:
             inds_incontext.extend(np.flatnonzero(df['class']==wnid))
-        inds_outofcontext = np.setdiff1d(range(len(df['class'])), inds_incontext)
 
         df.iloc[inds_incontext].to_csv(
             f'{path_save}{type_context}contexts/{name_context}_df.csv', index=False)
-        if data_partition != 'train':
-            df.iloc[inds_outofcontext].to_csv(
-                f'{path_save}{type_context}contexts/{name_context}_df_out.csv', index=False)
+
+        # if data_partition != 'train':
+        #     inds_outofcontext = np.setdiff1d(range(len(df['class'])), inds_incontext)
+        #     df.iloc[inds_outofcontext].to_csv(
+        #         f'{path_save}{type_context}contexts/{name_context}_df_out.csv', index=False)

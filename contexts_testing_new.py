@@ -40,7 +40,7 @@ for i, context in enumerate(contexts):
     # weights = np.load(f'{path_weights}{name_context}_weights.npy')
     model.load_weights(path_initmodel) # `del model` deletes an existing model
     model.layers[ind_attention].set_weights([weights])
-    predictions, generator = predict_model(model, type_source='directory', path_data)
+    predictions, generator = predict_model(model, 'directory', path_data)
     wnid2ind = generator.class_indices
     labels = generator.classes
 

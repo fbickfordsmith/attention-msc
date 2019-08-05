@@ -1,4 +1,4 @@
-,incontext_loss,incontext_sparse_categorical_accuracy,incontext_sparse_top_k_categorical_accuracy,outofcontext_loss,outofcontext_sparse_categorical_accuracy,outofcontext_sparse_top_k_categorical_accuracy
+,incontext_loss,incontext_acc_top1,incontext_acc_top5,outofcontext_loss,outofcontext_acc_top1,outofcontext_acc_top5
 0,0.6527123,0.8820755,1.3627115,0.58033603,0.8110309,1.8527986
 1,0.6837914,0.91958153,1.142946,0.6315437,0.8420663,1.5961536
 2,0.7654321,0.9583333,0.93059486,0.6400504,0.852532,1.5178089

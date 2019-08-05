@@ -41,10 +41,10 @@ else:
 for i in range(num_contexts):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTesting on {name_context}')
-    W = np.load(f'{path_weights}{name_context}_weights_v5.npy')
-    # W = np.load(f'{path_weights}{name_context}_weights.npy')
+    weights = np.load(f'{path_weights}{name_context}_weights_v5.npy')
+    # weights = np.load(f'{path_weights}{name_context}_weights.npy')
     model.load_weights(path_initmodel) # `del model` deletes an existing model
-    model.layers[ind_attention].set_weights([W])
+    model.layers[ind_attention].set_weights([weights])
 
     if type_source == 'directory':
         scores_ic.append(evaluate_model(model, type_source, f'{path_splitdata}context{i:02}/'))

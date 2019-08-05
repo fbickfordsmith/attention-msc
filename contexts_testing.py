@@ -27,7 +27,7 @@ path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_contexts = f'/home/freddie/attention/contexts/{type_context}contexts_wnids.csv'
 path_results = '/home/freddie/attention/results/'
-model = build_model(Attention(), train=False, attention_position=19)
+model = build_model(Attention(), train=False, attention_position=15)
 model.save_weights(path_initmodel)
 ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]

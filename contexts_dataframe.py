@@ -44,7 +44,6 @@ for type_context in ['diff', 'sem', 'sim', 'size']:
 
         df.iloc[inds_incontext].to_csv(
             f'{path_save}{type_context}contexts/{name_context}_df.csv', index=False)
-
         if data_partition != 'train':
             df.iloc[inds_outofcontext].to_csv(
                 f'{path_save}{type_context}contexts/{name_context}_df_out.csv', index=False)

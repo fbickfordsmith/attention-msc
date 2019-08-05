@@ -1,6 +1,7 @@
 '''
-Define a routine for finding a model's predictions and performance using either
-flow_from_directory or flow_from_dataframe.
+Define routines for finding a model's predictions and performance using either
+flow_from_directory or flow_from_dataframe. Also define a routine for
+evaluating performance using predictions and labels.
 '''
 
 import numpy as np
@@ -47,6 +48,31 @@ def predict_model(model, type_source, *args):
 
     return predictions, generator
 
+def evaluate_model(model, type_source, *args):
+    if type_source == 'directory':
+        path_directory = args[0]
+        generator = datagen.flow_from_directory(
+            directory=path_directory,
+            class_mode='sparse',
+            # class_mode='categorical',
+            **params_generator)
+    else:
+        dataframe, path_data = args
+        generator = datagen.flow_from_dataframe(
+            dataframe=dataframe,
+            directory=path_data,
+            class_mode='sparse',
+            # class_mode='categorical',
+            classes=wnids,
+            **params_generator)
+
+    scores = model.evaluate_generator(
+        generator=generator,
+        steps=steps(generator.n, generator.batch_size),
+        **params_testing)
+
+    return scores
+
 def evaluate_predictions(predictions, labels, indices):
     ypred = K.variable(predictions[indices])
     ytrue = K.variable(labels[indices])
@@ -54,29 +80,4 @@ def evaluate_predictions(predictions, labels, indices):
     acc_top1 = sess.run(metrics.sparse_top_k_categorical_accuracy(ytrue, ypred, k=1))
     acc_top5 = sess.run(metrics.sparse_top_k_categorical_accuracy(ytrue, ypred, k=5))
     loss = sess.run(K.mean(losses.sparse_categorical_crossentropy(ytrue, ypred)))
-    return acc_top1, acc_top5, loss
-
-# def evaluate_model(model, type_source, *args):
-#     if type_source == 'directory':
-#         path_directory = args[0]
-#         generator = datagen.flow_from_directory(
-#             directory=path_directory,
-#             class_mode='sparse',
-#             # class_mode='categorical',
-#             **params_generator)
-#     else:
-#         dataframe, path_data = args
-#         generator = datagen.flow_from_dataframe(
-#             dataframe=dataframe,
-#             directory=path_data,
-#             class_mode='sparse',
-#             # class_mode='categorical',
-#             classes=wnids,
-#             **params_generator)
-#
-#     scores = model.evaluate_generator(
-#         generator=generator,
-#         steps=steps(generator.n, generator.batch_size),
-#         **params_testing)
-#
-#     return scores
+    return loss, acc_top1, acc_top5

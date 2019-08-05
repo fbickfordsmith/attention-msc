@@ -36,7 +36,7 @@ scores_ic, scores_ooc = [], []
 for i, context in enumerate(contexts):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTesting on {name_context}')
-    weights = np.load(f'{path_weights}{name_context}_weights_v5.npy')
+    weights = np.load(f'{path_weights}{name_context}_weights_v6.npy')
     # weights = np.load(f'{path_weights}{name_context}_weights.npy')
     model.load_weights(path_initmodel) # `del model` deletes an existing model
     model.layers[ind_attention].set_weights([weights])

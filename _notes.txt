@@ -8,13 +8,12 @@ tasks:
 - repeat sizecontexts with different contexts
 - try similarity measures with full covariances
 
-code:
-- patience=1 -> patience=10
-- flow_from_directory -> flow_from_dataframe
-- simplify context csv files
-- combine npy files in results/
-- tidy keras-models/
-- save activations at output of VGG1 (need to assess I/O vs forward pass)
+code reminders:
+- get updated semcontext definitions
+- revert attention_position
+- revert losses and metrics
+- revert _v6.npy
+- revert data_aug
 
 ----------
 NOTES
@@ -22,8 +21,6 @@ NOTES
 similarity measures
 - ssim: scikit-image, tensorflow etc
 - kl, sym kl, js, mahalanobis, frechet/wasserstein-2: tensorflow etc
-
-remember to change back `datagen_train` in `training.py`
 
 full covariance matrix takes too long to find, and distances are slower to
 compute with full covariance. can store as 32-bit floats to reduce storage
@@ -37,3 +34,5 @@ perceptual similarity on val_white
 - vgg takes 30s/loop * 500,500loops = 4170hr
 - alexnet takes 20s/loop
 - squeezenet takes 30s/loop
+
+contexts_testing takes 3 mins per context

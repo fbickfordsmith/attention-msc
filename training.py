@@ -31,7 +31,8 @@ early_stopping = EarlyStopping(
 params_generator = dict(
     batch_size=256,
     shuffle=True,
-    class_mode='categorical')
+    class_mode='sparse')
+    # class_mode='categorical')
 
 params_training = dict(
     epochs=100,

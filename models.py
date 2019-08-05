@@ -27,8 +27,10 @@ def build_model(attention_layer, train=True, attention_position=19):
             layer.trainable = False
     model.compile(
         optimizer=optimizers.Adam(lr=3e-4),
-        loss='categorical_crossentropy',
-        metrics=['accuracy', 'top_k_categorical_accuracy']) # top-1 and top5 acc
+        loss='sparse_categorical_crossentropy',
+        metrics=['sparse_categorical_accuracy', 'sparse_top_k_categorical_accuracy']) # top1 and top5 acc
+        # loss='categorical_crossentropy',
+        # metrics=['accuracy', 'top_k_categorical_accuracy']) # top1 and top5 acc
     print(
         '\nLayers:', *enumerate(model.layers),
         '\nTrainable weights:', *model.trainable_weights, '', sep='\n')

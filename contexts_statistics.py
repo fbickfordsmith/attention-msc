@@ -11,8 +11,7 @@ wnids = [line.rstrip('\n') for line in open(path_synsets)]
 wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}
 
 def context_baseline_accuracy(type_context):
-    path_contexts = f'{path}contexts/{type_context}contexts_wnids.csv'
-    with open(path_contexts) as f:
+    with open(f'{path}contexts/{type_context}contexts_wnids.csv') as f:
         contexts = [row for row in csv.reader(f, delimiter=',')]
 
     stats = []

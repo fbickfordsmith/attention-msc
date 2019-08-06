@@ -44,7 +44,7 @@ for i in range(num_contexts):
     if type_source == 'directory':
         args_train = [f'{path_splitdata}context{i:02}/']
     elif type_source == 'dataframe':
-        args_train = [pd.read_csv(f'{path_dataframes}{name_context}_df.csv', path_data)]
+        args_train = [pd.read_csv(f'{path_dataframes}{name_context}_df.csv'), path_data]
     else:
         raise ValueError(f'Invalid value for type_source: {type_source}')
     model, history = train_model(model, type_source, *args_train)

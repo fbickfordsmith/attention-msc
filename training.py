@@ -8,6 +8,7 @@ References:
 '''
 
 import numpy as np
+import pandas as pd
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping

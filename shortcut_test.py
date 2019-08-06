@@ -4,12 +4,17 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
 from models import build_model
 from keras.applications.vgg16 import preprocess_input
+from keras.preprocessing.image import ImageDataGenerator
 from models_vgg2 import build_vgg2
 import time
 
 data_partition = 'train'
 path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations-conv/'
+
+def steps(num_examples, batch_size):
+    return int(np.ceil(num_examples/batch_size))
+
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 params_generator = dict(
@@ -23,7 +28,7 @@ params_testing = dict(
     verbose=True)
 
 generator0 = datagen.flow_from_directory(
-    directory=path_data
+    directory=path_data,
     **params_generator)
 
 generator1 = datagen.flow_from_directory(

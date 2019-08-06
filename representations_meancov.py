@@ -6,7 +6,7 @@ representations of images in it, and compute the mean and covariance of these.
 Time and memory requirements (using float32) for covariance:
 - Full: ~10 seconds to fit; ~67 MB to store (4096x4096 matrix)
 - Diagonal: ~0.2 seconds to fit; ~0.02 MB to store (4096x1 vector)
-- Spherical: ?? seconds to fit; ~0 MB to store (scalar)
+- Spherical: ~0 seconds to fit; ~0 MB to store (scalar)
 
 We can get the spherical covariance by taking the mean of the diagonals of
 of the diagonal covariance matrix.

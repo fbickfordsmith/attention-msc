@@ -1,7 +1,13 @@
+'''
+>>> buildtime0, buildtime1, epochtime0
+(2.2791130542755127, 1.316725492477417, 2752.835251569748)
+'''
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 
+import numpy as np
 from models import build_model
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
@@ -25,13 +31,14 @@ params_generator = dict(
 
 params_testing = dict(
     use_multiprocessing=True,
+    workers=7,
     verbose=True)
 
 generator0 = datagen.flow_from_directory(
     directory=path_data,
     **params_generator)
 
-generator1 = datagen.flow_from_directory(
+generator1 = ImageDataGenerator().flow_from_directory(
     directory=path_activations,
     **params_generator)
 

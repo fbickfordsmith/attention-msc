@@ -1,5 +1,6 @@
 '''
 Old version:
+from scipy.linalg import sqrtm
 def frechet(m0, S0, m1, S1):
     # S0 and S1 are vectors of the diagonals of covariance matrices
     S0, S1 = np.diag(S0), np.diag(S1)
@@ -22,7 +23,6 @@ References:
 '''
 
 import numpy as np
-# from scipy.linalg import sqrtm
 import time
 
 path = '/Users/fbickfordsmith/Google Drive/Project/attention/npy/'

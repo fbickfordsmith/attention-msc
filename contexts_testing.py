@@ -1,7 +1,7 @@
 '''
 ImageNet classes have been grouped into contexts. For each context, an
 attention model has been trained on examples from that context only. For each
-trained model, evaluate on val_white examples.
+trained model, evaluate on val_white examples. Runtime: ~3 mins/content.
 
 Command-line arguments:
 1. type_context in {diff, sim, sem, size}
@@ -16,7 +16,6 @@ import csv
 import itertools
 import numpy as np
 import pandas as pd
-from layers import Attention
 from models import build_model
 from testing import predict_model, evaluate_predictions
 

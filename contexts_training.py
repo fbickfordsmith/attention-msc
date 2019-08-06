@@ -17,7 +17,6 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 import sys
 import numpy as np
 import pandas as pd
-from layers import Attention
 from models import build_model
 from training import train_model
 

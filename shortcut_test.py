@@ -12,40 +12,56 @@ path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations-conv/'
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
-generator0 = datagen.flow_from_directory(
-    directory=path_data,
-    class_mode=None, # None => returns just images (no labels)
+params_generator = dict(
+    class_mode='sparse',
     target_size=(224, 224),
     batch_size=256,
     shuffle=True)
+
+params_testing = dict(
+    use_multiprocessing=True,
+    verbose=True)
+
+generator0 = datagen.flow_from_directory(
+    directory=path_data
+    **params_generator)
 
 generator1 = datagen.flow_from_directory(
     directory=path_activations,
-    class_mode=None, # None => returns just images (no labels)
-    target_size=(224, 224),
-    batch_size=256,
-    shuffle=True)
+    **params_generator)
 
 time0 = time.time()
 model0 = build_model()
-print(f'Old model: build time = {time.time()-time0} seconds')
+buildtime0 = time.time()-time0
 
 time0 = time.time()
 model1 = build_vgg2()
-print(f'New model: build time = {time.time()-time0} seconds')
+buildtime1 = time.time()-time0
 
 time0 = time.time()
-predictions0 = model0.predict_generator(
+scores0 = model0.evaluate_generator(
     generator=generator0,
-    steps=steps(generator.n, generator.batch_size),
-    use_multiprocessing=True,
-    verbose=True)
-print(f'Old model: epoch time = {time.time()-time0} seconds')
+    steps=steps(generator0.n, generator0.batch_size),
+    **params_testing)
+epochtime0 = time.time()-time0
 
 time0 = time.time()
-predictions1 = model1.predict_generator(
-    generator=generator,
-    steps=steps(generator.n, generator.batch_size),
-    use_multiprocessing=True,
-    verbose=True)
-print(f'New model: epoch time = {time.time()-time0} seconds')
+scores1 = model1.evaluate_generator(
+    generator=generator1,
+    steps=steps(generator1.n, generator1.batch_size),
+    **params_testing)
+epochtime1 = time.time()-time0
+
+print(f'''
+OLD MODEL
+build time = {int(buildtime0)} seconds
+epoch time = {int(epochtime0)} seconds
+scores = {scores0}
+{model0.metrics_names}
+
+NEW MODEL
+build time = {int(buildtime1)} seconds
+epoch time = {int(epochtime1)} seconds
+scores = {scores1}
+{model1.metrics_names}
+''')

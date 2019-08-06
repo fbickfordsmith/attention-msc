@@ -1,4 +1,3 @@
-
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '3'
@@ -20,9 +19,17 @@ df['filename'] = class_filename[1].str.split('.', expand=True)[0]
 df['class'] = class_filename[0]
 
 for i, wnid in enumerate(wnids):
+    if i % 100 == 0:
+        print(f'i = {i:04}')
     path_class = path_split + wnid
     os.makedirs(path_class)
     filenames = (df.loc[df['class']==wnid])['filename']
     activations = np.load(f'{path_activations}class{i:04}_activations_conv.npy')
     for f, a in zip(filenames, activations):
         np.save(f'{path_class}/{f}_conv5.npy', a, allow_pickle=False)
+
+# # check
+# s = 0
+# for folder in os.listdir(path_split):
+#     s += len(os.listdir(path_split+folder))
+# print(f'Number of files = {s}')

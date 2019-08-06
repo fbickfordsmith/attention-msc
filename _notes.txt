@@ -5,15 +5,6 @@ NEXT STEPS
 - time a forward pass with precomputed conv5 output
 
 ----------
-COPY TO HACKMD
-
-- repeat semcontexts with data augmentation
-- try perceptual similarity model
-- get flow_from_dataframe working
-- repeat sizecontexts with different contexts
-- try similarity measures with full covariances
-
-----------
 CODE REMINDERS
 
 - get updated semcontext definitions
@@ -23,7 +14,13 @@ CODE REMINDERS
 - revert data_aug
 
 ----------
-NOTES
+NOTES TO WRITE UP
+
+- repeat semcontexts with data augmentation
+- try perceptual similarity model
+- get flow_from_dataframe working
+- repeat sizecontexts with different contexts
+- try similarity measures with full covariances
 
 similarity measures
 - ssim: scikit-image, tensorflow etc

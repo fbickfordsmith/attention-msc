@@ -13,7 +13,7 @@ from models import build_model
 from testing import evaluate_model
 
 path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
-model = build_model(Attention(), train=False)
+model = build_model(train=False)
 model.layers[19].set_weights([np.ones((1, 7, 7, 512))])
 scores = evaluate_model(model, path_data)
 print(f'{model.metrics_names} = {scores}')

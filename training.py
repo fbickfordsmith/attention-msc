@@ -13,7 +13,7 @@ from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
-from img_processing import crop_and_pca_generator
+from preprocessing import crop_and_pca_generator
 
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 wnids = [line.rstrip('\n') for line in open(path_synsets)]

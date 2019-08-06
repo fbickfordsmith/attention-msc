@@ -1,14 +1,21 @@
 ----------
-TO DO
+NEXT STEPS
 
-tasks:
+- split up activations
+- time a forward pass with precomputed conv5 output
+
+----------
+COPY TO HACKMD
+
 - repeat semcontexts with data augmentation
 - try perceptual similarity model
 - get flow_from_dataframe working
 - repeat sizecontexts with different contexts
 - try similarity measures with full covariances
 
-code reminders:
+----------
+CODE REMINDERS
+
 - get updated semcontext definitions
 - revert attention_position
 - revert losses and metrics

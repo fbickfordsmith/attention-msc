@@ -46,7 +46,7 @@ for i in range(num_contexts):
         args_train = [pd.read_csv(f'{path_dataframes}{name_context}_df.csv'), path_data]
     else:
         raise ValueError(f'Invalid value for type_source: {type_source}')
-    model, history = train_model(model, type_source, *args_train)
+    model, history = train_model(model, type_source, *args_train, use_data_aug=False)
     pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_training.csv')
     np.save(
         f'{path_weights}{name_context}_weights.npy',

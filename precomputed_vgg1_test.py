@@ -1,4 +1,10 @@
 '''
+>>> generator0 = datagen0.flow_from_directory(directory=path_data, **params_generator)
+Found 1281167 images belonging to 1000 classes.
+
+>>> DataGenerator(filepaths, path2label).n
+1281167
+
 >>> buildtime0, buildtime1, epochtime0
 (2.2791130542755127, 1.316725492477417, 2752.835251569748)
 '''
@@ -19,7 +25,6 @@ import time
 data_partition = 'train'
 path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations-conv-split/'
-path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 
 params_generator = dict(
     class_mode='sparse', target_size=(224, 224), batch_size=256, shuffle=True)
@@ -42,15 +47,17 @@ time0 = time.time()
 model1 = build_vgg2()
 buildtime1 = time.time()-time0
 
-time0 = time.time()
-scores0 = model0.evaluate_generator(
-    generator=generator0, steps=generator0.__len__(), **params_testing)
-epochtime0 = time.time()-time0
+# time0 = time.time()
+# scores0 = model0.evaluate_generator(
+#     generator=generator0, steps=generator0.__len__(), **params_testing)
+# epochtime0 = time.time()-time0
+epochtime0 = 2752.835251569748
 
 time0 = time.time()
 scores1 = model1.evaluate_generator(
     generator=generator1, steps=generator1.__len__(), **params_testing)
 epochtime1 = time.time()-time0
+print('finished')
 
 print(f'''
 OLD MODEL

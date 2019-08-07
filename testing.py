@@ -50,16 +50,14 @@ def evaluate_model(model, type_source, *args):
         path_directory = args[0]
         generator = datagen.flow_from_directory(
             directory=path_directory,
-            class_mode='sparse',
-            # class_mode='categorical',
+            class_mode='categorical',
             **params_generator)
     else:
         dataframe, path_data = args
         generator = datagen.flow_from_dataframe(
             dataframe=dataframe,
             directory=path_data,
-            class_mode='sparse',
-            # class_mode='categorical',
+            class_mode='categorical',
             classes=wnids,
             **params_generator)
 

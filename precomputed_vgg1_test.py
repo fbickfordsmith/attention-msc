@@ -27,8 +27,11 @@ path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations-conv-split/'
 
 params_generator = dict(
-    class_mode='sparse', target_size=(224, 224), batch_size=256, shuffle=True)
-params_testing = dict(use_multiprocessing=True, workers=7, verbose=True)
+    class_mode='categorical', target_size=(224, 224), batch_size=256, shuffle=True)
+
+params_testing = dict(
+    use_multiprocessing=True, workers=7, verbose=True)
+
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 generator0 = datagen.flow_from_directory(directory=path_data, **params_generator)
 filepaths = path_activations + pd.Series(generator0.filenames).str.replace('.JPEG', '_conv5.npy')

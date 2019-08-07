@@ -20,7 +20,6 @@ from testing import evaluate_model
 _, data_partition = sys.argv
 path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 model = VGG16(weights='imagenet')
-model.compile(optimizer='sgd', loss='sparse_categorical_crossentropy', metrics=['acc'])
-# model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])
+model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['acc'])
 scores = evaluate_model(model, path_data)
 print(f'{model.metrics_names} = {scores}')

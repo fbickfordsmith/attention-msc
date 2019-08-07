@@ -32,9 +32,9 @@ References:
 '''
 
 import numpy as np
-from keras.utils import Sequence, to_categorical
+import keras
 
-class DataGenerator(Sequence):
+class DataGenerator(keras.utils.Sequence):
     def __init__(self, paths, path2label, batch_size=256, num_classes=1000, shuffle=True):
         self.paths = paths
         self.path2label = path2label
@@ -62,5 +62,5 @@ class DataGenerator(Sequence):
 
     def __data_generation(self, paths_temp):
         X = np.array([np.load(path) for path in paths_temp])
-        y = [self.path2label[path] for path in paths_temp]
-        return X, np.array(y)#to_categorical(y, self.num_classes, dtype=int)
+        y = np.array([self.path2label[path] for path in paths_temp])
+        return X, y

@@ -1,7 +1,7 @@
 '''
 ImageNet classes have been grouped into contexts. For each context, an
 attention model has been trained on examples from that context only. For each
-trained model, evaluate on val_white examples. Runtime: ~3 mins/content.
+trained model, evaluate on val_white examples. Runtime: ~3 mins/context.
 
 Command-line arguments:
 1. type_context in {diff, sim, sem, size}

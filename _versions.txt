@@ -1,0 +1,29 @@
+----------
+SEMANTIC CONTEXTS
+
+version  use_data_aug  patience  init  flow_from  wnids
+1        False         1         rand  dir        v1
+2        True          1         rand  dir        v1
+3        True          10        rand  df         v1
+v1: data_aug=False, patience=1, init=random, flow_from=dir, wnids=v1
+v2: data_aug=True, patience=1, init=random, flow_from=dir, wnids=v1
+v3: data_aug=True, patience=10, init=random, flow_from=df, wnids=v1
+v4: data_aug=True, patience=10, init=ones, flow_from=df, wnids=v1
+v5: data_aug=True, patience=10, init=ones, flow_from=dir, wnids=v1
+v6: data_aug=True, patience=10, init=ones, flow_from=dir, wnids=v1, att_pos=15
+v7: data_aug=True, patience=10, init=ones, flow_from=df, wnids=v1
+v8: data_aug=False, patience=10, init=ones, flow_from=df, wnids=v2
+
+wnids_v2 uses Ken's updated definitions.
+
+----------
+DIFFICULTY CONTEXTS
+
+...
+
+----------
+SIZE CONTEXTS
+
+v1: data_aug=False, patience=1, init=random, flow_from=dir, wnids=v1
+v2: data_aug=False, patience=10, init=ones, flow_from=dir, wnids=v1
+v3: data_aug=False, patience=10, init=ones, flow_from=dir, wnids=v2

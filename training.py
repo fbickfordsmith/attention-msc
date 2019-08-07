@@ -32,18 +32,27 @@ early_stopping = EarlyStopping(
 params_generator = dict(
     batch_size=256,
     shuffle=True,
-    class_mode='sparse')
-    # class_mode='categorical')
+    class_mode='categorical')
 
 params_training = dict(
     epochs=100,
     verbose=1,
     callbacks=[early_stopping],
-    use_multiprocessing=True,
-    workers=7)
+    use_multiprocessing=False)
+    # use_multiprocessing=True,
+    # workers=7)
 
-def stratified_shuffle(df, labels_col='class'):
+def partition_shuffled(df, labels_col='class'):
     df_train, df_valid = train_test_split(df, test_size=split, stratify=df[labels_col])
+    return pd.concat((df_valid, df_train))
+
+def partition_ordered(df, labels_col='class'):
+    df_train, df_valid = pd.DataFrame(), pd.DataFrame()
+    for wnid in wnids:
+        inds = np.flatnonzero(df[labels_col]==wnid)
+        val_size = int(split*len(inds))
+        df_train = df_train.append(df.iloc[inds[val_size:]])
+        df_valid = df_valid.append(df.iloc[inds[:val_size]])
     return pd.concat((df_valid, df_train))
 
 def train_model(model, type_source, *args, use_data_aug=False):
@@ -77,7 +86,8 @@ def train_model(model, type_source, *args, use_data_aug=False):
     else:
         dataframe, path_data = args
         params_generator.update(dict(
-            dataframe=stratified_shuffle(dataframe),
+            # dataframe=partition_shuffled(dataframe),
+            dataframe=partition_ordered(dataframe),
             directory=path_data,
             classes=wnids))
         generator_train = datagen_train.flow_from_dataframe(

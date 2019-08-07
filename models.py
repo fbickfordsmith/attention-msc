@@ -8,7 +8,7 @@ import numpy as np
 from keras.applications.vgg16 import VGG16
 from keras.models import Model
 from keras.layers import Input
-from keras import optimizers
+from keras.optimizers import Adam
 from layers import Attention
 
 def build_model(attention_layer=Attention(), train=True, attention_position=19):
@@ -27,11 +27,9 @@ def build_model(attention_layer=Attention(), train=True, attention_position=19):
         else:
             layer.trainable = False
     model.compile(
-        optimizer=optimizers.Adam(lr=3e-4),
-        loss='sparse_categorical_crossentropy',
-        metrics=['sparse_categorical_accuracy', 'sparse_top_k_categorical_accuracy']) # top1 and top5 acc
-        # loss='categorical_crossentropy',
-        # metrics=['accuracy', 'top_k_categorical_accuracy']) # top1 and top5 acc
+        optimizer=Adam(lr=3e-4),
+        loss='categorical_crossentropy',
+        metrics=['accuracy', 'top_k_categorical_accuracy'])
     print(
         '\nLayers:', *enumerate(model.layers),
         '\nTrainable weights:', *model.trainable_weights, '', sep='\n')

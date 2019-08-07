@@ -1,17 +1,33 @@
 ----------
-NEXT STEPS
+PLAN
 
-- split up activations
-- time a forward pass with precomputed conv5 output
+7 aug
+16:00 [x] redefine semcontexts (Ken's update)
+16:00 [x] redefine sizecontexts (2**x up to 256)
+18:00 [ ] generate dataframes
+19:00 [ ] train semcontexts (GPU0, 17hr)
+19:00 [ ] train sizecontexts (GPU3, 26hr)
 
-----------
-CODE REMINDERS
+8 aug
+09:00 [ ] redefine diffcontexts
+09:00 [ ] redefine simcontexts
+10:00 [ ] generate dataframes
 
-- get updated semcontext definitions
-- revert attention_position
-- revert losses and metrics
-- revert _v6.npy
-- revert data_aug
+when others finished
+[ ] test semcontexts (GPU0, 30min)
+[ ] test sizecontexts (GPU3, 30min)
+[ ] train diffcontexts (GPU0, 63hr)
+[ ] train simcontexts (GPU3, 50hr)
+[ ] test diffcontexts (GPU0, 1hr)
+[ ] test simcontexts (GPU3, 1hr)
+
+if there's time
+- {diff, size, sim}-controlled semantic
+- repeats (eg, of size experiment)
+- speed up generator
+- look into processing imagenet hierarchy
+- variational inference
+- interpretability
 
 ----------
 NOTES TO WRITE UP
@@ -28,27 +44,7 @@ perceptual similarity on val_white
 - squeezenet takes 30s/loop
 
 ----------
-EXPERIMENT PLAN
+THESIS
 
-difficulty
-- redefine
-- run x 1
-
-size
-- redefine?
-- run x 3
-
-semantic
-- redefine
-- run x 1
-
-similarity
-- redefine?
-- run x 1?
-
-{diff, size, sim}-controlled semantic
-- define x 3
-- run x 3
-
-write thesis without looking at references -- just type!
+write without looking at references -- just type!
 overall difficulty -> average difficulty

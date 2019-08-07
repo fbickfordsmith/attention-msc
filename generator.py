@@ -63,4 +63,4 @@ class DataGenerator(Sequence):
     def __data_generation(self, paths_temp):
         X = np.array([np.load(path) for path in paths_temp])
         y = [self.path2label[path] for path in paths_temp]
-        return X, y#to_categorical(y, self.num_classes, dtype=int)
+        return X, np.array(y)#to_categorical(y, self.num_classes, dtype=int)

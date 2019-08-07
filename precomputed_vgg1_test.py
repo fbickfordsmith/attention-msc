@@ -28,15 +28,11 @@ path_activations = '/home/freddie/activations-conv-split/'
 
 params_generator = dict(
     class_mode='sparse', target_size=(224, 224), batch_size=256, shuffle=True)
-
 params_testing = dict(use_multiprocessing=True, workers=7, verbose=True)
-
-datagen0 = ImageDataGenerator(preprocessing_function=preprocess_input)
-generator0 = datagen0.flow_from_directory(directory=path_data, **params_generator)
-
-generator1a = ImageDataGenerator().flow_from_directory(directory=path_data)
-filepaths = path_activations + pd.Series(generator1a.filenames).str.replace('.JPEG', '_conv5.npy')
-path2label = {filepath:label for filepath, label in zip(filepaths, generator1a.classes)}
+datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+generator0 = datagen.flow_from_directory(directory=path_data, **params_generator)
+filepaths = path_activations + pd.Series(generator0.filenames).str.replace('.JPEG', '_conv5.npy')
+path2label = {filepath:label for filepath, label in zip(filepaths, generator0.classes)}
 generator1 = DataGenerator(filepaths, path2label)
 
 time0 = time.time()

@@ -21,7 +21,7 @@ path_contexts = f'{path}attention/contexts/sizecontexts_wnids.csv'
 path_synsets = f'{path}attention/metadata/synsets.txt'
 
 df = pd.read_csv(path_baseline, index_col=0)
-wnids = [line.rstrip('\n') for line in open(path_synsets)]
+wnids = open(path_synsets).read().splitlines()
 wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}
 
 mean = np.mean(df['accuracy'])

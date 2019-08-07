@@ -11,7 +11,7 @@ path_activations = '/home/freddie/activations-conv/'
 path_split = '/home/freddie/activations-conv-split/'
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 
-wnids = [line.rstrip('\n') for line in open(path_synsets)]
+wnids = open(path_synsets).read().splitlines()
 generator = ImageDataGenerator().flow_from_directory(directory=path_data)
 class_filename = pd.Series(generator.filenames).str.split('/', expand=True)
 df = pd.DataFrame()

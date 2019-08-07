@@ -7,7 +7,7 @@ path_baseline = f'{path}results/baseline_classwise_acc.csv'
 path_synsets = f'{path}metadata/synsets.txt'
 
 df_baseline = pd.read_csv(path_baseline, index_col=0)
-wnids = [line.rstrip('\n') for line in open(path_synsets)]
+wnids = open(path_synsets).read().splitlines()
 wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}
 
 def context_baseline_accuracy(type_context):

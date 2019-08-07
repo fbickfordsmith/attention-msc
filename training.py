@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split
 from preprocessing import crop_and_pca_generator
 
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
-wnids = [line.rstrip('\n') for line in open(path_synsets)]
+wnids = open(path_synsets).read().splitlines()
 split = 0.1
 
 datagen_valid = ImageDataGenerator(
@@ -42,14 +42,11 @@ params_training = dict(
     use_multiprocessing=True,
     workers=7)
 
-def steps(num_examples, batch_size):
-    return int(np.ceil(num_examples/batch_size))
-
 def stratified_shuffle(df, labels_col='class'):
     df_train, df_valid = train_test_split(df, test_size=split, stratify=df[labels_col])
     return pd.concat((df_valid, df_train))
 
-def train_model(model, type_source, *args, use_data_aug=True):
+def train_model(model, type_source, *args, use_data_aug=False):
     if use_data_aug:
         target_size_train = (256, 256)
         datagen_train = ImageDataGenerator(
@@ -67,12 +64,12 @@ def train_model(model, type_source, *args, use_data_aug=True):
 
     if type_source == 'directory':
         path_directory = args[0]
-        train_generator = datagen_train.flow_from_directory(
+        generator_train = datagen_train.flow_from_directory(
             subset='training',
             target_size=target_size_train,
             directory=path_directory,
             **params_generator)
-        valid_generator = datagen_train.flow_from_directory(
+        generator_valid = datagen_train.flow_from_directory(
             subset='validation',
             target_size=(224, 224),
             directory=path_directory,
@@ -83,27 +80,27 @@ def train_model(model, type_source, *args, use_data_aug=True):
             dataframe=stratified_shuffle(dataframe),
             directory=path_data,
             classes=wnids))
-        train_generator = datagen_train.flow_from_dataframe(
+        generator_train = datagen_train.flow_from_dataframe(
             subset='training',
             target_size=target_size_train,
             **params_generator)
-        valid_generator = datagen_valid.flow_from_dataframe(
+        generator_valid = datagen_valid.flow_from_dataframe(
             subset='validation',
             target_size=(224, 224),
             **params_generator)
 
     params_training.update(dict(
-        steps_per_epoch=steps(train_generator.n, train_generator.batch_size),
-        validation_data=valid_generator,
-        validation_steps=steps(valid_generator.n, valid_generator.batch_size)))
+        steps_per_epoch=generator_train.__len__(),
+        validation_data=generator_valid,
+        validation_steps=generator_valid.__len__()))
 
     if use_data_aug:
         history = model.fit_generator(
-            generator=crop_and_pca_generator(train_generator, crop_length=224),
+            generator=crop_and_pca_generator(generator_train, crop_length=224),
             **params_training)
     else:
         history = model.fit_generator(
-            generator=train_generator,
+            generator=generator_train,
             **params_training)
 
     return model, history

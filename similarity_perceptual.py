@@ -1,3 +1,14 @@
+'''
+Needs to be moved into the PerceptualSimilarity folder.
+
+See contents of `models/` in repository.
+
+References:
+- github.com/richzhang/PerceptualSimilarity
+- stackoverflow.com/questions/15208615/using-pth-files
+'''
+
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '3'
@@ -40,7 +51,7 @@ distances = np.array(distances)
 
 print(time.time()-start)
 
-# wnids = [line.rstrip('\n') for line in open(path_synsets)]
+# wnids = open(path_synsets).read().splitlines()
 # pcpt_distances = np.load(path_save)
 # ind_empty = np.transpose(np.nonzero(
 #     (pcpt_distances-np.tril(np.ones_like(pcpt_distances), k=-1))==0))

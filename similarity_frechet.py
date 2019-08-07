@@ -1,12 +1,12 @@
 '''
 Old version:
-from scipy.linalg import sqrtm
-def frechet(m0, S0, m1, S1):
-    # S0 and S1 are vectors of the diagonals of covariance matrices
-    S0, S1 = np.diag(S0), np.diag(S1)
-    return (
-        np.sum((m0 - m1)**2) +
-        np.trace(S0 + S1 - 2*(sqrtm(np.dot(S0, S1)))))
+    from scipy.linalg import sqrtm
+    def frechet(m0, S0, m1, S1):
+        # S0 and S1 are vectors of the diagonals of covariance matrices
+        S0, S1 = np.diag(S0), np.diag(S1)
+        return (
+            np.sum((m0 - m1)**2) +
+            np.trace(S0 + S1 - 2*(sqrtm(np.dot(S0, S1)))))
 
 Changes:
     tr(A + B) = tr(A) + tr(B)

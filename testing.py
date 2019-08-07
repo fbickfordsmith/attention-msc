@@ -11,7 +11,7 @@ from keras import metrics, losses
 from keras import backend as K
 
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
-wnids = [line.rstrip('\n') for line in open(path_synsets)]
+wnids = open(path_synsets).read().splitlines()
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 params_generator = dict(
@@ -22,9 +22,6 @@ params_generator = dict(
 params_testing = dict(
     use_multiprocessing=False,
     verbose=True)
-
-def steps(num_examples, batch_size):
-    return int(np.ceil(num_examples/batch_size))
 
 def predict_model(model, type_source, *args):
     if type_source == 'directory':
@@ -43,7 +40,7 @@ def predict_model(model, type_source, *args):
 
     predictions = model.predict_generator(
         generator=generator,
-        steps=steps(generator.n, generator.batch_size),
+        steps=generator.__len__(),
         **params_testing)
 
     return predictions, generator
@@ -68,7 +65,7 @@ def evaluate_model(model, type_source, *args):
 
     scores = model.evaluate_generator(
         generator=generator,
-        steps=steps(generator.n, generator.batch_size),
+        steps=generator.__len__(),
         **params_testing)
 
     return scores

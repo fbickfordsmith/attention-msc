@@ -38,9 +38,9 @@ params_training = dict(
     epochs=100,
     verbose=1,
     callbacks=[early_stopping],
-    use_multiprocessing=False)
-    # use_multiprocessing=True,
-    # workers=7)
+#    use_multiprocessing=False)
+    use_multiprocessing=True,
+    workers=7)
 
 def partition_shuffled(df, labels_col='class'):
     df_train, df_valid = train_test_split(df, test_size=split, stratify=df[labels_col])

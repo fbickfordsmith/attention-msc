@@ -31,6 +31,7 @@ version  use_data_aug  patience  init  flow_from  notes
 3        False         10        ones  df         multiproc=True for contexts 7-8
 
 sizecontexts_wnids_v2 from v3 onwards
+v3 took ~30 hrs to train
 
 ----------
 SIMILARITY CONTEXTS

@@ -4,24 +4,27 @@ PLAN
 7 aug
 [x] redefine semcontexts (Ken's update)
 [x] redefine sizecontexts (2**x up to 256)
-[x] generate dataframes
-[x] train sizecontexts (GPU3, 26hr)
+[x] generate semcontexts, sizecontexts dataframes
+[x] train sizecontexts (took ~24hr)
 
-8 aug
-[ ] redefine diffcontexts
-[ ] redefine simcontexts
+8-9 aug
+[x] test sizecontexts
+[x] train semcontexts (took ~12hr)
+[ ] test semcontexts
+[x] redefine diffcontexts (extra 5 covering acc in [0.2, 0.4])
+[x] redefine simcontexts (reduce to 20; minimising std_acc)
 [ ] generate dataframes
+[ ] train diffcontexts
 
 when others finished
-[ ] train semcontexts (GPU0, 17hr)
-[ ] test semcontexts (GPU0, 30min)
-[ ] test sizecontexts (GPU3, 30min)
+
 [ ] train diffcontexts (GPU0, 63hr)
 [ ] train simcontexts (GPU3, 50hr)
 [ ] test diffcontexts (GPU0, 1hr)
 [ ] test simcontexts (GPU3, 1hr)
 
 if there's time
+- redefine sizecontexts with unusual acc or sim
 - {diff, size, sim}-controlled semantic
 - repeats (eg, of size experiment)
 - speed up generator
@@ -42,6 +45,8 @@ perceptual similarity on val_white
 - vgg takes 30s/loop * 500,500loops = 4170hr
 - alexnet takes 20s/loop
 - squeezenet takes 30s/loop
+
+need to correct all instances of mean_dist computations
 
 ----------
 THESIS

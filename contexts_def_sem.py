@@ -20,7 +20,6 @@ import csv
 import numpy as np
 import pandas as pd
 
-# path_contexts = '/home/freddie/attention/contexts/'
 path_contexts = '/Users/fbickfordsmith/Google Drive/Project/attention/contexts/'
 filenames = [f for f in os.listdir(path_contexts) if 'imagenet' in f]
 contexts = []

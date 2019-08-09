@@ -1,29 +1,42 @@
 ----------
 SEMANTIC CONTEXTS
 
-version  use_data_aug  patience  init  flow_from  wnids
-1        False         1         rand  dir        v1
-2        True          1         rand  dir        v1
-3        True          10        rand  df         v1
-v1: data_aug=False, patience=1, init=random, flow_from=dir, wnids=v1
-v2: data_aug=True, patience=1, init=random, flow_from=dir, wnids=v1
-v3: data_aug=True, patience=10, init=random, flow_from=df, wnids=v1
-v4: data_aug=True, patience=10, init=ones, flow_from=df, wnids=v1
-v5: data_aug=True, patience=10, init=ones, flow_from=dir, wnids=v1
-v6: data_aug=True, patience=10, init=ones, flow_from=dir, wnids=v1, att_pos=15
-v7: data_aug=True, patience=10, init=ones, flow_from=df, wnids=v1
-v8: data_aug=False, patience=10, init=ones, flow_from=df, wnids=v2
+version  use_data_aug  patience  init  flow_from  notes
+1        False         1         rand  dir
+2        True          1         rand  dir
+3        True          10        rand  df
+4        True          10        ones  df
+5        True          10        ones  dir
+6        True          10        ones  dir        att_pos=15
+7        True          10        ones  df
+8        False         10        ones  df
 
-wnids_v2 uses Ken's updated definitions.
+semcontexts_wnids_v2 from v8 onwards
 
 ----------
 DIFFICULTY CONTEXTS
 
-...
+version  use_data_aug  patience  init  flow_from  notes
+1        False         1         rand  dir
+2        False         10        ones  df
+
+diffcontexts_wnids_v2 from v2 onwards
 
 ----------
 SIZE CONTEXTS
 
-v1: data_aug=False, patience=1, init=random, flow_from=dir, wnids=v1
-v2: data_aug=False, patience=10, init=ones, flow_from=dir, wnids=v1
-v3: data_aug=False, patience=10, init=ones, flow_from=dir, wnids=v2
+version  use_data_aug  patience  init  flow_from  notes
+1        False         1         rand  dir
+2        False         10        ones  dir
+3        False         10        ones  df         multiproc=True for contexts 7-8
+
+sizecontexts_wnids_v2 from v3 onwards
+
+----------
+SIMILARITY CONTEXTS
+
+version  use_data_aug  patience  init  flow_from  notes
+1        False         1         rand  dir
+2        False         10        ones  df
+
+simcontexts_wnids_v2 from v2 onwards

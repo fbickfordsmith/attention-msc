@@ -28,7 +28,7 @@ def predict_model(model, type_source, *args):
         path_directory = args[0]
         generator = datagen.flow_from_directory(
             directory=path_directory,
-            class_mode=None, # None => returns just images (no labels)
+            class_mode=None,
             **params_generator)
     else:
         dataframe, path_data = args

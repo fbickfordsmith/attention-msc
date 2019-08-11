@@ -32,7 +32,10 @@ ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.lay
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
 scores_ic, scores_ooc = [], []
 
-for i, context in enumerate(contexts):
+start, stop = 18, 25
+
+#for i, context in enumerate(contexts[start:stop]):
+for i in range(start, stop):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTesting on {name_context}')
     weights = np.load(f'{path_weights}{name_context}_weights.npy')
@@ -42,7 +45,7 @@ for i, context in enumerate(contexts):
     wnid2ind = generator.class_indices
     labels = generator.classes
     inds_incontext = []
-    for wnid in context:
+    for wnid in contexts[i]:
         inds_incontext.extend(np.flatnonzero(labels==wnid2ind[wnid]))
     inds_outofcontext = np.setdiff1d(range(generator.n), inds_incontext)
     print(f'''
@@ -56,4 +59,4 @@ col_names.extend([f'incontext_{m}' for m in ['loss', 'acc_top1', 'acc_top5']])
 col_names.extend([f'outofcontext_{m}' for m in ['loss', 'acc_top1', 'acc_top5']])
 scores_arr = np.concatenate((np.array(scores_ic), np.array(scores_ooc)), axis=1)
 pd.DataFrame(scores_arr, columns=col_names).to_csv(
-    f'{path_results}{type_context}contexts_trained_metrics.csv')
+    f'{path_results}{type_context}contexts_trained_metrics_{start}{stop}.csv')

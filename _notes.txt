@@ -1,4 +1,19 @@
 ----------
+NOTES FOR ED
+
+plots: ok?
+intro topics
+present/past tense
+discussion of results
+hard to tell if results are obvious
+next steps:
+- improve size coverage
+- repeat experiments -> error bars
+- regression on results -> predictions of what property-controlled semcontexts
+    results would be
+- run experiments on property-controlled semcontexts and compare
+
+----------
 PLAN
 
 7 aug
@@ -10,18 +25,16 @@ PLAN
 8-9 aug
 [x] test sizecontexts
 [x] train semcontexts (took ~12hr)
-[ ] test semcontexts
+[x] test semcontexts
 [x] redefine diffcontexts (extra 5 covering acc in [0.2, 0.4])
 [x] redefine simcontexts (reduce to 20; minimising std_acc)
-[ ] generate dataframes
-[ ] train diffcontexts
+[x] generate diffcontexts, simcontexts dataframes
+[x] train diffcontexts (took ~48hr)
 
-when others finished
-
-[ ] train diffcontexts (GPU0, 63hr)
-[ ] train simcontexts (GPU3, 50hr)
-[ ] test diffcontexts (GPU0, 1hr)
-[ ] test simcontexts (GPU3, 1hr)
+11 aug
+[x] test diffcontexts
+[x] train simcontexts (started 21:00; 50hr expected)
+[ ] test simcontexts
 
 if there's time
 - redefine sizecontexts with unusual acc or sim

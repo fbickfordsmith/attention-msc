@@ -32,7 +32,13 @@ ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.lay
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
 scores_ic, scores_ooc = [], []
 
-start, stop = 18, 25
+#start, stop = 0, 9
+#start, stop = 9, 18
+#start, stop = 18, 25
+
+#start, stop = 0, 9
+#start, stop = 9, 15
+start, stop = 15, 20
 
 #for i, context in enumerate(contexts[start:stop]):
 for i in range(start, stop):

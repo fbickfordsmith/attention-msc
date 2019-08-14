@@ -17,29 +17,23 @@ from models import build_model
 from testing import predict_model, evaluate_predictions
 
 type_context = input('Context type in {diff, sem, sim, size}: ')
-# _, type_context = sys.argv
+version = input('Version number: ')
+start = int(input('Start context: '))
+stop = int(input('Stop context: '))
 data_partition = 'val_white'
+
 path_weights = '/home/freddie/attention/weights/'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
-# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_contexts = f'/home/freddie/attention/contexts/{type_context}contexts_wnids.csv'
 path_results = '/home/freddie/attention/results/'
+
 model = build_model(train=False, attention_position=19)
 model.save_weights(path_initmodel)
 ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
 scores_ic, scores_ooc = [], []
 
-#start, stop = 0, 9
-#start, stop = 9, 18
-#start, stop = 18, 25
-
-#start, stop = 0, 9
-#start, stop = 9, 15
-# start, stop = 15, 20
-
-#for i, context in enumerate(contexts[start:stop]):
 for i in range(start, stop):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTesting on {name_context}')

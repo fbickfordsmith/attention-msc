@@ -38,7 +38,6 @@ params_training = dict(
     epochs=100,
     verbose=1,
     callbacks=[early_stopping],
-#    use_multiprocessing=False)
     use_multiprocessing=True,
     workers=7)
 

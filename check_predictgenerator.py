@@ -11,7 +11,9 @@ import numpy as np
 from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
 from keras.preprocessing.image import load_img, img_to_array, ImageDataGenerator
 
-path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
+data_partition = 'val_white'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 model = VGG16(weights='imagenet')
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 

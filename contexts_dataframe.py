@@ -20,7 +20,8 @@ from keras.preprocessing.image import ImageDataGenerator
 
 _, data_partition, type_context = sys.argv
 # _, data_partition = sys.argv
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_contexts = '/home/freddie/attention/contexts/'
 path_save = f'/home/freddie/dataframes_{data_partition}/'
 generator = ImageDataGenerator().flow_from_directory(directory=path_data)

@@ -22,7 +22,8 @@ from testing import predict_model, evaluate_predictions
 _, type_context = sys.argv
 data_partition = 'val_white'
 path_weights = '/home/freddie/attention/weights/'
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
 path_contexts = f'/home/freddie/attention/contexts/{type_context}contexts_wnids.csv'
 path_results = '/home/freddie/attention/results/'
@@ -38,7 +39,7 @@ scores_ic, scores_ooc = [], []
 
 #start, stop = 0, 9
 #start, stop = 9, 15
-start, stop = 15, 20
+# start, stop = 15, 20
 
 #for i, context in enumerate(contexts[start:stop]):
 for i in range(start, stop):

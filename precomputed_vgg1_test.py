@@ -23,7 +23,8 @@ from generator import DataGenerator
 import time
 
 data_partition = 'train'
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations-conv-split/'
 
 params_generator = dict(

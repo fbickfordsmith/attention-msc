@@ -1,19 +1,4 @@
 ----------
-NOTES FOR ED
-
-plots: ok?
-intro topics
-present/past tense
-discussion of results
-hard to tell if results are obvious
-next steps:
-- improve size coverage
-- repeat experiments -> error bars
-- regression on results -> predictions of what property-controlled semcontexts
-    results would be
-- run experiments on property-controlled semcontexts and compare
-
-----------
 PLAN
 
 7 aug
@@ -33,14 +18,18 @@ PLAN
 
 11 aug
 [x] test diffcontexts
-[x] train simcontexts (started 21:00; 50hr expected)
-[ ] test simcontexts
+[x] train simcontexts (took ~36hr)
 
-if there's time
+13 aug
+[x] test simcontexts
+
+next
 - redefine sizecontexts with unusual acc or sim
 - {diff, size, sim}-controlled semantic
 - repeats (eg, of size experiment)
 - speed up generator
+
+after handin
 - look into processing imagenet hierarchy
 - variational inference
 - interpretability

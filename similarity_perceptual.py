@@ -22,7 +22,8 @@ from util.util import im2tensor
 
 # cp '/home/freddie/attention/similarity_perceptual.py' '/home/freddie/PerceptualSimilarity/similarity_perceptual.py'
 data_partition = 'val_white'
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_save = '/home/freddie/attention/activations/activations_perceptual.npy'
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 

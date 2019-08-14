@@ -12,7 +12,9 @@ from layers import Attention
 from models import build_model
 from testing import evaluate_model
 
-path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/val_white/'
+data_partition = 'val_white'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 model = build_model(train=False)
 model.layers[19].set_weights([np.ones((1, 7, 7, 512))])
 scores = evaluate_model(model, path_data)

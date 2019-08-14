@@ -6,7 +6,9 @@ import numpy as np
 import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 
-path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/train/'
+data_partition = 'train'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations-conv/'
 path_split = '/home/freddie/activations-conv-split/'
 path_synsets = '/home/freddie/attention/metadata/synsets.txt'

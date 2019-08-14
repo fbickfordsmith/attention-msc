@@ -13,7 +13,9 @@ from keras.models import Model
 from keras.layers import Input
 from testing import predict_model
 
-path_data = '/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/train/'
+data_partition = 'train'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_activations = '/home/freddie/activations/'
 
 # copy all layers except for the final one

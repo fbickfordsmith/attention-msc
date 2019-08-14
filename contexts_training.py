@@ -23,7 +23,8 @@ from training import train_model
 _, type_context, type_source = sys.argv
 data_partition = 'train'
 path_weights = '/home/freddie/attention/weights/'
-path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
+# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_splitdata = f'/home/freddie/ILSVRC2012-{type_context}contexts/{data_partition}/'
 path_dataframes = f'/home/freddie/dataframes_{data_partition}/{type_context}contexts/'
 path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'

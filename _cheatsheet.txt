@@ -1,6 +1,6 @@
 # Git
 https://github.com/joshnh/Git-Commands
-git clone ssh://git@github.com/[username]/[repository-name].git
+git clone https://github.com/[username]/[repository-name].git
 git status
 git add [file-name.txt]
 git add -A
@@ -31,8 +31,8 @@ exit
 conda create -n [env-name] python=3.6
 conda activate [env-name]
 conda install [package1] [package2] ...
-conda install cython ipython numpy scipy pandas matplotlib scikit-learn scikit-image opencv tqdm
-conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+conda install cython ipython numpy scipy pandas matplotlib scikit-learn scikit-image opencv
+conda install pytorch torchvision cudatoolkit=10.0 -c pytorch tqdm
 pip install keras tensorflow-gpu
 conda deactivate
 

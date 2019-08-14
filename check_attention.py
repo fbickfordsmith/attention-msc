@@ -5,7 +5,7 @@ performance as a VGG16 without an attention layer.
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 
 import numpy as np
 from layers import Attention

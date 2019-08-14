@@ -5,7 +5,7 @@ without using predict_generator.
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 
 import numpy as np
 from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions

@@ -2,14 +2,11 @@
 ImageNet classes have been grouped into contexts. For each context, an
 attention model has been trained on examples from that context only. For each
 trained model, evaluate on val_white examples. Runtime: ~3 mins/context.
-
-Command-line arguments:
-1. type_context in {diff, sim, sem, size}
 '''
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 
 import sys
 import csv
@@ -19,7 +16,8 @@ import pandas as pd
 from models import build_model
 from testing import predict_model, evaluate_predictions
 
-_, type_context = sys.argv
+type_context = input('Context type in {diff, sem, sim, size}: ')
+# _, type_context = sys.argv
 data_partition = 'val_white'
 path_weights = '/home/freddie/attention/weights/'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'

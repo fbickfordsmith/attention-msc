@@ -11,7 +11,7 @@ Found 1281167 images belonging to 1000 classes.
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 
 import numpy as np
 import pandas as pd

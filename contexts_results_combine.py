@@ -8,7 +8,8 @@ from glob import glob1
 import numpy as np
 import pandas as pd
 
-_, type_context = sys.argv
+type_context = input('Context type in {diff, sem, sim, size}: ')
+# _, type_context = sys.argv
 # path_results = '/home/freddie/attention/results/'
 path_results = 'results/'
 num_contexts = int(0.5 * len(

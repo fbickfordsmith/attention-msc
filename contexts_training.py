@@ -16,8 +16,8 @@ from models import build_model
 from training import train_model
 
 type_context = input('Context type in {diff, sem, sim, size}: ')
-version_df = input('Version number (dataframe): ')
-version_save = input('Version number (saving): ')
+version_wnids = 'v' + input('Version number (WNIDs): ')
+version_save = 'v' + input('Version number (training/weights): ')
 start = int(input('Start context: '))
 stop = int(input('Stop context: '))
 type_source = 'dataframe'
@@ -41,12 +41,12 @@ for i in range(start, stop):
     if type_source == 'directory':
         args_train = [f'{path_splitdata}context{i:02}/']
     elif type_source == 'dataframe':
-        args_train = [pd.read_csv(f'{path_dataframes}{name_context}_df_v{version_df}.csv'), path_data]
+        args_train = [pd.read_csv(f'{path_dataframes}{name_context}_df_{version_wnids}.csv'), path_data]
     else:
         raise ValueError(f'Invalid value for type_source: {type_source}')
     model, history = train_model(model, type_source, *args_train, use_data_aug=False)
-    pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_training_v{version_save}.csv')
+    pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_training_{version_save}.csv')
     np.save(
-        f'{path_weights}{name_context}_weights_v{version_save}.npy',
+        f'{path_weights}{name_context}_weights_{version_save}.npy',
         model.layers[ind_attention].get_weights()[0],
         allow_pickle=False)

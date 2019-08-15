@@ -13,7 +13,7 @@ import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 
 type_context = input('Context type in {diff, sem, sim, size}: ')
-version = 'v' + input('Version number: ')
+version_wnids = 'v' + input('Version number (WNIDs): ')
 data_partition = 'train'
 
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
@@ -25,7 +25,7 @@ df = pd.DataFrame()
 df['filename'] = generator.filenames
 df['class'] = pd.Series(generator.filenames).str.split('/', expand=True)[0]
 
-with open(f'{path_contexts}{type_context}contexts_wnids_{version}.csv') as f:
+with open(f'{path_contexts}{type_context}contexts_wnids_{version_wnids}.csv') as f:
     contexts = [row for row in csv.reader(f, delimiter=',')]
 
 for i, context in enumerate(contexts):
@@ -34,4 +34,4 @@ for i, context in enumerate(contexts):
         inds_incontext.extend(np.flatnonzero(df['class']==wnid))
 
     df.iloc[inds_incontext].to_csv(
-        f'{path_dataframes}{type_context}context{i:02}_df_{version}.csv', index=False)
+        f'{path_dataframes}{type_context}context{i:02}_df_{version_wnids}.csv', index=False)

@@ -17,7 +17,7 @@ from training import train_model
 
 type_context = input('Context type in {diff, sem, sim, size}: ')
 version_wnids = 'v' + input('Version number (WNIDs): ')
-version_save = 'v' + input('Version number (training/weights): ')
+version_weights = 'v' + input('Version number (training/weights): ')
 start = int(input('Start context: '))
 stop = int(input('Stop context (inclusive): '))
 data_partition = 'train'
@@ -33,13 +33,14 @@ model.save_weights(path_initmodel)
 ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
 
 for i in range(start, stop+1):
-    name_context = f'{type_context}context{i:02}'
-    print(f'\nTraining on {name_context}')
+    name_wnids = f'{type_context}_{version_wnids}_{i:02}'
+    name_weights = f'{type_context}_{version_weights}'
+    print(f'\nTraining on {name_wnids}')
     model.load_weights(path_initmodel)
-    args_train = [pd.read_csv(f'{path_dataframes}{name_context}_df_{version_wnids}.csv'), path_data]
+    args_train = [pd.read_csv(f'{path_dataframes}{name_wnids}_df.csv'), path_data]
     model, history = train_model(model, 'dataframe', *args_train, use_data_aug=False)
-    pd.DataFrame(history.history).to_csv(f'{path_training}{name_context}_{version_save}_training.csv')
+    pd.DataFrame(history.history).to_csv(f'{path_training}{type_context}_{version_weights}_training.csv')
     np.save(
-        f'{path_weights}{name_context}_{version_save}_weights.npy',
+        f'{path_weights}{name_weights}_weights.npy',
         model.layers[ind_attention].get_weights()[0],
         allow_pickle=False)

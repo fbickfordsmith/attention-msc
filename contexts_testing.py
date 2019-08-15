@@ -31,28 +31,28 @@ model = build_model(train=False, attention_position=19)
 model.save_weights(path_initmodel)
 ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.layers])[0]
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
-scores_ic, scores_oc = [], []
+scores_in, scores_out = [], []
 
 for i in range(start, stop+1):
-    name_context = f'{type_context}context{i:02}'
-    print(f'\nTesting on {name_context}')
-    weights = np.load(f'{path_weights}{name_context}_weights_{version_weights}.npy')
+    name_weights = f'{type_context}_{version_weights}'
+    print(f'\nTesting on {name_weights}')
+    weights = np.load(f'{path_weights}{name_weights}_weights.npy')
     model.load_weights(path_initmodel) # `del model` deletes `model`
     model.layers[ind_attention].set_weights([weights])
     predictions, generator = predict_model(model, 'directory', path_data)
     wnid2ind = generator.class_indices
     labels = generator.classes
-    inds_incontext = []
+    inds_in = []
     for wnid in contexts[i]:
-        inds_incontext.extend(np.flatnonzero(labels==wnid2ind[wnid]))
-    inds_outofcontext = np.setdiff1d(range(generator.n), inds_incontext)
+        inds_in.extend(np.flatnonzero(labels==wnid2ind[wnid]))
+    inds_out = np.setdiff1d(range(generator.n), inds_in)
     print(f'''
-        In context: {len(inds_incontext)} examples
-        Out of context: {len(inds_outofcontext)} examples''')
-    scores_ic.append(evaluate_predictions(predictions, labels, inds_incontext))
-    scores_oc.append(evaluate_predictions(predictions, labels, inds_outofcontext))
+        In context: {len(inds_in)} examples
+        Out of context: {len(inds_out)} examples''')
+    scores_in.append(evaluate_predictions(predictions, labels, inds_in))
+    scores_out.append(evaluate_predictions(predictions, labels, inds_out))
 
-cols_names = ['loss_in', 'loss_out', 'acc_top1_in', 'acc_top1_out', 'acc_top5_in', 'acc_top5_out']
-scores_all = np.concatenate((np.array(scores_ic), np.array(scores_oc)), axis=1)
+col_names = ['loss_in', 'loss_out', 'acc_top1_in', 'acc_top1_out', 'acc_top5_in', 'acc_top5_out']
+scores_all = np.concatenate((np.array(scores_in), np.array(scores_out)), axis=1)
 pd.DataFrame(scores_all, columns=col_names).to_csv(
-    f'{path_results}{type_context}contexts_trained_metrics_{version_weights}_{start}-{stop}.csv')
+    f'{path_results}{name_weights}_{start}-{stop}_results.csv')

@@ -21,9 +21,9 @@ path_contexts = '/home/freddie/attention/contexts/'
 path_dataframes = '/home/freddie/dataframes/'
 
 generator = ImageDataGenerator().flow_from_directory(directory=path_data)
-df = pd.DataFrame()
-df['filename'] = generator.filenames
-df['class'] = pd.Series(generator.filenames).str.split('/', expand=True)[0]
+df = pd.DataFrame({
+    'filename': generator.filenames,
+    'class': pd.Series(generator.filenames).str.split('/', expand=True)[0]})
 
 with open(f'{path_contexts}{type_context}_{version_wnids}_wnids.csv') as f:
     contexts = [row for row in csv.reader(f, delimiter=',')]

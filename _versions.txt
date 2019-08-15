@@ -28,8 +28,8 @@ SIZE CONTEXTS
 version  use_data_aug  patience  init  flow_from  wnids_version  notes
 1        False         1         rand  dir        1
 2        False         10        ones  dir        1
-3        False         10        ones  df         2              multiproc=True for contexts 7-8
-
+3        False         10        ones  df         2              multiproc off for contexts 0-6, on for 7-8
+4        False         10        ones  df         2              repeat contexts 0-6 with multiproc on
 
 sizecontexts_wnids_v2: 2**x for x in [0, 8]
 

@@ -10,7 +10,6 @@ import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 
-import sys
 import numpy as np
 import pandas as pd
 from models import build_model
@@ -28,7 +27,7 @@ path_weights = '/home/freddie/attention/weights/'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_splitdata = f'/home/freddie/ILSVRC2012-{type_context}contexts/{data_partition}/'
 path_dataframes = '/home/freddie/dataframes/'
-path_initmodel = f'/home/freddie/keras-models/{type_context}contexts_initialised_model.h5'
+path_initmodel = '/home/freddie/keras-models/initialised_model.h5'
 path_training = '/home/freddie/attention/training/'
 
 model = build_model(train=True, attention_position=19)

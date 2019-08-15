@@ -3,15 +3,16 @@ from contexts_definition import *
 num_seeds = 5
 context_size = 50
 inds_end = np.linspace(50, 999, 4, dtype=int)
-interval_ends = np.arange(0.1, 0.65, 0.05) # interval_ends = np.arange(30, 85, 5)
+interval_ends = np.arange(0.1, 0.65, 0.05)
+# interval_ends = np.arange(30, 85, 5)
 
 intervals_covered = False
 min_std_acc = np.inf
 inds_keep = None
 for _ in range(10000):
     inds_contexts, dists, accs = [], [], []
-    # inds_seed = np.random.choice(inds_av_acc, size=num_seeds, replace=False)
     inds_seed = np.random.choice(1000, size=num_seeds, replace=False)
+    # inds_seed = np.random.choice(inds_av_acc, size=num_seeds, replace=False)
     for ind_seed in inds_seed:
         inds_sorted = np.argsort(Xdist[ind_seed])[1:] # 1 => don't include seed index
         for ind_end in inds_end:

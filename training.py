@@ -11,7 +11,8 @@ import numpy as np
 import pandas as pd
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
-from keras.callbacks import EarlyStopping
+# from keras.callbacks import EarlyStopping
+from callbacks import RelativeEarlyStopping
 from sklearn.model_selection import train_test_split
 from preprocessing import crop_and_pca_generator
 
@@ -23,23 +24,37 @@ datagen_valid = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=split)
 
-early_stopping = EarlyStopping(
+early_stopping = RelativeEarlyStopping(
     monitor='val_loss',
-    patience=10,
+    patience=2,
     verbose=True,
-    restore_best_weights=True)
+    restore_best_weights=True,
+    min_delta=0.001)
+
+params_training = dict(
+    epochs=300,
+    verbose=1,
+    callbacks=[early_stopping],
+    use_multiprocessing=False,
+    workers=4)
 
 params_generator = dict(
     batch_size=256,
     shuffle=True,
     class_mode='categorical')
 
-params_training = dict(
-    epochs=100,
-    verbose=1,
-    callbacks=[early_stopping],
-    use_multiprocessing=True,
-    workers=7)
+# early_stopping = EarlyStopping(
+#     monitor='val_loss',
+#     patience=10,
+#     verbose=True,
+#     restore_best_weights=True)
+
+# params_training = dict(
+#     epochs=100,
+#     verbose=1,
+#     callbacks=[early_stopping],
+#     use_multiprocessing=True,
+#     workers=7)
 
 def partition_shuffled(df, labels_col='class'):
     df_train, df_valid = train_test_split(df, test_size=split, stratify=df[labels_col])
@@ -85,8 +100,8 @@ def train_model(model, type_source, *args, use_data_aug=False):
     else:
         dataframe, path_data = args
         params_generator.update(dict(
-            # dataframe=partition_shuffled(dataframe),
             dataframe=partition_ordered(dataframe),
+            # dataframe=partition_shuffled(dataframe),
             directory=path_data,
             classes=wnids))
         generator_train = datagen_train.flow_from_dataframe(

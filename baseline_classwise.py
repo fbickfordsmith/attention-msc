@@ -14,7 +14,6 @@ from testing import predict_model
 
 data_partition = 'val_white'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
-# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 model = VGG16(weights='imagenet')
 probabilities, generator = predict_model(model, path_data)
 classes_pred = np.argmax(probabilities, axis=1)

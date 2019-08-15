@@ -7,7 +7,6 @@ Partitioning data:
 
     data_partition = 'train'
     path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
-# path_data = f'/mnt/fast-data16/datasets/ILSVRC/2012/clsloc/{data_partition}/'
     path_activations = '/home/freddie/activations-conv-split/'
     path_synsets = '/home/freddie/attention/metadata/synsets.txt'
 

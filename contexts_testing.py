@@ -18,7 +18,7 @@ type_context = input('Context type in {diff, sem, sim, size}: ')
 version_wnids = 'v' + input('Version number (WNIDs): ')
 version_weights = 'v' + input('Version number (weights): ')
 start = int(input('Start context: '))
-stop = int(input('Stop context: '))
+stop = int(input('Stop context (inclusive): '))
 data_partition = 'val_white'
 
 path_weights = '/home/freddie/attention/weights/'
@@ -33,7 +33,7 @@ ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.lay
 contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
 scores_ic, scores_oc = [], []
 
-for i in range(start, stop):
+for i in range(start, stop+1):
     name_context = f'{type_context}context{i:02}'
     print(f'\nTesting on {name_context}')
     weights = np.load(f'{path_weights}{name_context}_weights_{version_weights}.npy')
@@ -52,9 +52,7 @@ for i in range(start, stop):
     scores_ic.append(evaluate_predictions(predictions, labels, inds_incontext))
     scores_oc.append(evaluate_predictions(predictions, labels, inds_outofcontext))
 
-col_names = []
-col_names.extend([f'incontext_{m}' for m in ['loss', 'acc_top1', 'acc_top5']])
-col_names.extend([f'outofcontext_{m}' for m in ['loss', 'acc_top1', 'acc_top5']])
-scores_arr = np.concatenate((np.array(scores_ic), np.array(scores_oc)), axis=1)
-pd.DataFrame(scores_arr, columns=col_names).to_csv(
+cols_names = ['loss_in', 'loss_out', 'acc_top1_in', 'acc_top1_out', 'acc_top5_in', 'acc_top5_out']
+scores_all = np.concatenate((np.array(scores_ic), np.array(scores_oc)), axis=1)
+pd.DataFrame(scores_all, columns=col_names).to_csv(
     f'{path_results}{type_context}contexts_trained_metrics_{version_weights}_{start}-{stop}.csv')

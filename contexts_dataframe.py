@@ -25,13 +25,12 @@ df = pd.DataFrame()
 df['filename'] = generator.filenames
 df['class'] = pd.Series(generator.filenames).str.split('/', expand=True)[0]
 
-with open(f'{path_contexts}{type_context}contexts_wnids_{version_wnids}.csv') as f:
+with open(f'{path_contexts}{type_context}_{version_wnids}_wnids.csv') as f:
     contexts = [row for row in csv.reader(f, delimiter=',')]
 
 for i, context in enumerate(contexts):
     inds_incontext = []
     for wnid in context:
         inds_incontext.extend(np.flatnonzero(df['class']==wnid))
-
     df.iloc[inds_incontext].to_csv(
-        f'{path_dataframes}{type_context}context{i:02}_df_{version_wnids}.csv', index=False)
+        f'{path_dataframes}{type_context}_{version_wnids}_{i:02}_df.csv', index=False)

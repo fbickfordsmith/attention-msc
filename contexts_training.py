@@ -34,12 +34,12 @@ ind_attention = np.flatnonzero(['attention' in layer.name for layer in model.lay
 
 for i in range(start, stop+1):
     name_wnids = f'{type_context}_{version_wnids}_{i:02}'
-    name_weights = f'{type_context}_{version_weights}'
+    name_weights = f'{type_context}_{version_weights}_{i:02}'
     print(f'\nTraining on {name_wnids}')
     model.load_weights(path_initmodel)
     args_train = [pd.read_csv(f'{path_dataframes}{name_wnids}_df.csv'), path_data]
     model, history = train_model(model, 'dataframe', *args_train, use_data_aug=False)
-    pd.DataFrame(history.history).to_csv(f'{path_training}{type_context}_{version_weights}_training.csv')
+    pd.DataFrame(history.history).to_csv(f'{path_training}{name_weights}_training.csv')
     np.save(
         f'{path_weights}{name_weights}_weights.npy',
         model.layers[ind_attention].get_weights()[0],

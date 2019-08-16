@@ -52,6 +52,7 @@ top -u [username] # get process IDs (PIDs)
 kill -9 [PID] # kill process
 top -b -n 1 -u freddie | awk 'NR>7 { sum += $9; } END { print sum; }'
 top -b -n 1 -u [username] | awk 'NR>7 { sum += $9; } END { print sum; }' # total user cpu usage
+glances # similar to top
 
 # Managing files
 https://everythinglinux.org/rsync/

@@ -34,7 +34,7 @@ contexts = [row for row in csv.reader(open(path_contexts), delimiter=',')]
 scores_in, scores_out = [], []
 
 for i in range(start, stop+1):
-    name_weights = f'{type_context}_{version_weights}'
+    name_weights = f'{type_context}_{version_weights}_{i:02}'
     print(f'\nTesting on {name_weights}')
     weights = np.load(f'{path_weights}{name_weights}_weights.npy')
     model.load_weights(path_initmodel) # `del model` deletes `model`
@@ -55,4 +55,4 @@ for i in range(start, stop+1):
 col_names = ['loss_in', 'loss_out', 'acc_top1_in', 'acc_top1_out', 'acc_top5_in', 'acc_top5_out']
 scores_all = np.concatenate((np.array(scores_in), np.array(scores_out)), axis=1)
 pd.DataFrame(scores_all, columns=col_names).to_csv(
-    f'{path_results}{name_weights}_{start}-{stop}_results.csv')
+    f'{path_results}{name_weights}_{start:02}-{stop:02}_results.csv')

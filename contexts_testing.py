@@ -24,7 +24,7 @@ data_partition = 'val_white'
 path_weights = '/home/freddie/attention/weights/'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_initmodel = '/home/freddie/keras-models/initialised_model.h5'
-path_contexts = f'/home/freddie/attention/contexts/{type_context}contexts_wnids_{version_wnids}.csv'
+path_contexts = f'/home/freddie/attention/contexts/{type_context}_{version_wnids}_wnids.csv'
 path_results = '/home/freddie/attention/results/'
 
 model = build_model(train=False, attention_position=19)

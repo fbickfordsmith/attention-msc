@@ -11,7 +11,7 @@ version  use_data_aug  patience  init  flow_from  wnids_version  notes
 7        True          10        ones  df         1
 8        False         10        ones  df         2
 
-semcontexts_wnids_v2: removed cardigan (dog breed) from wearables
+sem_v2_wnids: removed cardigan (dog breed) from wearables
 
 ----------
 DIFFICULTY CONTEXTS
@@ -20,7 +20,7 @@ version  use_data_aug  patience  init  flow_from  wnids_version  notes
 1        False         1         rand  dir        1
 2        False         10        ones  df         2
 
-diffcontexts_wnids_v2: added 5 extra contexts
+diff_v2_wnids: added 5 extra contexts
 
 ----------
 SIZE CONTEXTS
@@ -31,7 +31,8 @@ version  use_data_aug  patience  init  flow_from  wnids_version  notes
 3        False         10        ones  df         2              multiproc off for contexts 0-6, on for 7-8
 4        False         10        ones  df         2              repeat contexts 0-6 with multiproc on
 
-sizecontexts_wnids_v2: 2**x for x in [0, 8]
+size_v2_wnids: sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+size_v3_wnids: sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
 
 ----------
 SIMILARITY CONTEXTS

@@ -1,6 +1,6 @@
 '''
 Use meta.mat from ILSVRC2012_devkit_t12 to add metadata (names and descriptions)
-to baseline_classwise.csv.
+to base_results.csv
 
 References:
 - github.com/calebrob6/imagenet_validation/blob/master/1.%20Preprocess%20ImageNet%20validation%20set.ipynb
@@ -13,7 +13,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 import pandas as pd
 import scipy.io
 
-path_results = 'results/baseline_classwise_acc.csv'
+path_results = 'results/base_results.csv'
 path_meta = 'metadata/meta.mat'
 df = pd.read_csv(path_results, index_col=0)
 meta = scipy.io.loadmat(path_meta)

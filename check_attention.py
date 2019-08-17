@@ -1,6 +1,13 @@
 '''
 Check that an attention model with attention weights set to 1 achieves the same
 performance as a VGG16 without an attention layer.
+
+Method:
+1. Load a pretrained VGG16
+2. Add an attention layer after the final pooling layer
+2. Set all attention weights to 1
+3. Fix all weights
+4. Predict the classes of the validation set
 '''
 
 import os

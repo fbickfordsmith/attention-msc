@@ -27,4 +27,4 @@ df['wnid'] = wnid2ind.keys()
 df['num_examples'] = [np.count_nonzero(classes_true==i) for i in range(1000)]
 df['num_correct'] = [np.count_nonzero(correct_class==i) for i in range(1000)]
 df['accuracy'] = df['num_correct'] / df['num_examples']
-df.to_csv('results/baseline_classwise_acc.csv')
+df.to_csv('results/base_results.csv')

@@ -23,7 +23,7 @@ data_partition = 'val_white'
 
 path_weights = '/home/freddie/attention/weights/'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
-path_initmodel = '/home/freddie/keras-models/initialised_model.h5'
+path_initmodel = '/home/freddie/initialised_model.h5'
 path_contexts = f'/home/freddie/attention/contexts/{type_context}_{version_wnids}_wnids.csv'
 path_results = '/home/freddie/attention/results/'
 
@@ -52,7 +52,10 @@ for i in range(start, stop+1):
     scores_in.append(evaluate_predictions(predictions, labels, inds_in))
     scores_out.append(evaluate_predictions(predictions, labels, inds_out))
 
-col_names = ['loss_in', 'loss_out', 'acc_top1_in', 'acc_top1_out', 'acc_top5_in', 'acc_top5_out']
+cols_array = ['loss_in', 'acc_top1_in', 'acc_top5_in', 'loss_out', 'acc_top1_out', 'acc_top5_out']
+cols_save = ['loss_in', 'loss_out', 'acc_top1_in', 'acc_top1_out', 'acc_top5_in', 'acc_top5_out']
+
 scores_all = np.concatenate((np.array(scores_in), np.array(scores_out)), axis=1)
-pd.DataFrame(scores_all, columns=col_names).to_csv(
-    f'{path_results}{name_weights}_{start:02}-{stop:02}_results.csv')
+scores_df = pd.DataFrame(scores_all, columns=cols_array)
+scores_df[cols_save].to_csv(
+    f'{path_results}{type_context}_{version_weights}_{start:02}-{stop:02}_results.csv')

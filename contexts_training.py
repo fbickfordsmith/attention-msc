@@ -25,7 +25,7 @@ data_partition = 'train'
 path_weights = '/home/freddie/attention/weights/'
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_dataframes = '/home/freddie/dataframes/'
-path_initmodel = '/home/freddie/keras-models/initialised_model.h5'
+path_initmodel = '/home/freddie/initialised_model.h5'
 path_training = '/home/freddie/attention/training/'
 
 model = build_model(train=True, attention_position=19)

@@ -19,35 +19,25 @@ thresholds = [0.35, 0.4, 0.45, 0.5, 0.55]
 interval_ends = [0.2, 0.25, 0.3, 0.35, 0.4]
 
 intervals_covered = False
-dist_in_bounds = False
-counter = 0
+dist_bestscore = np.inf
+inds_best = None
 
-while not intervals_covered or not dist_in_bounds:
+for i in range(10000):
+    if i % 1000 == 0:
+        print(f'i = {i:05}')
     inds_sampled = np.array([sample_below_acc(t) for t in thresholds])
-    acc_sampled = np.array([base_accuracy(i) for i in inds_sampled])
-    intervals_covered = check_coverage(acc_sampled, interval_ends)
-    dist_in_bounds = np.all([check_dist_in_bounds(inds) for inds in inds_sampled])
-    counter += 1
-    if counter > 1000: break
-inds_keep = inds_sampled
+    acc = [base_accuracy(inds) for inds in inds_sampled]
+    dist = [score_dist(inds) for inds in inds_sampled]
+    intervals_covered = check_coverage(np.array(acc), interval_ends)
+    dist_score = np.max(np.abs(dist)) # similar results with dist_score = np.std(dist)
+    if intervals_covered and (dist_score < dist_bestscore):
+        inds_best = inds_sampled
+        dist_bestscore = dist_score
 
-# intervals_covered = False
-# min_std_dist = np.inf
-# inds_keep = None
-
-# for _ in range(10000):
-#     inds_sampled = np.array([sample_below_acc(t) for t in thresholds])
-#     acc_sampled = np.array([base_accuracy(i) for i in inds_sampled])
-#     intervals_covered = check_coverage(acc_sampled, interval_ends)
-#     dists = [score_dist(inds) for inds in inds_sampled]
-#     std_dist_sampled = np.std(dists)
-#     if std_dist_sampled < min_std_dist:
-#         inds_keep = inds_sampled
-#         min_std_dist = std_dist_sampled
-
-if intervals_covered and dist_in_bounds:
-    print(counter)
-    inds_all = np.concatenate((inds_split, inds_keep), axis=0)
+if inds_best is not None:
+    print('Accuracy:', [round(base_accuracy(inds), 2) for inds in inds_best])
+    print('Distance:', [round(average_distance(distances(Z[inds])), 2) for inds in inds_best])
+    inds_all = np.concatenate((inds_split, inds_best), axis=0)
     wnids_all = np.vectorize(ind2wnid.get)(inds_all)
     pd.DataFrame(wnids_all).to_csv(
         f'{path}contexts/{type_context}_{version_wnids}_wnids.csv', header=False, index=False)

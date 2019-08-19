@@ -10,6 +10,7 @@ version  use_data_aug  patience  init  flow_from  wnids_version  notes
 6        True          10        ones  dir        1              att_pos=15
 7        True          10        ones  df         1
 8        False         10        ones  df         2
+9        False         2         ones  df         2              multiproc off; RelativeEarlyStopping
 
 sem_v2_wnids: removed cardigan (dog breed) from wearables
 
@@ -30,9 +31,12 @@ version  use_data_aug  patience  init  flow_from  wnids_version  notes
 2        False         10        ones  dir        1
 3        False         10        ones  df         2              multiproc off for contexts 0-6, on for 7-8
 4        False         10        ones  df         2              repeat contexts 0-6 with multiproc on
+5        False         2         ones  df         3              multiproc off; RelativeEarlyStopping
+6        False         2         ones  df         4
 
-size_v2_wnids: sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
-size_v3_wnids: sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
+size_v2_wnids (pre-9aug): sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+size_v3_wnids (post-17aug): sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
+size_v4_wnids (post-19aug): fixed a saving issue
 
 ----------
 SIMILARITY CONTEXTS
@@ -41,4 +45,5 @@ version  use_data_aug  patience  init  flow_from  wnids_version  notes
 1        False         1         rand  dir        1
 2        False         10        ones  df         2
 
-simcontexts_wnids_v2: ensured coverage of cosine distance interval
+sim_v2_wnids: ensured coverage of cosine distance interval
+sim_v3_wnids: changed sampling objective

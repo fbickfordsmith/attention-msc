@@ -2,56 +2,46 @@
 PLAN
 
 7 aug
-[x] redefine semcontexts (Ken's update)
-[x] redefine sizecontexts (2**x up to 256)
-[x] generate semcontexts, sizecontexts dataframes
-[x] train sizecontexts (took ~24hr)
+[x] define sem_v2_wnids
+[x] define size_v2_wnids
+[x] train size_v3_weights (took ~24hr)
 
 8-9 aug
-[x] test sizecontexts
-[x] train semcontexts (took ~12hr)
-[x] test semcontexts
-[x] redefine diffcontexts (extra 5 covering acc in [0.2, 0.4])
-[x] redefine simcontexts (reduce to 20; minimising std_acc)
-[x] generate diffcontexts, simcontexts dataframes
-[x] train diffcontexts (took ~48hr)
+[x] test size_v3_weights
+[x] train sem_v8_weights (took ~12hr)
+[x] test sem_v8_weights
+[x] define diff_v2_wnids (extra 5 covering acc in [0.2, 0.4])
+[x] define sim_v2_wnids (reduce to 20; minimising std_acc)
+[x] train diff_v2_weights (took ~48hr)
 
 11 aug
-[x] test diffcontexts
-[x] train simcontexts (took ~36hr)
+[x] test diff_v2_weights
+[x] train sim_v2_weights (took ~36hr)
 
 13 aug
-[x] test simcontexts
+[x] test sim_v2_weights
+
+17 aug
+[x] define size_v3_wnids
+[x] define sim_v3_wnids
+[x] train size_v5_weights
+
+19 aug
+[x] define size_v4_wnids
+[x] train diff_v3_weights
+
+22 aug
+[ ] test diff_v3_weights
+[ ] train sim_v3_weights
+
+...
+[ ] train size_v6_weights
 
 next
-- redefine sizecontexts with unusual acc or sim
+- repeats
 - {diff, size, sim}-controlled semantic
-- repeats (eg, of size experiment)
+- recompute activations
 - speed up generator
-
-after handin
 - look into processing imagenet hierarchy
 - variational inference
 - interpretability
-
-----------
-NOTES TO WRITE UP
-
-using diagonal covariance,
-- mahalanobis_v3.py takes 20s/loop * 1000loops = 5.5hr
-- kl_divergence_v2.py takes 40s/loop * 1000loops = 11hr
-- similarity_dotproduct_np2.py with num_samples=125 takes 17s/loop * 1000loops = 4.5hr
-distances are (much) slower to compute with full covariance
-
-perceptual similarity on val_white
-- vgg takes 30s/loop * 500,500loops = 4170hr
-- alexnet takes 20s/loop
-- squeezenet takes 30s/loop
-
-need to correct all instances of mean_dist computations
-
-----------
-THESIS
-
-write without looking at references -- just type!
-overall difficulty -> average difficulty

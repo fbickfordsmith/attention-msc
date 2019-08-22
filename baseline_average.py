@@ -8,15 +8,16 @@ References:
 - medium.com/@vijayabhaskar96/tutorial-image-classification-with-keras-flow-from-directory-and-generators-95f75ebe5720
 '''
 
+gpu = input('GPU: ')
+data_partition = input('Data partition: ')
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
+os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
 from keras.applications.vgg16 import VGG16
 from testing import evaluate_model
-
-data_partition = input('Data partition: ')
 
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 model = VGG16(weights='imagenet')

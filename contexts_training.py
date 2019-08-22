@@ -6,20 +6,22 @@ References:
 - stackoverflow.com/questions/40496069/reset-weights-in-keras-layer/50257383
 '''
 
+gpu = input('GPU: ')
+type_context = input('Context type in {diff, sem, sim, size}: ')
+version_wnids = 'v' + input('Version number (WNIDs): ')
+version_weights = 'v' + input('Version number (training/weights): ')
+start = int(input('Start context: '))
+stop = int(input('Stop context (inclusive): '))
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
+os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
 import pandas as pd
 from models import build_model
 from training import train_model
 
-type_context = input('Context type in {diff, sem, sim, size}: ')
-version_wnids = 'v' + input('Version number (WNIDs): ')
-version_weights = 'v' + input('Version number (training/weights): ')
-start = int(input('Start context: '))
-stop = int(input('Stop context (inclusive): '))
 data_partition = 'train'
 
 path_weights = '/home/freddie/attention/weights/'

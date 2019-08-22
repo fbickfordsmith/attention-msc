@@ -3,17 +3,19 @@ For each context, make a dataframe containing filepaths, labels and filenames
 for all the examples in the context.
 '''
 
+gpu = input('GPU: ')
+type_context = input('Context type in {diff, sem, sim, size}: ')
+version_wnids = 'v' + input('Version number (WNIDs): ')
+
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
+os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import csv
 import numpy as np
 import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 
-type_context = input('Context type in {diff, sem, sim, size}: ')
-version_wnids = 'v' + input('Version number (WNIDs): ')
 data_partition = 'train'
 
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'

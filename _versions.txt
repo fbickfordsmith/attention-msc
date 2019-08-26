@@ -27,6 +27,7 @@ version  patience  flow_from  wnids_version  notes
 init=rand for v1; else init=ones
 use_data_aug=False
 diff_v2_wnids (09aug): added 5 extra contexts
+diff_v3_wnids (26aug): resampled for repeat experiment
 
 ----------
 SIZE CONTEXTS
@@ -44,6 +45,7 @@ use_data_aug=False
 size_v2_wnids (07aug): sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
 size_v3_wnids (17aug): sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
 size_v4_wnids (19aug): fixed a saving issue
+size_v5_wnids (26aug): resampled for repeat experiment
 
 ----------
 SIMILARITY CONTEXTS
@@ -57,3 +59,4 @@ init=rand for v1; else init=ones
 use_data_aug=False
 sim_v2_wnids (09aug): ensured coverage of cosine distance interval
 sim_v3_wnids (17aug): changed sampling objective
+sim_v4_wnids (26aug): resampled for repeat experiment

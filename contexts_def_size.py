@@ -32,6 +32,7 @@ for i in range(10000):
     inds_sampled = [
         np.random.choice(1000, size=s, replace=False) for s in context_sizes]
     accdist = [score_acc(inds) for inds in inds_sampled]
+    # line below should be score_dist(inds)
     accdist.extend([score_acc(inds) for inds in inds_sampled[1:]]) # first context always has distance of 0
     accdist_score = np.max(np.abs(accdist)) # similar results with accdist_score = np.std(accdist)
     if accdist_score < accdist_bestscore:

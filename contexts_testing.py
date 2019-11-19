@@ -1,7 +1,6 @@
 '''
-ImageNet classes have been grouped into contexts. For each context, an
-attention model has been trained on examples from that context only. For each
-trained model, evaluate on val_white examples. Runtime: ~3 mins/context.
+Evaluate trained attention networks on validation-set ImageNet examples.
+Runtime: ~3 mins/context.
 '''
 
 gpu = input('GPU: ')

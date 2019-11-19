@@ -11,7 +11,6 @@ import numpy as np
 import pandas as pd
 from keras.applications.vgg16 import preprocess_input
 from keras.preprocessing.image import ImageDataGenerator
-# from keras.callbacks import EarlyStopping
 from callbacks import RelativeEarlyStopping
 from sklearn.model_selection import train_test_split
 from preprocessing import crop_and_pca_generator
@@ -42,19 +41,6 @@ params_generator = dict(
     batch_size=256,
     shuffle=True,
     class_mode='categorical')
-
-# early_stopping = EarlyStopping(
-#     monitor='val_loss',
-#     patience=10,
-#     verbose=True,
-#     restore_best_weights=True)
-
-# params_training = dict(
-#     epochs=100,
-#     verbose=1,
-#     callbacks=[early_stopping],
-#     use_multiprocessing=True,
-#     workers=7)
 
 def partition_shuffled(df, labels_col='class'):
     df_train, df_valid = train_test_split(df, test_size=split, stratify=df[labels_col])

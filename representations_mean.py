@@ -1,7 +1,6 @@
 '''
-A VGG16 representation (4096-dim vector; see representations_all.py) has been
-computed for each ImageNet example. For each ImageNet class, take the
-representations of images in it, and compute the mean of these.
+For each ImageNet class, take the VGG16 representations of images in it
+(computed using `representations_all.py`), and compute the mean of these.
 '''
 
 import os
@@ -11,7 +10,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
 import numpy as np
 
 path_activations = '/home/freddie/activations/'
-path_save = '/home/freddie/attention/npy/'
+path_save = '/home/freddie/attention/representations/'
 mean_activations = []
 
 for i in range(1000):

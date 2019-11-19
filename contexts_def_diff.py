@@ -1,5 +1,7 @@
 '''
-Group ImageNet classes into 25 'difficulty contexts'.
+Define a set of 20 'difficulty contexts'. These are subsets of ImageNet classes
+that we choose to have varying difficulty (average error rate of VGG16) but
+equal size and approx equal visual similarity.
 
 Method:
 1. Sort classes by the base accuracy of VGG16.

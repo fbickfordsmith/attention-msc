@@ -1,6 +1,5 @@
 '''
-ImageNet classes have been grouped into contexts. For each context, train an
-attention layer on examples from that context only.
+For each context, train an attention network on examples from that context only.
 
 References:
 - stackoverflow.com/questions/40496069/reset-weights-in-keras-layer/50257383

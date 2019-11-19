@@ -1,7 +1,7 @@
 '''
-A VGG16 representation (4096-dim vector; see representations_all.py) has been
-computed for each ImageNet example. For each ImageNet class, take the
-representations of images in it, and compute the mean and covariance of these.
+For each ImageNet class, take the VGG16 representations of images in it
+(computed using `representations_all.py`), and compute the mean and covariance
+of these.
 
 Time and memory requirements (using float32) for covariance:
 - Full: ~10 seconds to fit; ~67 MB to store (4096x4096 matrix)
@@ -17,7 +17,7 @@ from sklearn.mixture import GaussianMixture
 import time
 
 path_activations = '/Users/fbickfordsmith/activations-copy/'
-path_save = '/Users/fbickfordsmith/Google Drive/Project/attention/npy/'
+path_save = '/Users/fbickfordsmith/Google Drive/Project/attention/representations/'
 means, covariances = [], []
 start = time.time()
 

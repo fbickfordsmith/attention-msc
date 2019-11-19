@@ -1,13 +1,14 @@
 '''
-Check that an attention model with attention weights set to 1 achieves the same
-performance as a VGG16 without an attention layer.
+Assess the accuracy of an attention network with attention weights set to 1.
+Written for a sanity check. Agreement with the result produced by
+`baseline_average.py` implies attention network works as expected.
 
 Method:
-1. Load a pretrained VGG16
-2. Add an attention layer after the final pooling layer
-2. Set all attention weights to 1
-3. Fix all weights
-4. Predict the classes of the validation set
+1. Load a pretrained VGG16.
+2. Add an attention layer after the final pooling layer.
+2. Set all attention weights to 1.
+3. Fix all weights.
+4. Predict the classes of the validation set.
 '''
 
 import os

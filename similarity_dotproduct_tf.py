@@ -1,4 +1,8 @@
 '''
+For each pair of ImageNet classes, compute the similarity. Here, similarity is
+measured by the dot product of VGG16 representations of sampled examples from
+each class. (TensorFlow version)
+
 References:
 - stackoverflow.com/questions/43357732/how-to-calculate-the-cosine-similarity-between-two-tensors/43358711
 '''

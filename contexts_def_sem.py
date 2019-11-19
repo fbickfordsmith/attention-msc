@@ -1,15 +1,16 @@
 '''
-Group ImageNet classes into 6 'semantic contexts'.
+Define a set of 6 'semantic contexts'. These are subsets of ImageNet classes
+that are conceptually similar, as judged by humans.
 
-$ python3 contexts_definition_sem.py
-Found 35 classes in imagenet_kitchen.csv
-Found 129 classes in imagenet_dogs.csv
-Found 13 classes in imagenet_cats.csv
-Found 56 classes in imagenet_wearable.csv
-Found 45 classes in imagenet_landtransport.csv
-Found 60 classes in imagenet_birds.csv
+Filename                     Number of classes
+_imagenet_kitchen.csv        35
+_imagenet_dogs.csv           129
+_imagenet_cats.csv           13
+_imagenet_wearable.csv       56
+_imagenet_landtransport.csv  45
+_imagenet_birds.csv          60
 
-Total number of classes: 338.
+Total: 338 classes.
 
 References:
 - github.com/don-tpanic/CSML_attention_project_pieces

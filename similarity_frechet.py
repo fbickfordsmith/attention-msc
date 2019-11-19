@@ -1,4 +1,7 @@
 '''
+For each pair of ImageNet classes, compute the similarity. Here, similarity is
+measured by the Frechet distance of VGG16 representations for each class.
+
 Old version:
     from scipy.linalg import sqrtm
     def frechet(m0, S0, m1, S1):
@@ -25,9 +28,9 @@ References:
 import numpy as np
 import time
 
-path = '/Users/fbickfordsmith/Google Drive/Project/attention/npy/'
-means = np.load(path+'activations_mean.npy')
-covariances = np.load(path+'activations_cov.npy')
+path = '/Users/fbickfordsmith/Google Drive/Project/attention/representations/'
+means = np.load(path+'representations_mean.npy')
+covariances = np.load(path+'representations_covariance.npy')
 distances = np.empty((1000, 1000))
 
 def frechet(m0, S0, m1, S1):

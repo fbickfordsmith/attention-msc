@@ -1,13 +1,6 @@
 '''
-We varying three properties of contexts: size, difficulty and similarity.
-
-In our experiments we aim to vary only one property at a time, minimising
-variation in the other properties. The way we defined the contexts for each
-experiment was dictated by this desideratum:
-
-- Size: vary size; approx-fix difficulty; approx-fix similarity
-- Difficulty: exact-fix size; vary difficulty; approx-fix similarity
-- Similarity: exact-fix size; approx-fix difficulty; vary similarity
+Define helper functions used in `contexts_def_[type_context].py` for
+type_context in {diff, sem, sim, size}.
 '''
 
 import csv
@@ -59,7 +52,7 @@ ub_acc = mean_acc + std_acc
 inds_av_acc = np.flatnonzero((lb_acc<df_base['accuracy']) & (df_base['accuracy']<ub_acc))
 
 Z = np.load(path_representations)
-distances = cosine_distances # distances = euclidean_distances
+distances = cosine_distances
 Zdist = distances(Z)
 mean_dist = np.mean(squareform(Zdist, checks=False))
 std_dist = np.std(squareform(Zdist, checks=False))

@@ -1,3 +1,7 @@
+'''
+Define helper functions used for plotting.
+'''
+
 import os
 import csv
 import numpy as np

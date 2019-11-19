@@ -1,5 +1,5 @@
 '''
-Take a pretrained VGG16, and add an elementwise-multiplication attention layer
+Take a pretrained VGG16. Add an elementwise-multiplication attention layer
 between the final convolutional layer and the first fully-connected layer. Fix
 all weights except for the attention weights.
 '''

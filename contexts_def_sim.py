@@ -1,12 +1,19 @@
 '''
-Method:
-...
-For each seed
-- For k in {50, 366, 682, 999}, sample 49 indices (\seed) from the k nearest neighbours
+Define a set of 20 'similarity contexts'. These are subsets of ImageNet classes
+that we choose to have varying visual similarity (average pairwise cosine
+similarity of VGG16 representations) but equal size and approx equal difficulty.
 
-Previous versions used
-- random.choice(inds_av_acc) instead of random.choice(1000)
-- Euclidean distance with interval_ends = np.arange(30, 85, 5)
+Method:
+1. Sample 5 seeds.
+2. For each seed,
+    a. For k in {50, 366, 682, 999},
+        i. Sample 49 indices from the seed's k nearest neighbours.
+        ii. Compute the distance (= 1 - similarity) and accuracy of the sampled
+            context.
+3. Check that the sampled contexts give good coverage of similarity values
+    between 0.1 and 0.6.
+4. Keep the sampled contexts if their accuracy score (normalised distance from
+    average VGG16 accuracy) is better than any previous score.
 '''
 
 from contexts_definition import *

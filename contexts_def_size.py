@@ -1,15 +1,14 @@
 '''
-Select a set of 11 'size contexts', {C_1, ..., C_11}. These contexts are
-non-disjoint subsets of ImageNet classes that we choose to have
-- approximately equal difficulty and similarity
-- varying size: |C| in [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
+Define a set of 11 'size contexts'. These are subsets of ImageNet classes
+that we choose to have varying size (number of classes) but approx equal
+difficulty and visual similarity.
 
 Method:
-For 10,000 repeats
-1. Sample a candidate set of contexts, {C_1', ..., C_11'}
-2. Compute acc = [normalised_deviation_from_mean_acc(C_i) for i = 1:11]
-3. Compute dist = [normalised_deviation_from_mean_dist(C_i) for i = 1:11]
-4. If std(concat(acc, dist)) < current_lowest_std, keep context set
+1. For 10,000 repeats
+    a. Sample a candidate set of contexts, {C_1', ..., C_11'}.
+    b. Compute acc = [normalised_deviation_from_mean_acc(C_i) for i = 1:11].
+    c. Compute dist = [normalised_deviation_from_mean_dist(C_i) for i = 1:11].
+    d. If std(concat(acc, dist)) < current_lowest_std, keep context set.
 
 Previous versions used
 - context_sizes = [int(2**x) for x in range(9)]

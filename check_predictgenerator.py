@@ -1,6 +1,8 @@
 '''
 Assess the accuracy of a pretrained VGG16 on the ImageNet validation set,
-without using predict_generator.
+without using predict_generator. Written for a sanity check. Agreement with the
+result produced by `baseline_average.py` implies predict_generator works as
+expected.
 '''
 
 import os

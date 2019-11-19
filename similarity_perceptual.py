@@ -1,10 +1,12 @@
 '''
+For each pair of ImageNet classes, compute the similarity. Here, similarity is
+measured by the perceptual similarity model of Zhang et al (2018) applied to
+sampled examples from each class.
+
 Needs to be moved into the PerceptualSimilarity folder.
 
-See contents of `models/` in repository.
-
 References:
-- github.com/richzhang/PerceptualSimilarity
+- github.com/richzhang/PerceptualSimilarity (see contents of `models/`)
 - stackoverflow.com/questions/15208615/using-pth-files
 '''
 

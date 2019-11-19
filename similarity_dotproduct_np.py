@@ -1,3 +1,9 @@
+'''
+For each pair of ImageNet classes, compute the similarity. Here, similarity is
+measured by the dot product of VGG16 representations of sampled examples from
+each class. (NumPy version)
+'''
+
 import numpy as np
 from sklearn.preprocessing import normalize
 import time

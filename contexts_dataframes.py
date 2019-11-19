@@ -17,7 +17,6 @@ import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 
 data_partition = 'train'
-
 path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
 path_contexts = '/home/freddie/attention/contexts/'
 path_dataframes = '/home/freddie/dataframes/'

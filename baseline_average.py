@@ -1,15 +1,13 @@
 '''
-Assess the accuracy of a pretrained VGG16 on the ImageNet validation set.
-
-Command-line arguments:
-1. data_partition in {train, val, val_white}
+Assess the average accuracy of a pretrained VGG16 on the ImageNet validation
+set.
 
 References:
 - medium.com/@vijayabhaskar96/tutorial-image-classification-with-keras-flow-from-directory-and-generators-95f75ebe5720
 '''
 
 gpu = input('GPU: ')
-data_partition = input('Data partition: ')
+data_partition = input('Data partition in {train, val, val_white}: ')
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'

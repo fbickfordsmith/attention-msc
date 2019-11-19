@@ -1,6 +1,6 @@
 # When is visual attention useful?
-MSc research by Freddie Bickford-Smith
-Supervisors: Brad Love, Brett Roads, Ed Grefenstette
+MSc research by Freddie Bickford-Smith  
+Supervisors: Brad Love, Brett Roads, Ed Grefenstette  
 University College London, September 2019
 
 ## Abstract
@@ -9,7 +9,15 @@ Visual attention, the ability to prioritise the processing of selected visual in
 ## Repository guide
 Note that any reference to a **context** in this repository relates to what we call a **category set** (grouping of ImageNet categories) in the thesis (`_thesis.pdf`). We changed the terminology for the write-up to improve clarity.
 
-All `.py` files in the root directory contain a docstring describing what they do. For each experiment we use `contexts_def_[type_context].py` to define a set of contexts, then `contexts_dataframes.py` to build dataframes defining the training set for each context, `contexts_training.py` to train an attention network on each context, and `contexts_testing.py` to evaluate these networks. Files with prefix `representations` relate to computing VGG16 representations of images; those with prefix `similarity` relate to computing similarity measures using the representations. The table below gives an overview of the rest of the repository.
+All `.py` files in the root directory contain a docstring describing what they do.
+
+For each experiment we use
+- `contexts_def_[type_context].py` to define a set of contexts
+- `contexts_dataframes.py` to build dataframes defining the training set for each context
+- `contexts_training.py` to train an attention network on each context
+- `contexts_testing.py` to evaluate these networks
+
+`.py` files with prefix `representations` relate to computing VGG16 representations of images; those with prefix `similarity` relate to computing similarity measures using the representations. The table below gives an overview of the rest of the repository.
 
 |Directory|Contents|
 |-|-|

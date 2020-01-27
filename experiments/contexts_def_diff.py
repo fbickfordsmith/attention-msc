@@ -1,4 +1,4 @@
-'''
+"""
 Define a set of 20 'difficulty contexts'. These are subsets of ImageNet classes
 that we choose to have varying difficulty (average error rate of VGG16) but
 equal size and approx equal visual similarity.
@@ -8,15 +8,20 @@ Method:
 2. Split into 20 disjoint sets of classes.
 3. Sample 5 additional sets in order to get better coverage of context
     accuracies in the range [0.2, 0.4].
-'''
+"""
 
-from contexts_definition import *
+version_wnids = input('Version number (WNIDs): ')
 
-type_context = 'diff'
-version_wnids = 'v' + input('Version number (WNIDs): ')
+import sys
+sys.path.append('..')
 
-df_base.sort_values(by='accuracy', ascending=True, inplace=True)
-inds_split = np.array([list(inds) for inds in np.split(df_base.index, 20)])
+from utils.paths import path_repo
+from utils.contexts_definition import *
+
+path_save = path_repo/f'data/contexts/diff_v{version_wnids}_wnids.csv'
+
+df_baseline.sort_values(by='accuracy', ascending=True, inplace=True)
+inds_split = np.array([list(inds) for inds in np.split(df_baseline.index, 20)])
 thresholds = [0.35, 0.4, 0.45, 0.5, 0.55]
 interval_ends = [0.2, 0.25, 0.3, 0.35, 0.4]
 
@@ -38,10 +43,10 @@ for i in range(10000):
 
 if inds_best is not None:
     print('Accuracy:', [round(base_accuracy(inds), 2) for inds in inds_best])
-    print('Distance:', [round(average_distance(distances(Z[inds])), 2) for inds in inds_best])
+    print('Distance:',
+        [round(average_distance(distances(Z[inds])), 2) for inds in inds_best])
     inds_all = np.concatenate((inds_split, inds_best), axis=0)
     wnids_all = np.vectorize(ind2wnid.get)(inds_all)
-    pd.DataFrame(wnids_all).to_csv(
-        f'{path}contexts/{type_context}_{version_wnids}_wnids.csv', header=False, index=False)
+    pd.DataFrame(wnids_all).to_csv(path_save, header=False, index=False)
 else:
     print('Suitable contexts not found')

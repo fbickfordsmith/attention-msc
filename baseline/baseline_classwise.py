@@ -1,20 +1,25 @@
-'''
+"""
 For each ImageNet class, assess the accuracy of a pretrained VGG16 on the
 ImageNet validation set.
-'''
+"""
 
-import os
+gpu = input('GPU: ')
+
+import os, sys
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
+os.environ['CUDA_VISIBLE_DEVICES'] = gpu
+sys.path.append('..')
 
 import numpy as np
 import pandas as pd
-from keras.applications.vgg16 import VGG16
-from testing import predict_model
+from tensorflow.keras.applications.vgg16 import VGG16
+from utils.testing import predict_model
+from utils.paths import path_imagenet
 
-data_partition = 'val_white'
-path_data = f'/fast-data/datasets/ILSVRC/2012/clsloc/{data_partition}/'
-model = VGG16(weights='imagenet')
+path_data = path_imagenet/'val_white'
+path_save = path_repo/'results/base_results.csv'
+
+model = VGG16()
 probabilities, generator = predict_model(model, path_data)
 classes_pred = np.argmax(probabilities, axis=1)
 classes_true = generator.classes
@@ -27,4 +32,4 @@ df['wnid'] = wnid2ind.keys()
 df['num_examples'] = [np.count_nonzero(classes_true==i) for i in range(1000)]
 df['num_correct'] = [np.count_nonzero(correct_class==i) for i in range(1000)]
 df['accuracy'] = df['num_correct'] / df['num_examples']
-df.to_csv('results/base_results.csv')
+df.to_csv(path_save)

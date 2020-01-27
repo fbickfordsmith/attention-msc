@@ -1,21 +1,21 @@
-'''
+"""
 Implement an ImageNet preprocessing routine used by Ken Luo.
 
 References:
 - github.com/don-tpanic/CSML_attention_project_pieces
-'''
+"""
 
 import numpy as np
 
 def random_crop_batch(batch, random_crop_size):
-    '''
+    """
     usage:
     ------
         randomly crop batches of images given size
     references:
     ----------
         https://jkjung-avt.github.io/keras-image-cropping/
-    '''
+    """
     height, width = batch.shape[1], batch.shape[2]
     dy, dx = random_crop_size
     x = np.random.randint(0, width - dx + 1)
@@ -23,7 +23,7 @@ def random_crop_batch(batch, random_crop_size):
     return batch[:, y:(y+dy), x:(x+dx), :]
 
 def pca_augment(inputs, std_deviation=0.1, scale=1.0, clipping=False):
-    '''
+    """
     usage:
     ------
         AlexNet PCA augmentation
@@ -31,7 +31,7 @@ def pca_augment(inputs, std_deviation=0.1, scale=1.0, clipping=False):
     -----------
         https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
         https://blog.shikoan.com/pca-color-augmentation/
-    '''
+    """
     ranks = inputs.ndim
     assert ranks >= 2
 
@@ -106,16 +106,16 @@ def pca_augment(inputs, std_deviation=0.1, scale=1.0, clipping=False):
 
     result = inputs + delta
     if clipping:
-        '''
+        """
         vgg16 does not clip:
         https://arxiv.org/pdf/1409.1556.pdf
-        '''
+        """
         result = np.clip(result, 0.0, scale)
 
     return result
 
 def crop_and_pca_generator(generator, crop_length):
-    '''
+    """
     usage:
     ------
         Take as input a Keras ImageGen (Iterator) and generate random
@@ -125,7 +125,7 @@ def crop_and_pca_generator(generator, crop_length):
     ----------
         https://jkjung-avt.github.io/keras-image-cropping/
         https://github.com/koshian2/PCAColorAugmentation/blob/master/pca_aug_numpy_tensor.py
-    '''
+    """
     while True:
         batch_x, batch_y = next(generator)
         batch_crops = np.zeros((batch_x.shape[0], crop_length, crop_length, 3))

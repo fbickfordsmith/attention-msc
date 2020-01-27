@@ -1,4 +1,4 @@
-'''
+"""
 For each ImageNet class, take the VGG16 representations of images in it
 (computed using `representations_all.py`), and compute the mean and covariance
 of these.
@@ -10,25 +10,30 @@ Time and memory requirements (using float32) for covariance:
 
 We can get the spherical covariance by taking the mean of the diagonals of
 of the diagonal covariance matrix.
-'''
+"""
+
+import sys
+sys.path.append('..')
 
 import numpy as np
 from sklearn.mixture import GaussianMixture
 import time
+from utils.paths import path_repo, path_activations
 
-path_activations = '/Users/fbickfordsmith/activations-copy/'
-path_save = '/Users/fbickfordsmith/Google Drive/Project/attention/representations/'
+path_save_mean = path_repo/'data/representations/representations_mean.npy'
+path_save_cov = path_repo/'data/representations/representations_covariance.npy'
+
 means, covariances = [], []
 start = time.time()
 
 for i in range(1000):
     if i % 100 == 0:
-        print(f'i = {i}, time={time.time()-start}')
+        print(f'i = {i}, time = {time.time()-start}')
     activations = np.load(
-        f'{path_activations}class{i:04}_activations.npy')
+        path_activations/f'class{i:04}_activations.npy')
     gm = GaussianMixture(covariance_type='diag').fit(activations)
     means.append(gm.means_[0])
     covariances.append(gm.covariances_[0])
 
-np.save(f'{path_save}mean_activations', np.array(means), allow_pickle=False)
-np.save(f'{path_save}cov_activations', np.array(covariances), allow_pickle=False)
+np.save(path_save_mean, np.array(means), allow_pickle=False)
+np.save(path_save_cov, np.array(covariances), allow_pickle=False)

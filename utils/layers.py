@@ -1,4 +1,4 @@
-'''
+"""
 Define an elementwise-multiplication attention layer.
 
 References:
@@ -6,11 +6,11 @@ References:
 - stackoverflow.com/questions/46821845/how-to-add-a-trainable-hadamard-product-layer-in-keras
 - keras.io/layers/writing-your-own-keras-layers/
 - tensorflow.org/beta/guide/keras/custom_layers_and_models
-'''
+"""
 
-from keras import backend as K
-from keras.engine.topology import Layer
-from keras.initializers import TruncatedNormal
+from tensorflow.keras import backend as K
+from tensorflow.keras.engine.topology import Layer
+from tensorflow.keras.initializers import TruncatedNormal
 
 class Constraint(object):
     def __call__(self, w):

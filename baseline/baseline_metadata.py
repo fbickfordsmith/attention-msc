@@ -1,20 +1,21 @@
-'''
-Use meta.mat from ILSVRC2012_devkit_t12 to add metadata (names and descriptions)
-to base_results.csv
+"""
+Use `meta.mat` from ILSVRC2012_devkit_t12 to add metadata (names and
+descriptions) to `base_results.csv`.
 
 References:
 - github.com/calebrob6/imagenet_validation/blob/master/1.%20Preprocess%20ImageNet%20validation%20set.ipynb
-'''
+"""
 
-import os
-os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
+import sys
+sys.path.append('..')
 
 import pandas as pd
 import scipy.io
+from utils.paths import path_repo
 
-path_results = 'results/base_results.csv'
-path_meta = 'metadata/meta.mat'
+path_results = path_repo/'data/results/base_results.csv'
+path_meta = path_repo/'data/metadata/meta.mat'
+
 df = pd.read_csv(path_results, index_col=0)
 meta = scipy.io.loadmat(path_meta)
 ilsvrc2wnid = {}

@@ -1,17 +1,19 @@
-'''
+"""
 Define routines for finding a model's predictions and performance using either
 flow_from_directory or flow_from_dataframe. Also define a routine for
 evaluating performance using predictions and labels.
-'''
+"""
+
+import sys
+sys.path.append('..')
 
 import numpy as np
-from keras.applications.vgg16 import preprocess_input
-from keras.preprocessing.image import ImageDataGenerator
-from keras import metrics, losses
-from keras import backend as K
+from tensorflow.keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras import metrics, losses
+from tensorflow.keras import backend as K
+from utils.metadata import wnids
 
-path_synsets = '/home/freddie/attention/metadata/synsets.txt'
-wnids = open(path_synsets).read().splitlines()
 datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
 
 params_generator = dict(

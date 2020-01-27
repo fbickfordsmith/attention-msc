@@ -1,4 +1,4 @@
-'''
+"""
 For each pair of ImageNet classes, compute the similarity. Here, similarity is
 measured by the Frechet distance of VGG16 representations for each class.
 
@@ -23,14 +23,21 @@ References:
 - math.stackexchange.com/questions/2965025/square-root-of-diagonal-matrix
 - djalil.chafai.net/blog/2010/04/30/wasserstein-distance-between-two-gaussians/#eqWG
 - stats.stackexchange.com/questions/83741/earth-movers-distance-emd-between-two-gaussians
-'''
+"""
+
+import os, sys
+sys.path.append('..')
 
 import numpy as np
 import time
+from utils.paths import path_repo
 
-path = '/Users/fbickfordsmith/Google Drive/Project/attention/representations/'
-means = np.load(path+'representations_mean.npy')
-covariances = np.load(path+'representations_covariance.npy')
+path_mean = path_repo/'data/representations/representations_mean.npy'
+path_cov = path_repo/'data/representations/representations_covariance.npy'
+path_save = path_repo/'data/representations/representations_frechet.npy'
+
+means = np.load(path_mean)
+covariances = np.load(path_cov)
 distances = np.empty((1000, 1000))
 
 def frechet(m0, S0, m1, S1):
@@ -38,11 +45,12 @@ def frechet(m0, S0, m1, S1):
     return np.sum((m0-m1)**2) + np.sum(S0+S1) - np.sum(2*np.sqrt(S0*S1))
 
 start = time.time()
+
 for i in range(1000):
     if i % 100 == 0:
-        print(f'i = {i}, time={time.time()-start}')
+        print(f'i = {i}, time = {time.time() - start}')
     for j in range(1000):
         distances[i, j] = frechet(
             means[i], covariances[i], means[j], covariances[j])
 
-np.save(f'{path}frechet.npy', distances, allow_pickle=False)
+np.save(path_save, distances, allow_pickle=False)

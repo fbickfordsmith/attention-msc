@@ -1,22 +1,23 @@
-'''
+"""
 For each ImageNet class, take the VGG16 representations of images in it
 (computed using `representations_all.py`), and compute the mean of these.
-'''
+"""
 
-import os
+import os, sys
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = input('GPU: ')
+os.environ['CUDA_VISIBLE_DEVICES'] = gpu
+sys.path.append('..')
 
 import numpy as np
+from utils.paths import path_repo, path_activations
 
-path_activations = '/home/freddie/activations/'
-path_save = '/home/freddie/attention/representations/'
+path_save = path_repo/'data/representations/representations_mean.npy'
+
 mean_activations = []
 
 for i in range(1000):
     class_activations = np.load(
-        f'{path_activations}class{i:04}_activations.npy')
+        path_activations/f'class{i:04}_activations.npy')
     mean_activations.append(np.mean(class_activations, axis=0))
 
-mean_activations = np.array(mean_activations)
-np.save(f'{path_save}mean_activations', mean_activations, allow_pickle=False)
+np.save(path_save, np.array(mean_activations), allow_pickle=False)

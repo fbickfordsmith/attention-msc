@@ -1,4 +1,4 @@
-'''
+"""
 Implement an early-stopping criterion used by Ken Luo. The RelativeEarlyStopping
 class can be used as a direct substitute for keras.callbacks.EarlyStopping.
 
@@ -8,19 +8,19 @@ Usage:
 
 References:
 - github.com/don-tpanic/CSML_attention_project_pieces
-'''
+"""
 
 import warnings
 import numpy as np
-from keras.callbacks import Callback
+from tensorflow.keras.callbacks import Callback
 
 class RelativeEarlyStopping(Callback):
-    '''Relative early stopping.'''
+    """Relative early stopping."""
 
     def __init__(
             self, monitor='val_loss', min_delta=0, patience=0, verbose=0,
             mode='auto', baseline=None, restore_best_weights=False):
-        '''Initialize.'''
+        """Initialize."""
         super(RelativeEarlyStopping, self).__init__()
 
         self.monitor = monitor

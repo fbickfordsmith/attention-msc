@@ -1,4 +1,4 @@
-'''
+"""
 Define a set of 20 'similarity contexts'. These are subsets of ImageNet classes
 that we choose to have varying visual similarity (average pairwise cosine
 similarity of VGG16 representations) but equal size and approx equal difficulty.
@@ -7,19 +7,24 @@ Method:
 1. Sample 5 seeds.
 2. For each seed,
     a. For k in {50, 366, 682, 999},
-        i. Sample 49 indices from the seed's k nearest neighbours.
+        i.  Uniformly sample 49 indices from the seed's k nearest neighbours.
         ii. Compute the distance (= 1 - similarity) and accuracy of the sampled
             context.
 3. Check that the sampled contexts give good coverage of similarity values
     between 0.1 and 0.6.
 4. Keep the sampled contexts if their accuracy score (normalised distance from
     average VGG16 accuracy) is better than any previous score.
-'''
+"""
 
-from contexts_definition import *
+version_wnids = input('Version number (WNIDs): ')
 
-type_context = 'sim'
-version_wnids = 'v' + input('Version number (WNIDs): ')
+import sys
+sys.path.append('..')
+
+from utils.paths import path_repo
+from utils.contexts_definition import *
+
+path_save = path_repo/f'data/contexts/sim_v{version_wnids}_wnids.csv'
 
 num_seeds = 5
 context_size = 50
@@ -52,9 +57,9 @@ for i in range(10000):
 
 if inds_best is not None:
     print('Accuracy:', [round(base_accuracy(inds), 2) for inds in inds_best])
-    print('Distance:', [round(average_distance(distances(Z[inds])), 2) for inds in inds_best])
+    print('Distance:',
+        [round(average_distance(distances(Z[inds])), 2) for inds in inds_best])
     wnids_best = np.vectorize(ind2wnid.get)(inds_best)
-    pd.DataFrame(wnids_best).to_csv(
-        f'{path}contexts/{type_context}_{version_wnids}_wnids.csv', header=False, index=False)
+    pd.DataFrame(wnids_best).to_csv(path_save, header=False, index=False)
 else:
     print('Suitable contexts not found')

@@ -1,22 +1,24 @@
-'''
+"""
 Define a routine for training a model using either flow_from_directory or
 flow_from_dataframe.
 
 References:
 - stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
 - stackoverflow.com/questions/43906048/keras-early-stopping
-'''
+"""
+
+import sys
+sys.path.append('..')
 
 import numpy as np
 import pandas as pd
-from keras.applications.vgg16 import preprocess_input
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from callbacks import RelativeEarlyStopping
 from sklearn.model_selection import train_test_split
 from preprocessing import crop_and_pca_generator
+from utils.metadata import wnids
 
-path_synsets = '/home/freddie/attention/metadata/synsets.txt'
-wnids = open(path_synsets).read().splitlines()
 split = 0.1
 
 datagen_valid = ImageDataGenerator(

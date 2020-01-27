@@ -1,18 +1,25 @@
-'''
+"""
 For each pair of ImageNet classes, compute the similarity. Here, similarity is
 measured by the KL divergence of VGG16 representations for each class.
 
 References:
 - en.wikipedia.org/wiki/Kullback–Leibler_divergence
 - stackoverflow.com/questions/44549369/kullback-leibler-divergence-from-gaussian-pm-pv-to-gaussian-qm-qv
-'''
+"""
+
+import os, sys
+sys.path.append('..')
 
 import numpy as np
 import time
+from utils.paths import path_repo
 
-path = '/Users/fbickfordsmith/Google Drive/Project/attention/representations/'
-means = np.load(path+'representations_mean.npy')
-covariances = np.load(path+'representations_covariance.npy')
+path_mean = path_repo/'data/representations/representations_mean.npy'
+path_cov = path_repo/'data/representations/representations_covariance.npy'
+path_save = path_repo/'data/representations/representations_kldivergence.npy'
+
+means = np.load(path_mean)
+covariances = np.load(path_cov)
 divergences = np.empty((1000, 1000))
 
 def kl(m0, S0, m1, S1):
@@ -28,10 +35,12 @@ def kl(m0, S0, m1, S1):
     return 0.5 * (tr_term + det_term + quad_term - k)
 
 start = time.time()
+
 for i in range(1000):
     if i % 10 == 0:
-        print(f'i = {i}, time={time.time()-start}')
+        print(f'i = {i}, time = {time.time() - start}')
     for j in range(1000):
-        divergences[i, j] = kl(means[i], covariances[i], means[j], covariances[j])
+        divergences[i, j] = kl(
+            means[i], covariances[i], means[j], covariances[j])
 
-np.save(f'{path}kl_divergence.npy', divergences, allow_pickle=False)
+np.save(path_save, divergences, allow_pickle=False)

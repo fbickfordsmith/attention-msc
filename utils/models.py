@@ -1,18 +1,18 @@
-'''
+"""
 Take a pretrained VGG16. Add an elementwise-multiplication attention layer
 between the final convolutional layer and the first fully-connected layer. Fix
 all weights except for the attention weights.
-'''
+"""
 
 import numpy as np
-from keras.applications.vgg16 import VGG16
-from keras.models import Model
-from keras.layers import Input
-from keras.optimizers import Adam
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input
+from tensorflow.keras.optimizers import Adam
 from layers import Attention
 
 def build_model(attention_layer=Attention(), train=True, attention_position=19):
-    vgg = VGG16(weights='imagenet')
+    vgg = VGG16()
     input = Input(batch_shape=(None, 224, 224, 3))
     output = vgg.layers[1](input)
     for layer in vgg.layers[2:attention_position]:

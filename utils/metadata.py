@@ -12,6 +12,7 @@ path_representations = path_repo/'data/representations/representations_mean.npy'
 
 wnids = open(path_synsets).read().splitlines()
 ind2wnid = {ind:wnid for ind, wnid in enumerate(wnids)}
+wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}
 
 df_baseline = pd.read_csv(path_baseline, index_col=0)
 mean_acc = np.mean(df_baseline['accuracy'])

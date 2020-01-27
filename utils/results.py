@@ -2,8 +2,6 @@
 Define helper functions used for plotting.
 """
 
-# change name to results.py
-
 import os, sys
 sys.path.append('..')
 
@@ -16,7 +14,7 @@ from utils.paths import path_repo
 from utils.metadata import *
 
 def load_contexts(type_context, version_wnids):
-    f = open(path_repo/f'contexts/{type_context}_v{version_wnids}_wnids.csv')
+    f = open(path_repo/f'data/contexts/{type_context}_v{version_wnids}_wnids.csv')
     return [row for row in csv.reader(f, delimiter=',')]
 
 def context_size(type_context, version_wnids):
@@ -48,14 +46,14 @@ def context_distance(type_context, version_wnids, measure='cosine'):
 
 def context_epochs(type_context, version_weights):
     return [
-        len(pd.read_csv(path_repo/f'training/{filename}', index_col=0))
-        for filename in sorted(os.listdir(path_repo/'training/'))
+        len(pd.read_csv(path_repo/f'data/training/{filename}', index_col=0))
+        for filename in sorted(os.listdir(path_repo/'data/training/'))
         if f'{type_context}_v{version_weights}' in filename]
 
 def context_summary(type_context, version_wnids, version_weights):
     df0 = context_base_accuracy(type_context, version_wnids)
     df1 = pd.read_csv(
-        path_repo/f'results/{type_context}_v{version_weights}_results.csv',
+        path_repo/f'data/results/{type_context}_v{version_weights}_results.csv',
         index_col=0)
     return pd.DataFrame({
         'size': context_size(type_context, version_wnids),

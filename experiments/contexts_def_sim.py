@@ -23,6 +23,7 @@ sys.path.append('..')
 
 from utils.paths import path_repo
 from utils.contexts_definition import *
+from utils.metadata import ind2wnid
 
 path_save = path_repo/f'data/contexts/sim_v{version_wnids}_wnids.csv'
 

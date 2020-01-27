@@ -23,6 +23,7 @@ sys.path.append('..')
 
 from utils.paths import path_repo
 from utils.contexts_definition import *
+from utils.metadata import ind2wnid
 
 path_save = path_repo/f'data/contexts/size_v{version_wnids}_wnids.csv'
 context_sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]

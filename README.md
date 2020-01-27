@@ -9,13 +9,13 @@ Attention, the ability to focus on relevant information, is known to aid human v
 ![](/data/figures/regression.png)
 
 ## Repository guide
-Note that any reference to a **context** in this repository relates to what we call a **category set** (grouping of ImageNet categories) in `thesis.pdf`. We changed the terminology for the write-up to improve clarity.
+Note that any reference to a **context** in this repository relates to what we call a **category set** (group of image categories) in `thesis.pdf`. We changed the terminology for the write-up to improve clarity.
 
 The table below gives an overview of the repository. All `.py` files contain a docstring describing what they do.
 
 Directory|Contents
 -|-
-`baseline`|Scripts for computing the baseline performance of VGG16
+`baseline`|Scripts for computing baseline performance of VGG16
 `experiments`|Scripts for defining and running experiments
 `plotting`|Notebooks for data analysis and plotting
 `representations`|Scripts for computing VGG16 representations of images
@@ -23,7 +23,7 @@ Directory|Contents
 `similarity`|Scripts for computing similarity measures using VGG16 representations
 `utils`|Scripts defining utility objects, functions and variables
 `data/contexts`|Contexts used in experiments
-`data/figures`|Figures for the thesis
+`data/figures`|Figures for `thesis.pdf`
 `data/metadata`|ImageNet metadata
 `data/representations`|VGG16 representations of images; similarity matrices based on them
 `data/results`|Performance of trained attention networks

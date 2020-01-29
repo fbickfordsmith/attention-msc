@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Set Python, not Jupyter Notebook, as repository language
+*.py linguist-detectable=true
+*.ipynb linguist-detectable=false

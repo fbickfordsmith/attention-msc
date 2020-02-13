@@ -57,8 +57,7 @@ def context_summary(type_context, version_wnids, version_weights):
         index_col=0)
     return pd.DataFrame({
         'size': context_size(type_context, version_wnids),
-        'similarity': 1 - context_distance(
-            type_context, version_wnids, 'cosine'),
+        'similarity': 1 - context_distance(type_context, version_wnids, 'cosine'),
         'acc_base_in': df0['acc_base_in'],
         'acc_base_out': df0['acc_base_out'],
         'acc_trained_in': df1['acc_top1_in'],

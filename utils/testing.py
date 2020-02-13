@@ -1,7 +1,7 @@
 """
 Define routines for finding a model's predictions and performance using either
-flow_from_directory or flow_from_dataframe. Also define a routine for
-evaluating performance using predictions and labels.
+flow_from_directory or flow_from_dataframe. Also define a routine for evaluating
+performance using predictions and labels.
 """
 
 import sys

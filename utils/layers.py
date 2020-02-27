@@ -8,33 +8,20 @@ References:
 - tensorflow.org/beta/guide/keras/custom_layers_and_models
 """
 
-from tensorflow.keras import backend as K
-from tensorflow.keras.layers import Layer
-from tensorflow.keras.initializers import TruncatedNormal
+import tensorflow as tf
 
-class Constraint(object):
-    def __call__(self, w):
-        return w
-    def get_config(self):
-        return {}
-
-class GreaterEqualEpsilon(Constraint):
-    def __call__(self, w):
-        w *= K.cast(K.greater_equal(w, K.epsilon()), K.floatx()) # W >= epsilon
-        return w
-
-class Attention(Layer):
+class Attention(tf.keras.layers.Layer):
     def __init__(self, **kwargs):
         super(Attention, self).__init__(**kwargs)
 
     def build(self, input_shape):
+        super(Attention, self).build(input_shape)
         self.kernel = self.add_weight(
             name='kernel',
             shape=(1,)+input_shape[1:],
             initializer='ones',
             trainable=True,
-            constraint=GreaterEqualEpsilon())
-        super(Attention, self).build(input_shape)
+            constraint=tf.keras.constraints.NonNeg())
 
     def call(self, x):
         return x * self.kernel

@@ -2,9 +2,12 @@
 Define metadata variables used throughout the repository.
 """
 
+import sys
+sys.path.append('..')
+
 import numpy as np
 import pandas as pd
-from .paths import path_repo
+from utils.paths import path_repo
 
 path_synsets = path_repo/'data/metadata/synsets.txt'
 path_baseline = path_repo/'data/results/base_results.csv'

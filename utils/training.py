@@ -14,9 +14,9 @@ import numpy as np
 import pandas as pd
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from callbacks import RelativeEarlyStopping
 from sklearn.model_selection import train_test_split
-from preprocessing import crop_and_pca_generator
+from utils.callbacks import RelativeEarlyStopping
+from utils.preprocessing import crop_and_pca_generator
 from utils.metadata import wnids
 
 split = 0.1

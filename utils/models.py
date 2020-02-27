@@ -4,12 +4,15 @@ between the final convolutional layer and the first fully-connected layer. Fix
 all weights except for the attention weights.
 """
 
+import sys
+sys.path.append('..')
+
 import numpy as np
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.optimizers import Adam
-from layers import Attention
+from utils.layers import Attention
 
 def build_model(attention_layer=Attention(), train=True, attention_position=19):
     vgg = VGG16()

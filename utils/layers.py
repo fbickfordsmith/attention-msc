@@ -9,7 +9,7 @@ References:
 """
 
 from tensorflow.keras import backend as K
-from tensorflow.keras.engine.topology import Layer
+from tensorflow.keras.layers import Layer
 from tensorflow.keras.initializers import TruncatedNormal
 
 class Constraint(object):

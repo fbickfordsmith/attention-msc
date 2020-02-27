@@ -21,7 +21,7 @@ path_training = path_repo/'data/training/'
 
 ind_attention = 19
 model = build_model(train=True, attention_position=ind_attention)
-model, history = train_model(model, 'directory', [path_data], use_data_aug=False)
+model, history = train_model(model, 'directory', path_data, use_data_aug=False)
 pd.DataFrame(history.history).to_csv(path_training/f'baseline_training.csv')
 np.save(
     path_weights/f'baseline_weights.npy',

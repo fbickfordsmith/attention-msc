@@ -1,7 +1,7 @@
 """
-Define a set of 11 'size category_sets'. These are subsets of ImageNet classes
-that we choose to have varying size (number of classes) but approx equal
-difficulty and visual similarity.
+Define a set of 11 size-based category sets. These are subsets of ImageNet
+categories that we choose to have varying size (number of categories) but approx
+equal difficulty and visual similarity.
 
 Method:
 1. For 10,000 repeats
@@ -12,7 +12,6 @@ Method:
 
 Previous versions used
 - category_set_sizes = [int(2**x) for x in range(9)]
-- random.choice(inds_av_acc) instead of random.choice(1000)
 - accdist = [score_acc(inds)+score_dist(inds) for inds in inds_sampled]
 """
 

@@ -5,15 +5,8 @@ Define helper functions used in `define_cat_sets_[type_category_set].py` for
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_distances
 from scipy.spatial.distance import squareform
 from ..utils.metadata import *
-
-Zdist = cosine_distances(Z)
-mean_dist = np.mean(squareform(Zdist, checks=False))
-std_dist = np.std(squareform(Zdist, checks=False))
-lb_dist = mean_dist - std_dist
-ub_dist = mean_dist + std_dist
 
 def average_distance(Zdist):
     if Zdist.shape == (1, 1):
@@ -33,12 +26,12 @@ def score_dist(inds):
 def check_coverage(scores, interval_ends):
     intervals = [
         [interval_ends[i], interval_ends[i+1]]
-        for i in range(len(interval_ends)-1)]
+        for i in range(len(interval_ends) - 1)]
     return np.all([np.any((L < scores) & (scores < U)) for L, U in intervals])
 
 def check_dist_in_bounds(inds):
     d = average_distance(cosine_distances(Z[inds]))
-    return (lb_dist<d) & (d<ub_dist)
+    return ((mean_dist - std_dist) < d) & (d < (mean_dist + std_dist))
 
 def sample_below_acc(acc, category_set_size=50):
     return np.random.choice(

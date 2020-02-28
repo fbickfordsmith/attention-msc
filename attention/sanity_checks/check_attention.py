@@ -25,5 +25,5 @@ from ..utils.testing import evaluate_model
 
 model = build_model(train=False)
 model.layers[19].set_weights([np.ones((1, 7, 7, 512))])
-scores = evaluate_model(model, 'directory', path_imagenet/'val_white/')
+scores = evaluate_model(model, 'dir', path_imagenet/'val_white/')
 print(f'{model.metrics_names} = {scores}')

@@ -21,10 +21,9 @@ from ..utils.paths import (path_dataframes, path_imagenet, path_init_model,
 from ..utils.models import build_model
 from ..utils.training import train_model
 
-model = build_model(train=True, attention_position=19)
+ind_attention = 19
+model = build_model(train=True, attention_position=ind_attention)
 model.save_weights(path_init_model)
-ind_attention = np.flatnonzero(
-    ['attention' in layer.name for layer in model.layers])[0]
 
 for i in range(start, stop+1):
     name_wnids = f'{type_category_set}_v{version_wnids}_{i:02}'
@@ -34,8 +33,7 @@ for i in range(start, stop+1):
     args_train = [
         pd.read_csv(path_dataframes/f'{name_wnids}_df.csv'),
         path_imagenet/'train/']
-    model, history = train_model(
-        model, 'dataframe', *args_train, use_data_aug=False)
+    model, history = train_model(model, 'df', *args_train, use_data_aug=False)
     pd.DataFrame(history.history).to_csv(
         path_training/f'{name_weights}_training.csv')
     np.save(

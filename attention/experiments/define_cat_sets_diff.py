@@ -1,7 +1,7 @@
 """
 Define a set of 20 difficulty-based category sets. These are subsets of ImageNet
 categories that we choose to have varying difficulty (average error rate of
-VGG16) but equal size and approx equal perceptual similarity.
+VGG16) but equal size and approx equal visual similarity.
 
 Method:
 1. Sort categories by the base accuracy of VGG16.

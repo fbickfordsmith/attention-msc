@@ -76,6 +76,17 @@ class RelativeEarlyStopping(tf.keras.callbacks.Callback):
         if current is None:
             return
 
+        # DEBUGGING
+        print('\n\n')
+        relative_change = (abs(self.best - current) / self.best) * 100
+        print('----------------------------')
+        print('relative change = {%.3f} percent' % relative_change)
+        print('----------------------------')
+        print('best = %s' % self.best)
+        print('current = %s' % current)
+        print('----------------------------')
+        print('\n\n')
+
         # Line below is the only change vs `tf.keras.callbacks.EarlyStopping`.
         if self.monitor_op(current, self.best * (1 - self.min_delta)):
             self.best = current

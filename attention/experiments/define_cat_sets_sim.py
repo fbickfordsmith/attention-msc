@@ -1,7 +1,8 @@
 """
-Define a set of 20 'similarity category_sets'. These are subsets of ImageNet classes
-that we choose to have varying visual similarity (average pairwise cosine
-similarity of VGG16 representations) but equal size and approx equal difficulty.
+Define a set of 20 similarity-based category sets. These are subsets of ImageNet
+categories that we choose to have varying visual similarity (average pairwise
+cosine similarity of VGG16 representations) but equal size and approx equal
+difficulty.
 
 Method:
 1. Sample 5 seeds.

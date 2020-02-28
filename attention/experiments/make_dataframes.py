@@ -15,8 +15,7 @@ import csv
 import numpy as np
 import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from ..utils.paths import (
-    path_category_sets, path_dataframes, path_imagenet, path_repo)
+from ..utils.paths import path_category_sets, path_dataframes, path_imagenet
 
 path_data = path_imagenet/'train/'
 path_load = path_category_sets/f'{type_category_set}_v{version_wnids}_wnids.csv'

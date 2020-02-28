@@ -69,7 +69,7 @@ def train_model(model, type_source, *args, use_data_aug=False):
         datagen_train = ImageDataGenerator(
             preprocessing_function=preprocess_input,
             validation_split=split)
-    if type_source == 'directory':
+    if type_source == 'dir':
         path_directory = args[0]
         generator_train = datagen_train.flow_from_directory(
             subset='training',

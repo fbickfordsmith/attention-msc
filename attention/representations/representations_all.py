@@ -21,12 +21,11 @@ output = input
 for layer in vgg.layers[1:-1]:
     output = layer(output)
 model = Model(input, output)
-activations, generator = predict_model(
-    model, 'directory', path_imagenet/'train/')
+activations, generator = predict_model(model, 'dir', path_imagenet/'train/')
 
 # Need to split this up to limit memory usage
 for i in range(generator.num_classes):
-    class_activations = activations[np.flatnonzero(generator.classes==i)]
+    class_activations = activations[np.flatnonzero(generator.classes == i)]
     np.save(
         path_activations/f'class{i:04}_activations.npy',
         class_activations,

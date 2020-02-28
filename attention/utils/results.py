@@ -3,18 +3,17 @@ Define helper functions used for plotting.
 """
 
 import os
-
-
 import csv
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances
 from scipy.spatial.distance import squareform
-from ..utils.paths import path_repo
+from ..utils.paths import path_category_sets, path_results, path_training
 from ..utils.metadata import *
 
 def load_category_sets(type_category_set, version_wnids):
-    f = open(path_repo/f'data/category_sets/{type_category_set}_v{version_wnids}_wnids.csv')
+    f = open(
+        path_category_sets/f'{type_category_set}_v{version_wnids}_wnids.csv')
     return [row for row in csv.reader(f, delimiter=',')]
 
 def category_set_size(type_category_set, version_wnids):
@@ -46,18 +45,19 @@ def category_set_distance(type_category_set, version_wnids, measure='cosine'):
 
 def category_set_epochs(type_category_set, version_weights):
     return [
-        len(pd.read_csv(path_repo/f'data/training/{filename}', index_col=0))
-        for filename in sorted(os.listdir(path_repo/'data/training/'))
+        len(pd.read_csv(path_training/filename, index_col=0))
+        for filename in sorted(os.listdir(path_training))
         if f'{type_category_set}_v{version_weights}' in filename]
 
 def category_set_summary(type_category_set, version_wnids, version_weights):
     df0 = category_set_base_accuracy(type_category_set, version_wnids)
     df1 = pd.read_csv(
-        path_repo/f'data/results/{type_category_set}_v{version_weights}_results.csv',
+        path_results/f'{type_category_set}_v{version_weights}_results.csv',
         index_col=0)
     return pd.DataFrame({
         'size': category_set_size(type_category_set, version_wnids),
-        'similarity': 1 - category_set_distance(type_category_set, version_wnids, 'cosine'),
+        'similarity': 1 - category_set_distance(
+            type_category_set, version_wnids, 'cosine'),
         'acc_base_in': df0['acc_base_in'],
         'acc_base_out': df0['acc_base_out'],
         'acc_trained_in': df1['acc_top1_in'],

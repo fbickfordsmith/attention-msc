@@ -18,14 +18,13 @@ import csv
 import numpy as np
 import pandas as pd
 from ..utils.paths import (path_category_sets, path_imagenet, path_init_model,
-    path_repo, path_results, path_weights)
+    path_results, path_weights)
 from ..utils.models import build_model
 from ..utils.testing import predict_model, evaluate_predictions
 
-model = build_model(train=False, attention_position=19)
+ind_attention = 19
+model = build_model(train=False, attention_position=ind_attention)
 model.save_weights(path_init_model)
-ind_attention = np.flatnonzero(
-    ['attention' in layer.name for layer in model.layers])[0]
 path_cat_sets = (
     path_category_sets/f'{type_category_set}_v{version_wnids}_wnids.csv')
 category_sets = [row for row in csv.reader(open(path_cat_sets), delimiter=',')]
@@ -34,11 +33,11 @@ scores_in, scores_out = [], []
 for i in range(start, stop+1):
     name_weights = f'{type_category_set}_v{version_weights}_{i:02}'
     print(f'\nTesting on {name_weights}')
-    weights = np.load(f'{path_weights}{name_weights}_weights.npy')
+    weights = np.load(path_weights/f'{name_weights}_weights.npy')
     model.load_weights(path_init_model)
     model.layers[ind_attention].set_weights([weights])
     predictions, generator = predict_model(
-        model, 'directory', path_imagenet/'val_white/')
+        model, 'dir', path_imagenet/'val_white/')
     wnid2ind = generator.class_indices
     labels = generator.classes
     inds_in = []

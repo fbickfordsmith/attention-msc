@@ -15,7 +15,7 @@ of the diagonal covariance matrix.
 import numpy as np
 from sklearn.mixture import GaussianMixture
 import time
-from ..utils.paths import path_activations, path_repo, path_representations
+from ..utils.paths import path_activations, path_representations
 
 means, covariances = [], []
 start = time.time()

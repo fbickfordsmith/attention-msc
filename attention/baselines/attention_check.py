@@ -19,9 +19,9 @@ os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
-from ..utils.paths import path_imagenet
+from ..utils.paths import path_imagenet, path_results
 from ..utils.models import build_model
-from ..utils.testing import evaluate_model
+from ..utils.testing import evaluate_classwise_accuracy, predict_model
 
 ind_attention = 19
 model = build_model(train=False, attention_position=ind_attention)

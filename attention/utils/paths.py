@@ -12,9 +12,11 @@ if sys.platform == 'linux':
     path_init_model = pathlib.Path('/home/freddie/initialised_model.h5')
     path_activations = pathlib.Path('/home/freddie/activations/')
 else:
-    path_repo = pathlib.Path('/Users/fbickfordsmith/Google Drive/Project/attention/')
+    # path_repo = pathlib.Path('/Users/fbickfordsmith/Google Drive/Project/attention/')
+    path_repo = pathlib.Path('/Users/fbickfordsmith/love14/attention/')
 
 path_category_sets = path_repo/'data/category_sets/'
+path_figures = path_repo/'data/figures/'
 path_metadata = path_repo/'data/metadata/'
 path_representations = path_repo/'data/representations/'
 path_results = path_repo/'data/results/'

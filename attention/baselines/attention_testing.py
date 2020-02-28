@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 from ..utils.paths import path_imagenet, path_results, path_weights
 from ..utils.models import build_model
-from ..utils.testing import predict_model
+from ..utils.testing import evaluate_classwise_accuracy, predict_model
 
 ind_attention = 19
 model = build_model(train=False, attention_position=ind_attention)

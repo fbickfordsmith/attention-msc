@@ -13,7 +13,7 @@ datagen = tf.keras.preprocessing.image.ImageDataGenerator(
     preprocessing_function=tf.keras.applications.vgg16.preprocess_input)
 
 params_generator = dict(
-    target_size=(224, 224),
+    target_size=(224,224),
     batch_size=256,
     shuffle=False)
 
@@ -37,7 +37,7 @@ def predict_model(model, type_source, *args):
             **params_generator)
     predictions = model.predict_generator(
         generator=generator,
-        steps=generator.__len__(),
+        steps=len(generator),
         **params_testing)
     return predictions, generator
 
@@ -58,7 +58,7 @@ def evaluate_model(model, type_source, *args):
             **params_generator)
     scores = model.evaluate_generator(
         generator=generator,
-        steps=generator.__len__(),
+        steps=len(generator),
         **params_testing)
     return scores
 

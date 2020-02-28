@@ -34,7 +34,7 @@ params_training = dict(
     verbose=1,
     callbacks=[early_stopping],
     use_multiprocessing=False,
-    workers=4)
+    workers=3)
 
 params_generator = dict(
     batch_size=256,
@@ -78,7 +78,7 @@ def train_model(model, type_source, *args, use_data_aug=False):
             **params_generator)
         generator_valid = datagen_train.flow_from_directory(
             subset='validation',
-            target_size=(224, 224),
+            target_size=(224,224),
             directory=path_directory,
             **params_generator)
     else:
@@ -93,12 +93,12 @@ def train_model(model, type_source, *args, use_data_aug=False):
             **params_generator)
         generator_valid = datagen_valid.flow_from_dataframe(
             subset='validation',
-            target_size=(224, 224),
+            target_size=(224,224),
             **params_generator)
     params_training.update(dict(
-        steps_per_epoch=generator_train.__len__(),
+        steps_per_epoch=len(generator_train),
         validation_data=generator_valid,
-        validation_steps=generator_valid.__len__()))
+        validation_steps=len(generator_valid)))
     if use_data_aug:
         history = model.fit_generator(
             generator=crop_and_pca_generator(generator_train, crop_length=224),

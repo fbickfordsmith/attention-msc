@@ -80,4 +80,5 @@ def evaluate_classwise_accuracy(predictions, generator):
         inds = np.flatnonzero(labels_true == i)
         wnids_df.append(w)
         accuracy_df.append(np.mean(labels_predicted[inds] == labels_true[inds]))
-    return pd.DataFrame({'wnid':wnids_df, 'accuracy':accuracy_df})
+    df = pd.DataFrame({'wnid':wnids_df, 'accuracy':accuracy_df})
+    return df.round({'accuracy':2})

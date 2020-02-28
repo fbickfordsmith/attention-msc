@@ -5,9 +5,9 @@ each category. (NumPy version)
 """
 
 import os
+import time
 import numpy as np
 from sklearn.preprocessing import normalize
-import time
 from ..utils.paths import path_activations, path_representations
 
 num_samples = 125

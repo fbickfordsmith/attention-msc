@@ -11,10 +11,9 @@ import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
-
+import time
 import numpy as np
 import tensorflow as tf
-import time
 from ..utils.paths import path_activations, path_representations
 
 num_samples = 540

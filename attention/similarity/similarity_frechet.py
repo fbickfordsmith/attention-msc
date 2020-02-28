@@ -26,8 +26,8 @@ References:
 """
 
 import os
-import numpy as np
 import time
+import numpy as np
 from ..utils.paths import path_activations, path_representations
 
 means = np.load(path_representations/'representations_mean.npy')

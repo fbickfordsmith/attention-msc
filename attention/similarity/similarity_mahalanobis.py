@@ -8,9 +8,9 @@ References:
 - docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html
 """
 
+import time
 import numpy as np
 from scipy.spatial.distance import cdist
-import time
 from ..utils.paths import path_activations, path_representations
 
 means = np.load(path_representations/'representations_mean.npy')

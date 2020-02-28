@@ -1,7 +1,7 @@
 """
 Assess the accuracy of an attention network with attention weights set to 1.
 Written for a sanity check. Agreement with the result produced by
-`baseline_average.py` implies attention network works as expected.
+`vgg16_testing.py` implies attention network works as expected.
 
 Method:
 1. Load a pretrained VGG16.
@@ -12,6 +12,7 @@ Method:
 """
 
 gpu = input('GPU: ')
+data_partition = input('Data partition in {train, val, val_white}: ')
 
 import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
@@ -19,11 +20,14 @@ os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
 from ..utils.paths import path_imagenet
-from ..utils.layers import Attention
 from ..utils.models import build_model
 from ..utils.testing import evaluate_model
 
-model = build_model(train=False)
-model.layers[19].set_weights([np.ones((1, 7, 7, 512))])
-scores = evaluate_model(model, 'dir', path_imagenet/'val_white/')
-print(f'{model.metrics_names} = {scores}')
+ind_attention = 19
+model = build_model(train=False, attention_position=ind_attention)
+predictions, generator = predict_model(
+    model, 'dir', path_imagenet/data_partition)
+df = evaluate_classwise_accuracy(predictions, generator)
+df.to_csv(path_results/'attn_untrained_results.csv', index=False)
+mean_acc = np.mean(df['accuracy'])
+print(f'Mean accuracy on data partition = {mean_acc}')

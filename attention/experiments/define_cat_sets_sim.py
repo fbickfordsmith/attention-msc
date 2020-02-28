@@ -19,9 +19,10 @@ Method:
 
 version_wnids = input('Version number (WNIDs): ')
 
-from ..utils.paths import path_category_sets
-from ..utils_cat_set_properties import *
+from ..utils_cat_set_properties import (
+    average_distance, base_accuracy, check_coverage, score_acc)
 from ..utils.metadata import ind2wnid
+from ..utils.paths import path_category_sets
 
 num_seeds = 5
 category_set_size = 50

@@ -8,8 +8,9 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances
 from scipy.spatial.distance import squareform
+from ..utils.cat_set_properties import average_distance
+from ..utils.metadata import df_baseline, representations, wnid2ind
 from ..utils.paths import path_category_sets, path_results, path_training
-from ..utils.metadata import *
 
 def load_category_sets(type_category_set, version_wnids):
     f = open(
@@ -40,7 +41,7 @@ def category_set_distance(type_category_set, version_wnids, measure='cosine'):
     stats = []
     for c in category_sets:
         inds_in = [wnid2ind[w] for w in c]
-        stats.append(average_distance(distance(Z[inds_in])))
+        stats.append(average_distance(distance(representations[inds_in])))
     return pd.Series(stats, name=f'{measure}_mean')
 
 def category_set_epochs(type_category_set, version_weights):
@@ -65,9 +66,3 @@ def category_set_summary(type_category_set, version_wnids, version_weights):
         'acc_change_in': df1['acc_top1_in'] - df0['acc_base_in'],
         'acc_change_out': df1['acc_top1_out'] - df0['acc_base_out'],
         'num_epochs': category_set_epochs(type_category_set, version_weights)})
-
-def average_distance(Zdist):
-    if Zdist.shape == (1, 1):
-        return 0
-    else:
-        return np.mean(squareform(Zdist, checks=False))

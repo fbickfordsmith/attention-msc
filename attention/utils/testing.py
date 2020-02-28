@@ -4,13 +4,13 @@ Define routines for finding a model's predictions and performance.
 
 import numpy as np
 import pandas as pd
-from tensorflow.keras.applications.vgg16 import preprocess_input
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import tensorflow as tf
 from tensorflow.keras import metrics, losses
 from tensorflow.keras import backend as K
 from ..utils.metadata import wnids
 
-datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+datagen = tf.keras.preprocessing.image.ImageDataGenerator(
+    preprocessing_function=tf.keras.applications.vgg16.preprocess_input)
 
 params_generator = dict(
     target_size=(224, 224),
@@ -66,9 +66,12 @@ def evaluate_predictions(predictions, labels, indices):
     ypred = K.variable(predictions[indices])
     ytrue = K.variable(labels[indices])
     sess = K.get_session()
-    acc_top1 = sess.run(metrics.sparse_top_k_categorical_accuracy(ytrue, ypred, k=1))
-    acc_top5 = sess.run(metrics.sparse_top_k_categorical_accuracy(ytrue, ypred, k=5))
-    loss = sess.run(K.mean(losses.sparse_categorical_crossentropy(ytrue, ypred)))
+    acc_top1 = sess.run(
+        metrics.sparse_top_k_categorical_accuracy(ytrue, ypred, k=1))
+    acc_top5 = sess.run(
+        metrics.sparse_top_k_categorical_accuracy(ytrue, ypred, k=5))
+    loss = sess.run(
+        K.mean(losses.sparse_categorical_crossentropy(ytrue, ypred)))
     return loss, acc_top1, acc_top5
 
 def evaluate_classwise_accuracy(predictions, generator):

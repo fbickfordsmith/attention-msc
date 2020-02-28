@@ -17,9 +17,10 @@ Previous versions used
 
 version_wnids = input('Version number (WNIDs): ')
 
-from ..utils.paths import path_category_sets
-from ..utils.category_sets_definition import *
+from ..utils_cat_set_properties import (
+    average_distance, base_accuracy, score_acc, score_dist)
 from ..utils.metadata import ind2wnid
+from ..utils.paths import path_category_sets
 
 category_set_sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
 accdist_bestscore = np.inf

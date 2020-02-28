@@ -24,7 +24,6 @@ import csv
 import numpy as np
 import pandas as pd
 from ..utils.paths import path_category_sets
-from ..utils_cat_set_properties import *
 
 filenames = [f for f in os.listdir(path_category_sets) if 'imagenet' in f]
 category_sets = []

@@ -17,7 +17,7 @@ df_baseline = pd.read_csv(
 mean_acc = np.mean(df_baseline['accuracy'])
 std_acc = np.std(df_baseline['accuracy'])
 
-Z = np.load(path_representations/'representations_mean.npy')
-Zdist = cosine_distances(Z)
-mean_dist = np.mean(squareform(Zdist, checks=False))
-std_dist = np.std(squareform(Zdist, checks=False))
+representations = np.load(path_representations/'representations_mean.npy')
+represent_dist = cosine_distances(representations)
+mean_dist = np.mean(squareform(represent_dist, checks=False))
+std_dist = np.std(squareform(represent_dist, checks=False))

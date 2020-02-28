@@ -12,9 +12,10 @@ Method:
 
 version_wnids = input('Version number (WNIDs): ')
 
-from ..utils.paths import path_category_sets
-from ..utils_cat_set_properties import *
+from ..utils_cat_set_properties import (
+    average_distance, base_accuracy, check_coverage, score_dist)
 from ..utils.metadata import ind2wnid
+from ..utils.paths import path_category_sets
 
 df_baseline.sort_values(by='accuracy', ascending=True, inplace=True)
 inds_split = np.array([list(inds) for inds in np.split(df_baseline.index, 20)])

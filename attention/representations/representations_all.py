@@ -8,19 +8,17 @@ os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
-from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input
+import tensorflow as tf
 from ..utils.paths import path_activations, path_imagenet
 from ..utils.testing import predict_model
 
 # Copy all layers except for the final one
-vgg = VGG16()
-input = Input(batch_shape=(None, 224, 224, 3))
+vgg = tf.keras.applications.vgg16.VGG16()
+input = tf.keras.layers.Input(shape=(224, 224, 3))
 output = input
 for layer in vgg.layers[1:-1]:
     output = layer(output)
-model = Model(input, output)
+model = tf.keras.models.Model(input, output)
 activations, generator = predict_model(model, 'dir', path_imagenet/'train/')
 
 # Need to split this up to limit memory usage

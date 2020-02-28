@@ -11,11 +11,11 @@ os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
 import pandas as pd
-from tensorflow.keras.applications.vgg16 import VGG16
+import tensorflow as tf
 from ..utils.paths import path_imagenet, path_results
 from ..utils.testing import evaluate_classwise_accuracy, predict_model
 
-model = VGG16()
+model = tf.keras.applications.vgg16.VGG16()
 predictions, generator = predict_model(
     model, 'dir', path_imagenet/data_partition)
 df = evaluate_classwise_accuracy(predictions, generator)

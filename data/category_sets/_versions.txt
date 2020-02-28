@@ -1,0 +1,64 @@
+----------
+SEMANTIC CATEGORY SETS
+
+version_weights  patience  flow_from  version_wnids  notes
+1                1         dir        1
+2                1         dir        1
+3                10        df         1
+4                10        df         1
+5                10        dir        1
+6                10        dir        1              att_pos=15
+7                10        df         1
+8                10        df         2              08aug; ~12hr
+9                2         df         2              multiproc=False; RelativeEarlyStopping
+
+init=rand for v1-v3; else init=ones
+use_data_aug=True for v2-v7; else use_data_aug=False
+sem_v2_wnids (07aug): removed cardigan (dog breed) from wearables
+
+----------
+DIFFICULTY-BASED CATEGORY SETS
+
+version_weights  patience  flow_from  version_wnids  notes
+1                1         dir        1
+2                10        df         2              09aug; ~48hr
+3                2         df         2              19aug; multiproc=False; RelativeEarlyStopping
+
+init=rand for v1; else init=ones
+use_data_aug=False
+diff_v2_wnids (09aug): added 5 extra category sets
+diff_v3_wnids (26aug): resampled for repeat experiment, but is the same as diff_v2_wnids for all but the last 5 category sets
+
+----------
+SIZE-BASED CATEGORY SETS
+
+version_weights  patience  flow_from  version_wnids  notes
+1                1         dir        1
+2                10        dir        1
+3                10        df         2              07aug; ~24hr; multiproc=False for category sets 0-6, on for 7-8
+4                10        df         2              repeat category sets 0-6 with multiproc=True
+5                2         df         3              17aug; ~24hr; multiproc=False; RelativeEarlyStopping
+6                2         df         4
+7                2         df         5              26aug; repeat
+
+init=rand for v1; else init=ones
+use_data_aug=False
+size_v2_wnids (07aug): sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+size_v3_wnids (17aug): sizes = [1, 2, 4, 8, 16, 32, 64, 96, 128, 192, 256]
+size_v4_wnids (19aug): fixed a saving issue
+size_v5_wnids (26aug): resampled for repeat experiment
+
+----------
+SIMILARITY-BASED CATEGORY SETS
+
+version_weights  patience  flow_from  version_wnids  notes
+1                1         dir        1
+2                10        df         2              11aug; ~36hr
+3                2         df         3              multiproc=False; RelativeEarlyStopping
+4                2         df         4              27aug; repeat
+
+init=rand for v1; else init=ones
+use_data_aug=False
+sim_v2_wnids (09aug): ensured coverage of cosine distance interval
+sim_v3_wnids (17aug): changed sampling objective
+sim_v4_wnids (26aug): resampled for repeat experiment

@@ -12,9 +12,11 @@ import pandas as pd
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
-from ..utils.callbacks import RelativeEarlyStopping
-from ..utils.preprocessing import crop_and_pca_generator
+# from ..utils.callbacks import RelativeEarlyStopping
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from ..utils.metadata import wnids
+from ..utils.paths import path_repo
+from ..utils.preprocessing import crop_and_pca_generator
 
 split = 0.1
 
@@ -22,19 +24,24 @@ datagen_valid = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=split)
 
-early_stopping = RelativeEarlyStopping(
-    monitor='val_loss',
+# early_stopping = RelativeEarlyStopping(
+early_stopping = EarlyStopping(
+    min_delta=0.001,
     patience=2,
     verbose=True,
-    restore_best_weights=True,
-    min_delta=0.001)
+    restore_best_weights=True)
+
+checkpoint = ModelCheckpoint(
+    str(path_repo/'checkpoint.hdf5'),
+    verbose=True,
+    save_best_only=True)
 
 params_training = dict(
     epochs=300,
     verbose=1,
-    callbacks=[early_stopping],
+    callbacks=[early_stopping, checkpoint],
     use_multiprocessing=False,
-    workers=3)
+    workers=1)
 
 params_generator = dict(
     batch_size=256,

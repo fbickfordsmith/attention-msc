@@ -12,7 +12,6 @@ import pandas as pd
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
-# from ..utils.callbacks import RelativeEarlyStopping
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from ..utils.metadata import wnids
 from ..utils.paths import path_repo
@@ -24,7 +23,6 @@ datagen_valid = ImageDataGenerator(
     preprocessing_function=preprocess_input,
     validation_split=split)
 
-# early_stopping = RelativeEarlyStopping(
 early_stopping = EarlyStopping(
     min_delta=0.001,
     patience=2,
@@ -32,7 +30,7 @@ early_stopping = EarlyStopping(
     restore_best_weights=True)
 
 checkpoint = ModelCheckpoint(
-    str(path_repo/'checkpoint.hdf5'),
+    '/home/freddie/checkpoint.hdf5',
     verbose=True,
     save_best_only=True)
 

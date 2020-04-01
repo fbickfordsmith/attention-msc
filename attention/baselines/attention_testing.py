@@ -22,6 +22,6 @@ model.layers[ind_attention].set_weights([weights])
 predictions, generator = predict_model(
     model, 'dir', path_imagenet/data_partition)
 df = evaluate_classwise_accuracy(predictions, generator)
-df.to_csv(path_results/'attn_baseline_results.csv', index=False)
+df.to_csv(path_results/'baseline_attn_results.csv', index=False)
 mean_acc = np.mean(df['accuracy'])
 print(f'Mean accuracy on data partition = {mean_acc}')

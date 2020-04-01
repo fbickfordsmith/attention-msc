@@ -28,6 +28,6 @@ model = build_model(train=False, attention_position=ind_attention)
 predictions, generator = predict_model(
     model, 'dir', path_imagenet/data_partition)
 df = evaluate_classwise_accuracy(predictions, generator)
-df.to_csv(path_results/'attn_untrained_results.csv', index=False)
+df.to_csv(path_results/'untrained_attn_results.csv', index=False)
 mean_acc = np.mean(df['accuracy'])
 print(f'Mean accuracy on data partition = {mean_acc}')

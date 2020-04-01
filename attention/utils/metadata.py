@@ -13,7 +13,8 @@ ind2wnid = {ind:wnid for ind, wnid in enumerate(wnids)}
 wnid2ind = {wnid:ind for ind, wnid in enumerate(wnids)}
 
 df_baseline = pd.read_csv(
-    path_results/'baseline_vgg16_results.csv', index_col=0)
+    # path_results/'baseline_vgg16_results.csv')
+    path_results/'baseline_attn_results.csv')
 mean_acc = np.mean(df_baseline['accuracy'])
 std_acc = np.std(df_baseline['accuracy'])
 

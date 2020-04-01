@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import euclidean_distances, cosine_distances
 from scipy.spatial.distance import squareform
-from ..utils.cat_set_properties import average_distance
+from ..utils.category_sets import average_distance
 from ..utils.metadata import df_baseline, representations, wnid2ind
 from ..utils.paths import path_category_sets, path_results, path_training
 

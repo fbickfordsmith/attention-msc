@@ -1,5 +1,6 @@
 """
-Define routines for finding a model's predictions and performance.
+Test a model, or compute its predictions, using either `flow_from_directory` or
+`flow_from_dataframe`.
 """
 
 import numpy as np

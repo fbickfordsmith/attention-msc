@@ -1,5 +1,5 @@
 """
-Test a baseline attention network on ImageNet.
+Test a pretrained VGG16 on ImageNet.
 """
 
 gpu = input('GPU: ')
@@ -11,17 +11,14 @@ os.environ['CUDA_VISIBLE_DEVICES'] = gpu
 
 import numpy as np
 import pandas as pd
-from ..utils.paths import path_imagenet, path_results, path_weights
-from ..utils.models import build_model
+import tensorflow as tf
+from ..utils.paths import path_imagenet, path_results
 from ..utils.testing import evaluate_classwise_accuracy, predict_model
 
-ind_attention = 19
-model = build_model(train=False, attention_position=ind_attention)
-weights = np.load(path_weights/'baseline_attn_weights.npy')
-model.layers[ind_attention].set_weights([weights])
+model = tf.keras.applications.vgg16.VGG16()
 predictions, generator = predict_model(
     model, 'dir', path_imagenet/data_partition)
 df = evaluate_classwise_accuracy(predictions, generator)
-df.to_csv(path_results/'baseline_attn_results.csv', index=False)
+df.to_csv(path_results/'baseline_vgg16_results.csv', index=False)
 mean_acc = np.mean(df['accuracy'])
 print(f'Mean accuracy on data partition = {mean_acc}')

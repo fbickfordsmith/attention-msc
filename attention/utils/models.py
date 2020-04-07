@@ -1,7 +1,5 @@
 """
-Take a pretrained VGG16. Add an elementwise-multiplication attention layer
-between the final convolutional layer and the first fully-connected layer. Fix
-all weights except for the attention weights.
+Take a pretrained VGG16, fix its weights and insert an attention layer.
 """
 
 import numpy as np

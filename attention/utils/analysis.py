@@ -1,5 +1,5 @@
 """
-Define helper functions used for plotting.
+Define helper functions used for analysis.
 """
 
 import os

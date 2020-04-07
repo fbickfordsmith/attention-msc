@@ -13,7 +13,6 @@ if sys.platform == 'linux':
     path_activations = pathlib.Path('/home/freddie/activations/')
 else:
     path_repo = pathlib.Path('/Users/fbickfordsmith/attention/')
-    # path_repo = pathlib.Path('/Users/fbickfordsmith/love14/attention/')
 
 path_category_sets = path_repo/'data/category_sets/'
 path_figures = path_repo/'data/figures/'

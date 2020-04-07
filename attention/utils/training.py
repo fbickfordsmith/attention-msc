@@ -1,10 +1,5 @@
 """
-Define a routine for training a model using either flow_from_directory or
-flow_from_dataframe.
-
-References:
-- stackoverflow.com/questions/42443936/keras-split-train-test-set-when-using-imagedatagenerator
-- stackoverflow.com/questions/43906048/keras-early-stopping
+Train a model using either `flow_from_directory` or `flow_from_dataframe`.
 """
 
 import numpy as np
@@ -12,7 +7,7 @@ import pandas as pd
 from tensorflow.keras.applications.vgg16 import preprocess_input
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.callbacks import EarlyStopping
 from ..utils.metadata import wnids
 from ..utils.paths import path_repo
 from ..utils.preprocessing import crop_and_pca_generator
@@ -29,15 +24,10 @@ early_stopping = EarlyStopping(
     verbose=True,
     restore_best_weights=True)
 
-checkpoint = ModelCheckpoint(
-    '/home/freddie/checkpoint.hdf5',
-    verbose=True,
-    save_best_only=True)
-
 params_training = dict(
     epochs=300,
     verbose=1,
-    callbacks=[early_stopping, checkpoint],
+    callbacks=[early_stopping],
     use_multiprocessing=False,
     workers=1)
 

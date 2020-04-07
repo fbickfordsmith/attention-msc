@@ -1,14 +1,14 @@
 """
 Define helper functions used in `define_cat_sets_[type_category_set].py` for
-[type_category_set] in {diff, sem, sim, size}.
+[type_category_set] in {difficulty, semantic, similarity, size}.
 """
 
 import numpy as np
 import pandas as pd
 from scipy.spatial.distance import squareform
 from sklearn.metrics.pairwise import cosine_distances
-from ..utils.metadata import (
-    df_baseline, mean_acc, mean_dist, std_acc, std_dist, representations)
+from ..utils.metadata import (df_baseline, mean_acc, mean_dist, std_acc,
+    std_dist, representations)
 
 def average_distance(distance_matrix):
     if distance_matrix.shape == (1, 1):

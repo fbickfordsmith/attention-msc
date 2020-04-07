@@ -1,6 +1,5 @@
 """
-Evaluate trained attention networks on validation-set ImageNet examples.
-Runtime: ~3 mins per category set.
+Test attention networks on ImageNet.
 """
 
 gpu = input('GPU: ')

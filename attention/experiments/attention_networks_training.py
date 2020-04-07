@@ -1,6 +1,6 @@
 """
-For each category set, train an attention network on examples from that category
-set only.
+For each category set, train an attention network on examples solely from the
+category set.
 """
 
 gpu = input('GPU: ')

@@ -1,11 +1,10 @@
 """
-Define an elementwise-multiplication attention layer.
+Multiply each element of an input tensor by a separate attention weight.
 
 References:
-- github.com/keras-team/keras/blob/master/keras/constraints.py
 - stackoverflow.com/questions/46821845/how-to-add-a-trainable-hadamard-product-layer-in-keras
-- keras.io/layers/writing-your-own-keras-layers/
-- tensorflow.org/beta/guide/keras/custom_layers_and_models
+- keras.io/layers/writing-your-own-keras-layers
+- tensorflow.org/guide/keras/custom_layers_and_models
 """
 
 import tensorflow as tf

@@ -12,8 +12,8 @@ Method:
 
 version_wnids = input('Version number (WNIDs): ')
 
-from ..utils_cat_set_properties import (
-    average_distance, base_accuracy, check_coverage, score_dist)
+from ..utils_cat_set_properties import (average_distance, base_accuracy,
+    check_coverage, score_dist)
 from ..utils.metadata import ind2wnid
 from ..utils.paths import path_category_sets
 

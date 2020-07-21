@@ -6,13 +6,13 @@ import sys
 import pathlib
 
 if sys.platform == 'linux':
-    path_repo = pathlib.Path('/home/freddie/attention/')
+    path_repo = pathlib.Path('/home/freddie/attention-msc/')
     path_imagenet = pathlib.Path('/fast-data/datasets/ILSVRC/2012/clsloc/')
     path_dataframes = pathlib.Path('/home/freddie/dataframes/')
     path_init_model = pathlib.Path('/home/freddie/initialised_model.h5')
     path_activations = pathlib.Path('/home/freddie/activations/')
 else:
-    path_repo = pathlib.Path('/Users/fbickfordsmith/attention/')
+    path_repo = pathlib.Path('/Users/fbickfordsmith/attention-msc/')
 
 path_category_sets = path_repo/'data/category_sets/'
 path_figures = path_repo/'data/figures/'
